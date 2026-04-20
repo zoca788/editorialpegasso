@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+body {
+    background: linear-gradient(to bottom, #bed9ee, #f4dede);
+    background-attachment: fixed;
+    font-family: 'Nunito', sans-serif;
+}
+</style>
+<style>
+.btn {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+</style>
+<style>
+.card img {
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+</style>
+<style>
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+body {
+    background: linear-gradient(to bottom, #bed9ee, #f4dede);
+    background-attachment: fixed;
+    font-family: 'Nunito', sans-serif;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+.btn {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 15px rgba(23,162,184,0.6);
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card img {
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+.carousel { 
+    background-color: #f8f9fa; 
+    padding: 10px 0;
+    position: relative;
+}
+
+.carousel .carousel-inner { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    background-color: #f8f9fa; 
+    min-height: 600px; 
+    text-align: center; 
+}
+
+.carousel .carousel-item { 
+    padding: 20px 0; 
+}
+
+.carousel .carousel-item img { 
+    max-height: 560px; 
+    max-width: 100%; 
+    width: auto !important; 
+    height: auto; 
+    object-fit: contain; 
+    margin: 0 auto; 
+    display: inline-block; 
+}
+
+.carousel-control-prev, 
+.carousel-control-next { 
+    position: absolute;
+    width: 44px; 
+    height: 44px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    border-radius: 50%; 
+    background: rgba(23,162,184,0.75); 
+    opacity: 0.95; 
+    z-index: 10; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control-prev { left: 10px; }
+.carousel-control-next { right: 10px; }
+
+.carousel-control-prev-icon, 
+.carousel-control-next-icon { 
+    background-image: none; 
+    font-size: 22px; 
+    color: #fff; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.carousel-control-prev-icon::before { content: '‹'; }
+.carousel-control-next-icon::before { content: '›'; }
+
+.carousel-item img {
+    transition: transform 0.5s ease;
+}
+
+.carousel-item.active img {
+    transform: scale(1.03);
+}
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    
+    border-radius: 20px; /* más redondeado */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    
+    border-radius: 20px; /* más redondeado */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.bg-primary {
+    background: linear-gradient(90deg, #4e72d8, #198cd8) !important;
+}
+.container-fluid.bg-primary h1,
+.container-fluid.bg-primary h4 {
+    font-family: 'Cormorant Garamond', serif !important;
+}
+
+
+</style>
+
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary px-0 px-md-5 mb-5">
+        <div class="row align-items-center px-3">
+            <div class="col-lg-6 text-center text-lg-left">
+                <h4 class="text-white mb-4 mt-5 mt-lg-0">Editorial PEGASSO</h4>
+                <h1 class="display-3 font-weight-bold text-white">Descubre Nuestros Libros</h1>
+                <p class="text-white mb-4">En PEGASSO Editorial, nos dedicamos a publicar obras literarias de calidad, desde novelas hasta ensayos, conectando autores con lectores apasionados por la literatura.</p>
+                
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <img class="img-fluid mt-5" src="img/header.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Facilities Start -->
+    <div class="container-fluid pt-5">
+        <div class="container pb-3">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <i class="flaticon-032-book h1 font-weight-normal text-primary mb-3"></i>
+                        <div class="pl-4">
+                            <h4>Evaluación de Manuscritos</h4>
+                            <p class="m-0">Evaluamos cuidadosamente cada manuscrito para asegurar que cumple con nuestros estándares de calidad y potencial literario.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <i class="flaticon-019-pencil h1 font-weight-normal text-primary mb-3"></i>
+                        <div class="pl-4">
+                            <h4>Edición Profesional</h4>
+                            <p class="m-0">Nuestro equipo de editores expertos trabaja para pulir y mejorar cada obra, garantizando una narrativa impecable.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <i class="flaticon-030-crayons h1 font-weight-normal text-primary mb-3"></i>
+                        <div class="pl-4">
+                            <h4>Diseño de Portadas</h4>
+                            <p class="m-0">Creamos portadas atractivas y profesionales que capturan la esencia de cada libro y atraen a los lectores.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <i class="flaticon-014-blackboard h1 font-weight-normal text-primary mb-3"></i>
+                        <div class="pl-4">
+                            <h4>Impresión de Calidad</h4>
+                            <p class="m-0">Utilizamos tecnologías de impresión de vanguardia para producir libros de alta calidad y durabilidad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <i class="flaticon-048-paper-plane h1 font-weight-normal text-primary mb-3"></i>
+                        <div class="pl-4">
+                            <h4>Marketing y Promoción</h4>
+                            <p class="m-0">Desarrollamos estrategias de marketing efectivas para promocionar tus libros y llegar a un público más amplio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
+                        <i class="flaticon-047-backpack h1 font-weight-normal text-primary mb-3"></i>
+                        <div class="pl-4">
+                            <h4>Distribución</h4>
+                            <p class="m-0">Garantizamos que tus libros lleguen a librerías, tiendas en línea y lectores de todo el mundo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Facilities Start -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img class="img-fluid rounded mb-5 mb-lg-0" src="img/LOGO SIN BIRRETE-4.png" alt="Logo PEGASSO - Rody Obras">
+                </div>
+                <div class="col-lg-7">
+                    <p class="section-title pr-5"><span class="pr-2">Conócenos</span></p>
+                    <h1 class="mb-4">La Mejor Editorial para Tus Libros</h1>
+                    <p>En PEGASSO Editorial, nos apasiona la literatura y el arte de contar historias. Desde nuestra fundación, hemos trabajado con autores talentosos para dar vida a obras que inspiran, educan y entretienen a lectores de todas las edades.</p>
+                    <div class="row pt-2 pb-4">
+                        <div class="col-6 col-md-4">
+                            <img class="img-fluid rounded" src="img/LOGO SIN BIERRETE-5.png" alt="Elemento de diseño PEGASSO">
+                        </div>
+                        <div class="col-6 col-md-8">
+                            <ul class="list-inline m-0">
+                                <li class="py-2 border-top border-bottom"><i class="fa fa-check text-primary mr-3"></i>Publicación de alta calidad</li>
+                                <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Apoyo a autores emergentes</li>
+                                <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Distribución global</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Class Start -->
+    <div class="container-fluid pt-5" id="book-section">
+        <div class="container">
+            <div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">Libros Populares</span></p>
+                <h1 class="mb-4">Nuestros Libros Destacados</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-5">
+                    <div class="card border-0 bg-light shadow-sm pb-2">
+                        <img class="card-img-top mb-2" src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO.PNG" alt="">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Libro infantil</h4>
+                            <p class="card-text">Descubre una historia mágica llena de enseanzas valiosas para los más pequeños.</p>
+                        </div>
+                        <div class="card-footer bg-transparent py-4 px-5">
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Género</strong></div>
+                                <div class="col-6 py-1">Ficción</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Páginas</strong></div>
+                                <div class="col-6 py-1">320</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Año</strong></div>
+                                <div class="col-6 py-1">2023</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <div class="card border-0 bg-light shadow-sm pb-2">
+                        <img class="card-img-top mb-2" src="img/RELIGIOSO/MARIOLOGIA/PORTADA LIBRO-2.png" alt="">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Libro religioso</h4>
+                            <p class="card-text">Explora los principios y valores fundamentales de la fe cristiana a través de historias inspiradoras y enseanzas profundas.</p>
+                        </div>
+                        <div class="card-footer bg-transparent py-4 px-5">
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Género</strong></div>
+                                <div class="col-6 py-1">Religion</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Páginas</strong></div>
+                                <div class="col-6 py-1">250</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Año</strong></div>
+                                <div class="col-6 py-1">2022</div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <div class="card border-0 bg-light shadow-sm pb-2">
+                        <img class="card-img-top mb-2" src="EDUCATIVO/MATEMATICAS/f92d7a03-b020-4093-9464-c714ab4b06dd.png" alt="">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Educacion</h4>
+                            <p class="card-text">Recursos didácticos para mejorar el aprendizaje en diversas áreas del conocimiento.</p>
+                        </div>
+                        <div class="card-footer bg-transparent py-4 px-5">
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Género</strong></div>
+                                <div class="col-6 py-1">Educativo</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Páginas</strong></div>
+                                <div class="col-6 py-1">120</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-6 py-1 text-right border-right"><strong>Año</strong></div>
+                                <div class="col-6 py-1">2021</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Class End -->
+
+
+    <!-- Registration Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-5 mb-lg-0">
+                    <p class="section-title pr-5"><span class="pr-2">Envía tu Manuscrito</span></p>
+                    <h1 class="mb-4">Únete a Nuestra Familia de Autores</h1>
+                    <p>Si tienes una historia que contar, envíanos tu manuscrito. En PEGASSO Editorial, valoramos el talento y la creatividad. Nuestro proceso de evaluación es riguroso pero justo, y estamos comprometidos a ayudar a autores emergentes a publicar sus obras.</p>
+                    <ul class="list-inline m-0">
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Evaluación profesional y constructiva</li>
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Apoyo en la edición y publicación</li>
+                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Distribución global de tu obra</li>
+                    </ul>
+                    <a href="" class="btn btn-primary mt-4 py-2 px-4">Enviar Ahora</a>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card border-0">
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Envía tu Manuscrito</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" placeholder="Tu Nombre" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 p-4" placeholder="Tu Email" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select border-0 px-4" style="height: 47px;">
+                                        <option selected>Selecciona Género</option>
+                                        <option value="1">Novela</option>
+                                        <option value="2">Ensayo</option>
+                                        <option value="3">Poesía</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Registration End -->
+
+
+
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid py-5">
+        <div class="container p-0">
+            <div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">Testimonios</span></p>
+                <h1 class="mb-4">Lo que Dicen Nuestros Lectores</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                <div class="testimonial-item px-3">
+                    <div class="bg-light shadow-sm rounded mb-4 p-4">
+                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
+                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img class="rounded-circle" src="img/testimonial-1.jpg" style="width: 70px; height: 70px;" alt="Image">
+                        <div class="pl-3">
+                            <h5>Parent Name</h5>
+                            <i>Profession</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item px-3">
+                    <div class="bg-light shadow-sm rounded mb-4 p-4">
+                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
+                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img class="rounded-circle" src="img/testimonial-2.jpg" style="width: 70px; height: 70px;" alt="Image">
+                        <div class="pl-3">
+                            <h5>Parent Name</h5>
+                            <i>Profession</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item px-3">
+                    <div class="bg-light shadow-sm rounded mb-4 p-4">
+                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
+                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img class="rounded-circle" src="img/testimonial-3.jpg" style="width: 70px; height: 70px;" alt="Image">
+                        <div class="pl-3">
+                            <h5>Parent Name</h5>
+                            <i>Profession</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item px-3">
+                    <div class="bg-light shadow-sm rounded mb-4 p-4">
+                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
+                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor ipsum clita
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img class="rounded-circle" src="img/testimonial-4.jpg" style="width: 70px; height: 70px;" alt="Image">
+                        <div class="pl-3">
+                            <h5>Parent Name</h5>
+                            <i>Profession</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+
+    <!-- Blog Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">Los mejores Sistemas educativos</span></p>
+                <h1 class="mb-4">Últimos Artículos del Blog</h1>
+            </div>
+            <div class="row pb-3">
+                <div class="col-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm mb-2">
+                        <img class="card-img-top mb-2" src="img/blog-1.jpg" alt="">
+                        <div class="card-body bg-light text-center p-4">
+                            <h4 class="">Eficientes</h4>
+                            <div class="d-flex justify-content-center mb-3">
+                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
+                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
+                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+                            </div>
+                            <p>Sistemas educativos que desarrollan las habilidades de los niños para aprender a pensar, analizar, crear y activar sus redes neuronales. Activan la imaginación y la comprensión. La creatividad es clave para un sano y completo aprendizaje.</p>
+                    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm mb-2">
+                        <img class="card-img-top mb-2" src="img/blog-2.jpg" alt="">
+                        <div class="card-body bg-light text-center p-4">
+                            <h4 class="">Actuales</h4>
+                            <div class="d-flex justify-content-center mb-3">
+                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
+                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
+                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+                            </div>
+                            <p>Mediante métodos probados, los niños mejoran el aprendizaje sistemática y funcionalmente, logran mejoras en sus tiempos de estudio y en su desempeño escolar. Los resultados se perciben a corto plazo y se mantienen en el tiempo.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm mb-2">
+                        <img class="card-img-top mb-2" src="img/NEM.png" alt="NEM" style="width:100%; height:250px; object-fit:cover;">
+                        <div class="card-body bg-light text-center p-4">
+                            <h4 class="">Acorde con la NEM</h4>
+                            <div class="d-flex justify-content-center mb-3">
+                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
+                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
+                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+                            </div>
+                            <p>La nueva escuela mexicana, incluye conceptos acorde a las necesidades de aprendizaje real de los niños dependiendo de su entorno y realidad diversa, nuestros sistemas, se ajustan a todo tipo de realidad y necesidad académica.</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <i class="flaticon-032-book"></i>
+                    <span class="text-white">PEGASSO</span>
+                </a>
+                <p>PEGASSO Editorial se dedica a la publicación de obras literarias de calidad. Desde novelas hasta ensayos, conectamos autores con lectores apasionados por la literatura en todo el mundo.</p>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Get In Touch</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-map-marker-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Address</h5>
+                        <p>Calle Ficticia 123, Madrid, España</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>dir.gral.pegasso@gmail.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Phone</h5>
+                        <p>+52 222 755 6588</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Enlaces</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                    <a class="text-white mb-2" href="educativo.html"><i class="fa fa-angle-right mr-2"></i>Educativo</a>
+                    <a class="text-white mb-2" href="religioso.html"><i class="fa fa-angle-right mr-2"></i>Religioso</a>
+                    <a class="text-white mb-2" href="about.html"><i class="fa fa-angle-right mr-2"></i>Acerca de</a>
+                    <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Newsletter</h3>
+                <form action="">
+                    <div class="form-group">
+                        <input type="text" class="form-control border-0 py-4" placeholder="Tu Nombre" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control border-0 py-4" placeholder="Tu Email"
+                            required="required" />
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-block border-0 py-3" type="submit">Suscribirse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);;">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved. Designed
+                by
+                <a class="text-primary font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Libros Educativos</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+<!-- Carousel Styles -->
+    <style>
+      body {
+    background: linear-gradient(to bottom, #bed9ee, #f4dede);
+    background-attachment: fixed;
+    font-family: 'Nunito', sans-serif;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+.btn {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 15px rgba(23,162,184,0.6);
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card img {
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+.carousel { 
+    background-color: #f8f9fa; 
+    padding: 10px 0;
+    position: relative;
+}
+
+.carousel .carousel-inner { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    background-color: #f8f9fa; 
+    min-height: 600px; 
+    text-align: center; 
+}
+
+.carousel .carousel-item { 
+    padding: 20px 0; 
+}
+
+.carousel .carousel-item img { 
+    max-height: 560px; 
+    max-width: 100%; 
+    width: auto !important; 
+    height: auto; 
+    object-fit: contain; 
+    margin: 0 auto; 
+    display: inline-block; 
+}
+
+.carousel-control-prev, 
+.carousel-control-next { 
+    position: absolute;
+    width: 44px; 
+    height: 44px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    border-radius: 50%; 
+    background: rgba(23,162,184,0.75); 
+    opacity: 0.95; 
+    z-index: 10; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control-prev { left: 10px; }
+.carousel-control-next { right: 10px; }
+
+.carousel-control-prev-icon, 
+.carousel-control-next-icon { 
+    background-image: none; 
+    font-size: 22px; 
+    color: #fff; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.carousel-control-prev-icon::before { content: '‹'; }
+.carousel-control-next-icon::before { content: '›'; }
+
+.carousel-item img {
+    transition: transform 0.5s ease;
+}
+
+.carousel-item.active img {
+    transform: scale(1.03);
+}
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    
+    border-radius: 20px; /* más redondeado */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.bg-primary {
+    background: linear-gradient(90deg, #4e72d8, #198cd8) !important;
+}
+
+</style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link active">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+            <h3 class="display-3 font-weight-bold text-white">Libros Educativos</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Educativo</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Educational Start -->
+    <div class="row mb-5 fade-up delay-1">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img class="img-fluid rounded mb-5 mb-lg-0" src="img/LOGO SIN BIRRETE.png" alt="Logo Rody Obras - Educativo">
+                </div>
+                <div class="col-lg-7">
+                    <p class="section-title pr-5"><span class="pr-2">Educación y Aprendizaje</span></p>
+                    <h1 class="mb-4">Recursos Educativos de Calidad</h1>
+                    <p>En PEGASSO Editorial, apostamos por la educación como herramienta transformadora. Nuestras publicaciones educativas están diseñadas para facilitar el aprendizaje en todas las etapas: desde primaria hasta educación superior y formación profesional.</p>
+                    <div class="row pt-2 pb-4">
+                        <div class="col-6 col-md-4">
+                            <img class="img-fluid rounded" src="img/freepik_edit (30).png" alt="Elemento de diseño educativo">
+                        </div>
+                        <div class="col-6 col-md-8">
+                            <ul class="list-inline m-0">
+                                <li class="py-2 border-top border-bottom"><i class="fa fa-check text-primary mr-3"></i>Contenidos pedagógicos</li>
+                                <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Ilustraciones atractivas</li>
+                                <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Ejercicios prácticos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary mt-2 py-2 px-4">Contactanos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Educational End -->
+
+
+    <!-- Services Start -->
+     <div class="container-fluid pt-5">
+        <div class="container pb-3">
+                <div class="text-center pb-5 fade-up delay-1">
+                    <p class="section-title px-5"><span class="px-2">Nuestras Colecciones</span></p>
+                    <h1 class="mb-4 fade-up delay-2">Categorías Educativas</h1>
+
+            <!-- CONOCE Y DESCUBRE -->
+            <div class="row mb-5 fade-up delay-1">
+                <div class="col-lg-6 mb-3">
+                    <h3 class="mb-3 fade-up delay-2"><i class="fa fa-book text-primary mr-2"></i>CONOCE Y DESCUBRE</h3>
+                    <div id="conoce-y-descubre" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CONOCE Y DESCUBRE/libro-tomo-dinosaurio-web.png" alt="CONOCE Y DESCUBRE 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE-2.png" alt="CONOCE Y DESCUBRE 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE-3.png" alt="CONOCE Y DESCUBRE 3">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE.png" alt="CONOCE Y DESCUBRE 4">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#conoce-y-descubre" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#conoce-y-descubre" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-3"><i class="fa fa-cross text-primary mr-2"></i>Libros borrables, amables con la biodiversidad</h3>
+                    <p>Conjunto de libros que exploran temas interesantes y educativos como, historia, ciencia y anatomia.</p>
+                    <ul class="list-inline">
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Libros de Estudio Interesantes </li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Informacion clara y concisa</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Divertito y educativo</li>
+                    </ul>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#conoce-y-descubre" data-slide-to="0" data-desc-id="descripcionConoceYDescubre" 
+                        data-desc="¿Te imaginas un Dinosaurio al tamaño de un edificio de 6 pisos? ¡Descubre cuál era!¿Sabes hace cuántos años vivieron los Dinosaurios?" style="cursor:pointer;">
+                            <img src="EDUCATIVO/CONOCE Y DESCUBRE/libro-tomo-dinosaurio-web.png" width="50" class="rounded mr-2">
+                            <span>Conoce y Descubre 1</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#conoce-y-descubre" data-slide-to="1" data-desc-id="descripcionConoceYDescubre" 
+                        data-desc="La creación más increíble y maravillosa de la naturaleza es el cuerpo humano. Conocer tu cuerpo te sorprenderá." style="cursor:pointer;">
+                            <img src="EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE-2.png" width="50" class="rounded mr-2">
+                            <span>Conoce y Descubre 2</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#conoce-y-descubre" data-slide-to="2" data-desc-id="descripcionConoceYDescubre" 
+                        data-desc="Inventar y crear es por mucho lo que hace la diferencia entre los seres humanos pensantes y los animales. Descubre los inventos más increíbles." style="cursor:pointer;">
+                            <img src="EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE-3.png" width="50" class="rounded mr-2">
+                            <span>Conoce y Descubre 3</span>
+                        </div>
+                        <div class="d-flex align-items-center opcion" data-target="#conoce-y-descubre" data-slide-to="3" data-desc-id="descripcionConoceYDescubre" 
+                        data-desc="Descubre las maravillas de nuestro universo, el planeta tierra. Y no menos importante el cuidado y conservación del medio ambiente." style="cursor:pointer;">
+                            <img src="EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE.png" width="50" class="rounded mr-2">
+                            <span>Conoce y Descubre 4</span>
+                        </div>
+                    </div>
+                    <p id="descripcionConoceYDescubre" class="mt-3 text-muted">
+                        Selecciona un bloque para ver la descripción
+                    </p>
+                </div>
+            </div>
+
+            <!-- CURSO DE INGLÉS -->
+            <div class="row mb-5 fade-up delay-1">
+                <div class="col-lg-6 mb-3">
+                    <h3 class="mb-3 fade-up delay-2"><i class="fa fa-child text-primary mr-2"></i>AYUDAME CON EL INGLES</h3>
+                    <div id="Curso-Ingles" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CURSO DE INGLÉS/4451c69d-7956-4bc8-8260-7424a651e0c-2.png" alt="Libro ingles 1 ">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CURSO DE INGLÉS/c0bf3554-eed0-4809-8c1e-5a6e8d0509c1.png" alt="Libro ingles 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/CURSO DE INGLÉS/ELEMENTO-6.png" alt="Libro ingles 3">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#Curso-Ingles" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#Curso-Ingles" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-3"><i class="fa fa-star text-primary mr-2"></i>Programas sistémicos graduables</h3>
+                    <p>Conjunto de libros con programas están desarrollados pensando en las necesidades reales de los niños de nuestros país.</p>
+                    <ul class="list-inline">
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Basado en cuatro campos formativos</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Formato amigable para niños</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Sistema anti-estrés</li>
+                    </ul>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#Curso-Ingles" data-slide-to="0" data-desc-id="descripcionCursoIngles" 
+                        data-desc="Diccionario con más de 1,000 palabras para completar el conocimiento de tu programa de Inglés." style="cursor:pointer;">
+                            <img src="EDUCATIVO/CURSO DE INGLÉS/4451c69d-7956-4bc8-8260-7424a651e0c-2.png" width="50" class="rounded mr-2">
+                            <span>Inglés Bloque 1</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#Curso-Ingles" data-slide-to="1" data-desc-id="descripcionCursoIngles" 
+                        data-desc="Conceptos de la vida diaria como el desarrollo físico, el ejercicio, la salud y las artes son plasmadas en este tomo de manera sencilla pero efectiva." style="cursor:pointer;">
+                            <img src="EDUCATIVO/CURSO DE INGLÉS/c0bf3554-eed0-4809-8c1e-5a6e8d0509c1.png" width="50" class="rounded mr-2">
+                            <span>Inglés Bloque 2</span>
+                        </div>
+                        <div class="d-flex align-items-center opcion" data-target="#Curso-Ingles" data-slide-to="2" data-desc-id="descripcionCursoIngles" 
+                        data-desc="El mundo visto a los ojos de los niños de manera agradable, sencilla, divertida pero eficiente para entender el Inglés en la vida diaria." style="cursor:pointer;">
+                            <img src="EDUCATIVO/CURSO DE INGLÉS/ELEMENTO-6.png" width="50" class="rounded mr-2">
+                            <span>Inglés Bloque 3</span>
+                        </div>
+                    </div>
+                    <p id="descripcionCursoIngles" class="mt-3 text-muted">
+                        Selecciona un bloque para ver la descripción
+                    </p>
+                </div>
+            </div>
+
+          
+
+            <!-- LECTO -->
+            <div class="row mb-5 fade-up delay-1">
+                <div class="col-lg-6 mb-3">
+                    <h3 class="mb-3 fade-up delay-2"><i class="fa fa-child text-primary mr-2"></i>LECTOESCRITURA</h3>
+                    <div id="lecto" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 1.png" alt="Libro lectoescritura 1 ">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 2.png" alt="Libro lectoescritura 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 3.png" alt="Libro lectoescritura 3">
+                            </div>
+                             <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 4.png" alt="Libro lectoescritura 4">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#lecto" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#lecto" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-3"><i class="fa fa-star text-primary mr-2"></i>Programas sistémicos graduables</h3>
+                    <p>Conjunto de libros</p>
+                    <ul class="list-inline">
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Basado en cuatro campos formativos</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Formato amigable para niños</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Sistema anti- estrés</li>
+                    </ul>
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#lecto" data-slide-to="0" data-desc-id="descripcionLecto" 
+                        data-desc="Ejercicios preparatorios, desarrolla habilidades de motricidad fina, ejercicios ojo mano, identificación, conceptos básicos de grafía y trazos." style="cursor:pointer;">
+                            <img src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 1.png" width="50" class="rounded mr-2">
+                            <span>Lectoescritura 1</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#lecto" data-slide-to="1" data-desc-id="descripcionLecto" 
+                        data-desc="Desarrolla habilidades de escritura, aprenderá las letras, su grafía y forma adecuada de trazarlas y mejorar su motricidad fina." style="cursor:pointer;">
+                            <img src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 2.png" width="50" class="rounded mr-2">
+                            <span>Lectoescritura 2</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#lecto" data-slide-to="2" data-desc-id="descripcionLecto" 
+                        data-desc="Continúa desarrollando la escritura, mejora los trazos, reconoce más letras, conoce el silabario, mejora la grafía y la fonética." style="cursor:pointer;">
+                            <img src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 3.png" width="50" class="rounded mr-2">
+                            <span>Lectoescritura 3</span>
+                        </div>
+                        <div class="d-flex align-items-center opcion" data-target="#lecto" data-slide-to="3" data-desc-id="descripcionLecto" 
+                        data-desc="Aprenderá a leer lecturas sencillas pero eficientes. Desarrollará lectura de comprensión. Contiene ejercicios borrables." style="cursor:pointer;">
+                            <img src="EDUCATIVO/LECTOESCRITURA/PORTA LECTO 4.png" width="50" class="rounded mr-2">
+                            <span>Lectoescritura 4</span>
+                        </div>
+                    </div>
+                    <p id="descripcionLecto" class="mt-3 text-muted">
+                        Selecciona un bloque para ver la descripción
+                    </p>
+                </div>
+            </div>
+
+
+           
+
+            <!-- MATEMATICAS -->
+                <div class="row mb-5 fade-up delay-1">
+                
+                <!-- CARRUSEL -->
+                <div class="col-lg-6 mb-3">
+                    <h3 class="mb-3 fade-up delay-2">
+                        <i class="fa fa-shield-alt text-primary mr-2"></i>MATEMATICAS
+                    </h3>
+
+                    <div id="matematicas" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/MATEMATICAS/f92d7a03-b020-4093-9464-c714ab4b06dd.png">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/MATEMATICAS/rody matematicas.png">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/MATEMATICAS/rody matematicas bloque-2.png">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/MATEMATICAS/rody matematicas bloque-3.png">
+                            </div>
+                        </div>
+
+                        <a class="carousel-control-prev" href="#matematicas" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+
+                        <a class="carousel-control-next" href="#matematicas" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- INFO -->
+                <div class="col-lg-6">
+                    <h3 class="mb-3">
+                        <i class="fa fa-leaf text-primary mr-2"></i>Aprendizaje guiado
+                    </h3>
+
+                    <p>Programa educativo acorde con la NEM.</p>
+
+                    <ul class="list-inline">
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Concepto de los números</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Tabla numérica</li>
+                        <li class="py-2"><i class="fa fa-check text-primary mr-2"></i>Concepto de unidad</li>
+                    </ul>
+
+                    <!-- MINI IMÁGENES -->
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center mb-2 opcion"
+                            data-target="#matematicas"
+                            data-slide-to="0"
+                            data-desc-id="descripcionMatematicas"
+                            data-desc="Este programa se complementa con el conocimiento de las matemáticas básicas para preparar a los niños dentro del mudo competitivo de hoy. ">
+                            <img src="EDUCATIVO/MATEMATICAS/f92d7a03-b020-4093-9464-c714ab4b06dd.png" width="50" class="rounded mr-2">
+                            <span>Pensamiento matematico</span>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-2 opcion"
+                            data-target="#matematicas"
+                            data-slide-to="1"
+                            data-desc-id="descripcionMatematicas"
+                            data-desc="Aprendizaje guiado para reconocer colores, formas, figuras entornos, dimensiones, trazos básicos.">
+                            <img src="EDUCATIVO/MATEMATICAS/rody matematicas.png" width="50" class="rounded mr-2">
+                            <span>Matemáticas Bloque 1</span>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-2 opcion"
+                            data-target="#matematicas"
+                            data-slide-to="2"
+                            data-desc-id="descripcionMatematicas"
+                            data-desc="El inicio al acercamiento del concepto de los números, tabla numérica, grupos, formas, comparaciones.">
+                            <img src="EDUCATIVO/MATEMATICAS/rody matematicas bloque-2.png" width="50" class="rounded mr-2">
+                            <span>Matemáticas Bloque 2</span>
+                        </div>
+
+                        <div class="d-flex align-items-center opcion"
+                            data-target="#matematicas"
+                            data-slide-to="3"
+                            data-desc-id="descripcionMatematicas"
+                            data-desc="Los números hasta el 100, concepto de unidad, decena, centena, concepto de división y multiplicación.">
+                            <img src="EDUCATIVO/MATEMATICAS/rody matematicas bloque-3.png" width="50" class="rounded mr-2">
+                            <span>Matemáticas Bloque 3</span>
+                        </div>
+
+                    </div>
+
+                    <!-- DESCRIPCIÓN -->
+                    <p id="descripcionMatematicas" class="mt-3 text-muted">
+                        Selecciona un bloque para ver la descripción
+                    </p>
+
+                </div>
+            </div>
+
+
+           <!-- Principito -->
+            <div class="row mb-5 fade-up delay-1">
+                <div class="col-lg-6 mb-3">
+                    <h3 class="mb-3 fade-up delay-2"><i class="fa fa-book text-primary mr-2"></i>EL PRINCIPITO</h3>
+                    <div id="principito" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO.PNG" alt="PRINCIPITO 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO-9.PNG" alt="PRINCIPITO 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO-7.PNG" alt="PRINCIPITO 3">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block rounded mx-auto" src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO-5.PNG" alt="PRINCIPITO 4">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#principito" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#principito" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-3"><i class="fa fa-cross text-primary mr-2"></i>Nueva edición</h3>
+                    <p>Libro clasico y actualizado con mejores ilustraciones y texto inmersivo.</p>
+                   
+                     <div class="mt-4">
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#principito" data-slide-to="0" data-desc-id="descripcionPrincipito" 
+                        data-desc="Tamaño gran formato 23x33cm." style="cursor:pointer;">
+                            <img src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO.PNG" width="50" class="rounded mr-2">
+                            <span>Pagina 1</span>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#principito" data-slide-to="1" data-desc-id="descripcionPrincipito" 
+                        data-desc="Letra más grande" style="cursor:pointer;">
+                            <img src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO-9.PNG" width="50" class="rounded mr-2">
+                            <span>Pagina 2</span>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#principito" data-slide-to="2" data-desc-id="descripcionPrincipito" 
+                        data-desc="Páginas borrables" style="cursor:pointer;">
+                            <img src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO-7.PNG" width="50" class="rounded mr-2">
+                            <span>Pagina 3</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2 opcion" data-target="#principito" data-slide-to="3" data-desc-id="descripcionPrincipito" 
+                        data-desc="Con ejercicios de comprensión lectora" style="cursor:pointer;">
+                            <img src="EDUCATIVO/EL PRINCIPITO/PRINCIPITO-5.PNG" width="50" class="rounded mr-2">
+                            <span>Pagina 4</span>
+                        </div>
+                    </div>
+                    <p id="descripcionPrincipito" class="mt-3 text-muted">
+                        Selecciona un bloque para ver la descripción
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Services End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 60px;">
+                </a>
+                <p>PEGASSO Editorial ofrece una cuidada selección de obras religiosas para todos los caminos espirituales.</p>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
+                        style="width: 38px; height: 38px;" href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Contacto</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-map-marker-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Dirección</h5>
+                        <p>Madrid, España</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>info@pegasoeditorial.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Teléfono</h5>
+                        <p>+34 91 123 4567</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Enlaces</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                    <a class="text-white mb-2" href="educativo.html"><i class="fa fa-angle-right mr-2"></i>Educativo</a>
+                    <a class="text-white mb-2" href="religioso.html"><i class="fa fa-angle-right mr-2"></i>Religioso</a>
+                    <a class="text-white mb-2" href="about.html"><i class="fa fa-angle-right mr-2"></i>Acerca de</a>
+                    <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Boletín</h3>
+                <form action="">
+                    <div class="form-group">
+                        <input type="email" class="form-control border-0 py-4" placeholder="Tu Email" required="required" />
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-block border-0 py-3" type="submit">Suscribirse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);;">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script>
+const elements = document.querySelectorAll('.fade-up');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+});
+
+elements.forEach(el => observer.observe(el));
+
+document.querySelectorAll('.opcion').forEach(item => {
+    item.addEventListener('click', function() {
+        const descripcion = this.getAttribute('data-desc');
+        const descripcionId = this.getAttribute('data-desc-id');
+        if (descripcionId && descripcion) {
+            const target = document.getElementById(descripcionId);
+            if (target) {
+                target.innerText = descripcion;
+            }
+        }
+    });
+});
+</script>
+</body>
+
+</html>

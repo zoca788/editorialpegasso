@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -18,34 +18,68 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
+    <!-- Bootstrap -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+                        url('img/header.jpg') center/cover no-repeat;
+            color: white;
+        }
+
+        .error-container {
+            height: 100vh;
+        }
+
+        .error-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 120px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .error-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+        }
+
+        .btn-custom {
+            border-radius: 30px;
+            padding: 12px 35px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Error Page Start -->
-    <div class="container text-center">
-        <div class="row justify-content-center align-items-center" style="height: 100vh;">
-            <div class="col-lg-6">
-                <h1 class="display-1 text-primary">404</h1>
-                <h1 class="mb-4">Página no encontrada</h1>
-                <p class="mb-4">Lo sentimos, la página que buscas no existe o ha sido movida. Por favor, regresa al inicio o utiliza el menú para navegar.</p>
-                <a class="btn btn-primary py-3 px-5" href="index.html">Volver al Inicio</a>
-            </div>
+
+    <div class="container text-center error-container d-flex align-items-center justify-content-center">
+        <div>
+            <h1 class="error-title text-primary">404</h1>
+            <h2 class="error-subtitle mb-4">Página no encontrada</h2>
+            <p class="mb-4">
+                Parece que esta página se perdió entre las páginas de un libro.
+                Regresa al inicio y continúa explorando PEGASSO Editorial.
+            </p>
+
+            <a class="btn btn-primary btn-custom" href="index.html">
+                <i class="fa fa-home mr-2"></i> Volver al inicio
+            </a>
         </div>
     </div>
-    <!-- Error Page End -->
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <a href="#" class="btn btn-primary p-3 back-to-top">
+        <i class="fa fa-angle-double-up"></i>
+    </a>
 
-    <!-- JavaScript Libraries -->
+    <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
-
-    <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>

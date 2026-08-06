@@ -24,7 +24,7 @@
 
     <!-- Control de acceso: seccion interna, requiere sesion iniciada -->
     <script src="js/pegasso-auth.js"></script>
-    <script>PEGASSO_AUTH.requerirSesion();</script>
+    <script>PEGASSO_AUTH.requerirSesion('admin');</script>
 </head>
 
 <body>
@@ -155,8 +155,18 @@
                                 <input type="text" class="form-control" id="libPortada" placeholder="img/RELIGIOSO/... o EDUCATIVO/...">
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Editorial</label>
+                                <input type="text" class="form-control" id="libEditorial" value="PEGASSO Editorial">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Disponibilidad</label>
+                                <select class="custom-select" id="libDisponibilidad"></select>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label class="font-weight-bold">Descripción / sinopsis</label>
+                            <label class="font-weight-bold">Sinopsis</label>
                             <textarea class="form-control" id="libDescripcion" rows="4"></textarea>
                         </div>
                         <div class="form-group">
@@ -169,7 +179,8 @@
                             <input type="file" class="form-control-file" id="libArchivo" accept=".pdf,.epub">
                             <small class="text-muted">PDF o EPUB del libro terminado.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary py-2 px-4"><i class="fa fa-cloud-upload-alt mr-2"></i>Publicar en el catálogo</button>
+                        <button type="submit" class="btn btn-primary py-2 px-4" id="btnGuardarLibro">
+                            <i class="fa fa-cloud-upload-alt mr-2"></i>Publicar en el catálogo</button>
                         <button type="reset" class="btn btn-outline-secondary py-2 px-4 ml-2">Limpiar</button>
                     </form>
                 </div>
@@ -286,6 +297,7 @@
     <script src="lib/easing/easing.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-layout.js"></script>
 
     <script>
         (function () {
@@ -305,8 +317,17 @@
                 portada: document.getElementById('libPortada'),
                 descripcion: document.getElementById('libDescripcion'),
                 keywords: document.getElementById('libKeywords'),
-                formato: document.getElementById('libFormato')
+                formato: document.getElementById('libFormato'),
+                editorial: document.getElementById('libEditorial'),
+                disponibilidad: document.getElementById('libDisponibilidad')
             };
+
+            P.DISPONIBILIDAD.forEach(function (d) {
+                campos.disponibilidad.insertAdjacentHTML('beforeend', '<option value="' + d + '">' + d + '</option>');
+            });
+
+            // Id del libro en edición; vacío significa alta nueva (RF7).
+            var editandoId = '';
 
             P.GENEROS.forEach(function (g) {
                 campos.genero.insertAdjacentHTML('beforeend', '<option value="' + g + '">' + g + '</option>');
@@ -383,7 +404,7 @@
                     P.toast('Título, autor, género y precio son obligatorios.');
                     return;
                 }
-                var libro = P.publicarLibro({
+                var datosLibro = {
                     titulo: campos.titulo.value.trim(),
                     autor: campos.autor.value.trim(),
                     genero: campos.genero.value,
@@ -393,27 +414,45 @@
                     isbn: campos.isbn.value.trim(),
                     portada: campos.portada.value.trim(),
                     descripcion: campos.descripcion.value.trim(),
+                    sinopsis: campos.descripcion.value.trim(),
+                    editorial: campos.editorial.value.trim(),
+                    disponibilidad: campos.disponibilidad.value,
                     keywords: campos.keywords.value,
                     formato: campos.formato.value,
                     manuscritoId: campos.manuscritoId.value || null
-                });
+                };
+
+                var libro = editandoId
+                    ? P.actualizarLibro(editandoId, datosLibro)
+                    : P.publicarLibro(datosLibro);
+                var eraEdicion = !!editandoId;
+                editandoId = '';
                 document.getElementById('formLibro').reset();
                 campos.manuscritoId.value = '';
+                campos.editorial.value = 'PEGASSO Editorial';
                 campos.anio.value = new Date().getFullYear();
+                document.getElementById('btnGuardarLibro').innerHTML =
+                    '<i class="fa fa-cloud-upload-alt mr-2"></i>Publicar en el catálogo';
                 document.getElementById('avisoManuscrito').classList.add('d-none');
                 document.getElementById('tituloFormulario').textContent = 'Publicar un libro digital';
                 preview();
                 renderAprobados();
                 renderLibros();
-                P.toast('"' + libro.titulo + '" ya está en el catálogo digital.');
+                P.toast(eraEdicion
+                    ? 'Cambios guardados: "' + libro.titulo + '" se actualizó en el catálogo.'
+                    : '"' + libro.titulo + '" ya está en el catálogo digital.');
             });
 
             document.getElementById('formLibro').addEventListener('reset', function () {
                 setTimeout(function () {
+                    editandoId = '';
                     campos.manuscritoId.value = '';
+                    campos.editorial.value = 'PEGASSO Editorial';
                     campos.anio.value = new Date().getFullYear();
                     document.getElementById('avisoManuscrito').classList.add('d-none');
                     document.getElementById('tituloFormulario').textContent = 'Publicar un libro digital';
+                    document.getElementById('btnGuardarLibro').innerHTML =
+                        '<i class="fa fa-cloud-upload-alt mr-2"></i>Publicar en el catálogo';
                     preview();
                 }, 0);
             });
@@ -424,17 +463,21 @@
                     return '' +
                         '<tr>' +
                         '<td class="align-middle"><strong>' + esc(l.titulo) + '</strong><br><small class="text-muted">' + esc(l.isbn) + '</small></td>' +
-                        '<td class="align-middle">' + esc(l.autor) + '</td>' +
+                        '<td class="align-middle">' + esc(l.autor) + '<br><small class="text-muted">' +
+                        esc(l.editorial || 'PEGASSO Editorial') + '</small></td>' +
                         '<td class="align-middle">' + esc(l.genero) + '</td>' +
-                        '<td class="align-middle">' + esc(l.formato) + '</td>' +
+                        '<td class="align-middle">' + esc(l.formato) + '<br><small class="text-muted">' +
+                        esc(l.disponibilidad || 'Disponible') + '</small></td>' +
                         '<td class="align-middle">' + P.formatoMoneda(l.precio) + '</td>' +
                         '<td class="align-middle">' + P.formatoFecha(l.fechaPublicacion) + '</td>' +
                         '<td class="align-middle"><span class="estado-badge ' + (l.publicado ? 'estado-publicado' : 'estado-recibido') + '">' +
                         (l.publicado ? 'Publicado' : 'Oculto') + '</span></td>' +
-                        '<td class="align-middle text-right" style="min-width: 170px;">' +
-                        '  <a class="btn btn-sm btn-outline-primary mr-1" href="catalogo.html?q=' + encodeURIComponent(l.titulo) + '" title="Ver en catálogo"><i class="fa fa-search"></i></a>' +
+                        '<td class="align-middle text-right" style="min-width: 240px;">' +
+                        '  <a class="btn btn-sm btn-outline-primary mr-1" href="libro.html?id=' + encodeURIComponent(l.id) + '" title="Ver ficha"><i class="fa fa-search"></i></a>' +
+                        '  <button class="btn btn-sm btn-outline-info mr-1" data-editar="' + esc(l.id) + '" title="Modificar"><i class="fa fa-pen"></i></button>' +
                         '  <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle-pub="' + esc(l.id) + '" title="Publicar / ocultar"><i class="fa fa-' + (l.publicado ? 'eye-slash' : 'eye') + '"></i></button>' +
-                        '  <button class="btn btn-sm btn-outline-success" data-venta="' + esc(l.id) + '" title="Registrar venta"><i class="fa fa-cash-register"></i></button>' +
+                        '  <button class="btn btn-sm btn-outline-success mr-1" data-venta="' + esc(l.id) + '" title="Registrar venta"><i class="fa fa-cash-register"></i></button>' +
+                        '  <button class="btn btn-sm btn-outline-danger" data-eliminar="' + esc(l.id) + '" title="Eliminar del catálogo"><i class="fa fa-trash"></i></button>' +
                         '</td>' +
                         '</tr>';
                 }).join('');
@@ -443,6 +486,46 @@
             document.getElementById('tablaLibros').addEventListener('click', function (ev) {
                 var toggle = ev.target.closest('[data-toggle-pub]');
                 var venta = ev.target.closest('[data-venta]');
+                var editar = ev.target.closest('[data-editar]');
+                var eliminar = ev.target.closest('[data-eliminar]');
+
+                if (editar) {
+                    var l = P.getLibro(editar.getAttribute('data-editar'));
+                    if (!l) { return; }
+                    editandoId = l.id;
+                    campos.manuscritoId.value = '';
+                    campos.titulo.value = l.titulo;
+                    campos.autor.value = l.autor;
+                    campos.genero.value = l.genero;
+                    campos.anio.value = l.anio;
+                    campos.paginas.value = l.paginas;
+                    campos.precio.value = l.precio;
+                    campos.isbn.value = l.isbn;
+                    campos.portada.value = l.portada;
+                    campos.descripcion.value = l.sinopsis || l.descripcion || '';
+                    campos.keywords.value = (l.keywords || []).join(', ');
+                    campos.formato.value = l.formato;
+                    campos.editorial.value = l.editorial || 'PEGASSO Editorial';
+                    campos.disponibilidad.value = l.disponibilidad || 'Disponible';
+                    document.getElementById('tituloFormulario').textContent = 'Modificar: ' + l.titulo;
+                    document.getElementById('btnGuardarLibro').innerHTML =
+                        '<i class="fa fa-save mr-2"></i>Guardar cambios';
+                    document.getElementById('avisoManuscrito').classList.add('d-none');
+                    preview();
+                    document.getElementById('formLibro').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                if (eliminar) {
+                    var libroBorrar = P.getLibro(eliminar.getAttribute('data-eliminar'));
+                    if (libroBorrar && window.confirm('¿Eliminar "' + libroBorrar.titulo + '" del catálogo? Esta acción no se puede deshacer.')) {
+                        P.eliminarLibro(libroBorrar.id);
+                        renderLibros();
+                        P.toast('Libro eliminado del catálogo.');
+                    }
+                    return;
+                }
+
                 if (toggle) {
                     P.despublicarLibro(toggle.getAttribute('data-toggle-pub'));
                     renderLibros();

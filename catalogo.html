@@ -79,6 +79,9 @@
                 <h1 class="mb-4">Encuentra tu próxima lectura</h1>
             </div>
 
+            <!-- Navegación por categorías (RF1) -->
+            <div class="text-center mb-4" id="chipsCategorias"></div>
+
             <div class="panel-card p-4 mb-5">
                 <div class="row">
                     <div class="col-lg-5 mb-3">
@@ -121,6 +124,7 @@
                     <div class="col-lg-3 col-md-6 mb-3">
                         <label class="font-weight-bold mb-1">Ordenar por</label>
                         <select class="custom-select" id="orden">
+                            <option value="relevancia">Relevancia</option>
                             <option value="reciente">Más recientes</option>
                             <option value="titulo">Título (A-Z)</option>
                             <option value="precio-asc">Precio: menor a mayor</option>
@@ -128,9 +132,15 @@
                             <option value="anio">Año de edición</option>
                         </select>
                     </div>
-                    <div class="col-lg-4 mb-3 text-lg-right">
-                        <button class="btn btn-outline-secondary mr-2" id="btnLimpiar"><i class="fa fa-eraser mr-1"></i>Limpiar</button>
-                        <a href="publicar.html" class="btn btn-primary"><i class="fa fa-plus mr-1"></i>Publicar libro</a>
+                    <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="font-weight-bold mb-1">Disponibilidad</label>
+                        <select class="custom-select" id="disponibilidad">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-3 text-lg-right">
+                        <label class="font-weight-bold mb-1 d-none d-lg-block">&nbsp;</label>
+                        <button class="btn btn-outline-secondary btn-block" id="btnLimpiar"><i class="fa fa-eraser mr-1"></i>Limpiar</button>
                     </div>
                 </div>
                 <div class="border-top pt-3">
@@ -143,9 +153,16 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="m-0" id="contadorResultados">Mostrando 0 libros</h5>
-                <button class="btn btn-sm btn-outline-primary" id="btnExportarCatalogo"><i class="fa fa-file-csv mr-1"></i>Exportar resultados</button>
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <h5 class="m-0 mb-2 mb-md-0" id="contadorResultados">Mostrando 0 libros</h5>
+                <div>
+                    <button class="btn btn-sm btn-primary mr-2" id="btnPDF">
+                        <i class="fa fa-file-pdf mr-1"></i>Descargar catálogo en PDF
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" id="btnExportarCatalogo">
+                        <i class="fa fa-file-csv mr-1"></i>Exportar resultados
+                    </button>
+                </div>
             </div>
 
             <div class="row" id="resultados"></div>
@@ -156,20 +173,6 @@
         </div>
     </div>
     <!-- Buscador End -->
-
-
-    <!-- Modal detalle libro -->
-    <div class="modal fade" id="modalLibro" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content border-0">
-                <div class="modal-header bg-secondary text-white">
-                    <h5 class="modal-title" id="modalLibroTitulo">Detalle del libro</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body p-4" id="modalLibroCuerpo"></div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- Footer Start -->
@@ -228,6 +231,7 @@
     <script src="js/main.js"></script>
     <script src="js/pegasso-data.js"></script>
     <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
 
     <script>
         (function () {
@@ -241,6 +245,7 @@
             var $anio = document.getElementById('anio');
             var $precio = document.getElementById('precioMax');
             var $orden = document.getElementById('orden');
+            var $disp = document.getElementById('disponibilidad');
             var $resultados = document.getElementById('resultados');
 
             // Poblar filtros con los datos reales del catálogo
@@ -257,9 +262,34 @@
                 $anio.insertAdjacentHTML('beforeend', '<option value="' + a + '">' + a + '</option>');
             });
 
+            P.DISPONIBILIDAD.forEach(function (d) {
+                $disp.insertAdjacentHTML('beforeend', '<option value="' + esc(d) + '">' + esc(d) + '</option>');
+            });
+
             var precioTope = Math.max.apply(null, libros.map(function (l) { return l.precio; }).concat([500]));
             $precio.max = Math.ceil(precioTope / 50) * 50;
             $precio.value = $precio.max;
+
+            // Navegación por categorías (RF1): un chip por género, con su conteo.
+            function pintarChips() {
+                var conteo = {};
+                libros.forEach(function (l) { conteo[l.genero] = (conteo[l.genero] || 0) + 1; });
+                var chips = '<span class="chip-categoria' + ($genero.value ? '' : ' activa') + '" data-categoria="">' +
+                    'Todas <span class="conteo">(' + libros.length + ')</span></span>';
+                chips += generos.map(function (g) {
+                    return '<span class="chip-categoria' + ($genero.value === g ? ' activa' : '') + '" data-categoria="' + esc(g) + '">' +
+                        esc(g) + ' <span class="conteo">(' + conteo[g] + ')</span></span>';
+                }).join('');
+                document.getElementById('chipsCategorias').innerHTML = chips;
+            }
+
+            document.getElementById('chipsCategorias').addEventListener('click', function (ev) {
+                var chip = ev.target.closest('[data-categoria]');
+                if (!chip) { return; }
+                $genero.value = chip.getAttribute('data-categoria');
+                buscar();
+                document.getElementById('contadorResultados').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
 
             function ordenar(lista) {
                 var copia = lista.slice();
@@ -268,8 +298,29 @@
                     case 'precio-asc': return copia.sort(function (a, b) { return a.precio - b.precio; });
                     case 'precio-desc': return copia.sort(function (a, b) { return b.precio - a.precio; });
                     case 'anio': return copia.sort(function (a, b) { return b.anio - a.anio; });
+                    case 'reciente': return copia.sort(function (a, b) {
+                        return new Date(b.fechaPublicacion) - new Date(a.fechaPublicacion);
+                    });
+                    // 'relevancia': se respeta el orden que devuelve la búsqueda.
                     default: return copia;
                 }
+            }
+
+            function claseDisponibilidad(d) {
+                if (d === 'Disponible') { return 'estado-aprobado'; }
+                if (d === 'Últimas copias') { return 'estado-en-revision'; }
+                if (d === 'Agotado') { return 'estado-rechazado'; }
+                return 'estado-publicado';
+            }
+
+            // Filtros actuales en la URL, para volver del detalle al mismo punto.
+            function filtrosEnURL() {
+                var p = new URLSearchParams();
+                if ($q.value.trim()) { p.set('q', $q.value.trim()); }
+                if ($campo.value !== 'todos') { p.set('campo', $campo.value); }
+                if ($genero.value) { p.set('genero', $genero.value); }
+                if ($anio.value) { p.set('anio', $anio.value); }
+                return p.toString();
             }
 
             function resaltar(texto, q) {
@@ -282,31 +333,47 @@
                     plano.slice(indice + q.length);
             }
 
-            function buscar() {
-                var q = $q.value.trim();
-                var lista = ordenar(P.buscarLibros({
-                    q: q,
+            function filtrosActuales() {
+                return {
+                    q: $q.value.trim(),
                     campo: $campo.value,
                     genero: $genero.value,
                     anio: $anio.value,
-                    precioMax: $precio.value
-                }));
+                    precioMax: $precio.value,
+                    disponibilidad: $disp.value
+                };
+            }
+
+            function buscar() {
+                var q = $q.value.trim();
+                var lista = ordenar(P.buscarLibros(filtrosActuales()));
+                var desde = filtrosEnURL();
 
                 document.getElementById('precioLabel').textContent = 'hasta ' + P.formatoMoneda($precio.value);
                 document.getElementById('contadorResultados').textContent =
-                    'Mostrando ' + lista.length + (lista.length === 1 ? ' libro' : ' libros');
+                    'Mostrando ' + lista.length + (lista.length === 1 ? ' libro' : ' libros') +
+                    ($genero.value ? ' en ' + $genero.value : '') +
+                    (q && $orden.value === 'relevancia' ? ' · ordenados por relevancia' : '');
                 document.getElementById('vacioCatalogo').classList.toggle('d-none', lista.length > 0);
+                pintarChips();
 
                 $resultados.innerHTML = lista.map(function (l) {
+                    var ficha = 'libro.html?id=' + encodeURIComponent(l.id) + (desde ? '&desde=' + encodeURIComponent(desde) : '');
                     return '' +
                         '<div class="col-lg-4 col-md-6 mb-5">' +
                         '  <div class="card libro-card border-0 bg-light shadow-sm h-100 pb-2">' +
-                        '    <img class="card-img-top libro-portada" src="' + esc(l.portada) + '" alt="' + esc(l.titulo) + '"' +
-                        '         onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                        '    <a href="' + ficha + '">' +
+                        '      <img class="card-img-top libro-portada" src="' + esc(l.portada) + '" alt="Portada de ' + esc(l.titulo) + '"' +
+                        '           onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                        '    </a>' +
                         '    <div class="card-body text-center">' +
-                        '      <h5 class="card-title mb-1">' + resaltar(l.titulo, q) + '</h5>' +
+                        '      <span class="estado-badge ' + claseDisponibilidad(l.disponibilidad) + ' mb-2">' +
+                                esc(l.disponibilidad || 'Disponible') + '</span>' +
+                        '      <h5 class="card-title mb-1"><a class="text-dark text-decoration-none" href="' + ficha + '">' +
+                                resaltar(l.titulo, q) + '</a></h5>' +
                         '      <p class="text-muted mb-2"><i class="fa fa-user-edit mr-1"></i>' + resaltar(l.autor, q) + '</p>' +
-                        '      <p class="card-text small">' + esc((l.descripcion || '').slice(0, 110)) + ((l.descripcion || '').length > 110 ? '…' : '') + '</p>' +
+                        '      <p class="card-text small">' + esc((l.sinopsis || l.descripcion || '').slice(0, 110)) +
+                                ((l.sinopsis || l.descripcion || '').length > 110 ? '\u2026' : '') + '</p>' +
                         '      <div>' + (l.keywords || []).slice(0, 4).map(function (k) {
                             return '<span class="tag-keyword">' + esc(k) + '</span>';
                         }).join('') + '</div>' +
@@ -317,7 +384,7 @@
                         '      <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Año</strong></div><div class="col-6 py-1">' + esc(l.anio) + '</div></div>' +
                         '      <div class="d-flex justify-content-between align-items-center mt-3">' +
                         '        <span class="libro-precio">' + P.formatoMoneda(l.precio) + '</span>' +
-                        '        <button class="btn btn-sm btn-primary" data-detalle="' + esc(l.id) + '">Ver detalle</button>' +
+                        '        <a class="btn btn-sm btn-primary" href="' + ficha + '">Ver detalle</a>' +
                         '      </div>' +
                         '    </div>' +
                         '  </div>' +
@@ -325,52 +392,22 @@
                 }).join('');
             }
 
-            $resultados.addEventListener('click', function (ev) {
-                var btn = ev.target.closest('[data-detalle]');
-                if (!btn) { return; }
-                var l = P.getLibro(btn.getAttribute('data-detalle'));
-                if (!l) { return; }
-                document.getElementById('modalLibroTitulo').textContent = l.titulo;
-                document.getElementById('modalLibroCuerpo').innerHTML = '' +
-                    '<div class="row">' +
-                    '  <div class="col-md-5 mb-3">' +
-                    '    <img class="img-fluid rounded" src="' + esc(l.portada) + '" alt="' + esc(l.titulo) + '" onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
-                    '  </div>' +
-                    '  <div class="col-md-7">' +
-                    '    <p class="mb-2"><strong>Autor:</strong> ' + esc(l.autor) + '</p>' +
-                    '    <p class="mb-2"><strong>Género:</strong> ' + esc(l.genero) + '</p>' +
-                    '    <p class="mb-2"><strong>Año:</strong> ' + esc(l.anio) + ' · <strong>Páginas:</strong> ' + esc(l.paginas) + '</p>' +
-                    '    <p class="mb-2"><strong>ISBN:</strong> ' + esc(l.isbn) + '</p>' +
-                    '    <p class="mb-2"><strong>Formato:</strong> ' + esc(l.formato) + '</p>' +
-                    '    <p class="mb-2"><strong>Publicado:</strong> ' + P.formatoFecha(l.fechaPublicacion) + '</p>' +
-                    '    <p class="libro-precio mt-3">' + P.formatoMoneda(l.precio) + '</p>' +
-                    '    <p>' + esc(l.descripcion) + '</p>' +
-                    '    <div class="mb-3">' + (l.keywords || []).map(function (k) {
-                        return '<span class="tag-keyword">' + esc(k) + '</span>';
-                    }).join('') + '</div>' +
-                    '    <button class="btn btn-primary" data-comprar="' + esc(l.id) + '"><i class="fa fa-shopping-cart mr-2"></i>Registrar venta</button>' +
-                    '  </div>' +
-                    '</div>';
-                $('#modalLibro').modal('show');
-            });
-
-            // La compra de demostración alimenta los reportes de ventas (requisito 4)
-            document.getElementById('modalLibroCuerpo').addEventListener('click', function (ev) {
-                var btn = ev.target.closest('[data-comprar]');
-                if (!btn) { return; }
-                var venta = P.registrarVenta({ libroId: btn.getAttribute('data-comprar'), unidades: 1, canal: 'Tienda en línea' });
-                $('#modalLibro').modal('hide');
-                P.toast('Venta registrada: ' + venta.titulo + ' · ' + P.formatoMoneda(venta.total));
+            // Catálogo completo en PDF (RF5)
+            document.getElementById('btnPDF').addEventListener('click', function () {
+                var lista = ordenar(P.buscarLibros(filtrosActuales()));
+                if (!P.catalogoPDF(lista)) {
+                    P.toast('El navegador bloqueó la ventana. Permite las ventanas emergentes para descargar el PDF.');
+                }
             });
 
             document.getElementById('btnExportarCatalogo').addEventListener('click', function () {
-                var filas = ordenar(P.buscarLibros({
-                    q: $q.value.trim(), campo: $campo.value, genero: $genero.value,
-                    anio: $anio.value, precioMax: $precio.value
-                })).map(function (l) {
+                var filas = ordenar(P.buscarLibros(filtrosActuales())).map(function (l) {
                     return {
                         Titulo: l.titulo, Autor: l.autor, Genero: l.genero, Anio: l.anio,
                         Paginas: l.paginas, Precio: l.precio, ISBN: l.isbn, Formato: l.formato,
+                        Editorial: l.editorial || 'PEGASSO Editorial',
+                        Disponibilidad: l.disponibilidad || 'Disponible',
+                        Sinopsis: l.sinopsis || l.descripcion || '',
                         PalabrasClave: (l.keywords || []).join(' | ')
                     };
                 });
@@ -380,7 +417,8 @@
 
             document.getElementById('btnLimpiar').addEventListener('click', function () {
                 $q.value = ''; $campo.value = 'todos'; $genero.value = '';
-                $anio.value = ''; $precio.value = $precio.max; $orden.value = 'reciente';
+                $anio.value = ''; $precio.value = $precio.max; $orden.value = 'relevancia';
+                $disp.value = '';
                 buscar();
             });
 
@@ -391,7 +429,7 @@
                 });
             });
 
-            [$q, $campo, $genero, $anio, $precio, $orden].forEach(function (el) {
+            [$q, $campo, $genero, $anio, $precio, $orden, $disp].forEach(function (el) {
                 el.addEventListener('input', buscar);
                 el.addEventListener('change', buscar);
             });
@@ -400,7 +438,9 @@
             // Permite llegar desde otra página con ?q=palabra
             var params = new URLSearchParams(window.location.search);
             if (params.get('q')) { $q.value = params.get('q'); }
+            if (params.get('campo')) { $campo.value = params.get('campo'); }
             if (params.get('genero')) { $genero.value = params.get('genero'); }
+            if (params.get('anio')) { $anio.value = params.get('anio'); }
 
             buscar();
         })();

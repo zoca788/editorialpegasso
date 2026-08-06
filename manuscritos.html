@@ -118,7 +118,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 mb-5">
-                    <div class="card border-0">
+                    <!-- Sin cuenta no se puede enviar la obra (RF3 + RF4) -->
+                    <div class="panel-card p-5 text-center d-none" id="bloqueoEnvio">
+                        <i class="fa fa-user-lock text-primary" style="font-size: 46px;"></i>
+                        <h4 class="mt-3">Necesitas una cuenta de autor</h4>
+                        <p class="text-muted mb-4">Para enviar tu obra a dictamen primero crea tu cuenta.
+                            Así podrás dar seguimiento a cada manuscrito y recibir las notificaciones.</p>
+                        <a href="registro.html" class="btn btn-primary py-2 px-4 mb-2">
+                            <i class="fa fa-user-plus mr-2"></i>Crear cuenta de autor
+                        </a>
+                        <br>
+                        <a href="login.html?redirect=manuscritos.html" class="btn btn-link">Ya tengo cuenta</a>
+                    </div>
+
+                    <div class="card border-0" id="tarjetaEnvio">
                         <div class="card-header bg-secondary text-center p-4">
                             <h1 class="text-white m-0">Enviar Manuscrito</h1>
                         </div>
@@ -145,8 +158,9 @@
                                     <textarea class="form-control border-0 py-3 px-4" id="msSinopsis" rows="4" placeholder="Sinopsis breve de la obra"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="file" class="form-control-file text-white" id="msArchivo" accept=".pdf,.doc,.docx,.odt">
-                                    <small class="text-white">Formatos aceptados: PDF, DOC, DOCX, ODT</small>
+                                    <input type="file" class="form-control-file text-white" id="msArchivo" accept=".pdf,.doc,.docx,.odt" required>
+                                    <small class="text-white d-block">Formatos aceptados: PDF, DOC, DOCX, ODT · máximo 20 MB</small>
+                                    <small class="text-white" id="archivoInfo"></small>
                                 </div>
                                 <div>
                                     <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Enviar manuscrito</button>
@@ -337,6 +351,7 @@
     <script src="js/main.js"></script>
     <script src="js/pegasso-data.js"></script>
     <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
 
     <script>
         (function () {
@@ -346,9 +361,9 @@
 
             // El envío y la consulta por folio son públicos; el panel con los datos
             // de los autores solo se muestra con sesión iniciada.
-            var conSesion = !!(window.PEGASSO_AUTH && window.PEGASSO_AUTH.autenticado());
-            document.getElementById('panelSeguimiento').classList.toggle('d-none', !conSesion);
-            document.getElementById('bloqueoPanel').classList.toggle('d-none', conSesion);
+            var esAdmin = !!(window.PEGASSO_AUTH && window.PEGASSO_AUTH.esAdmin());
+            document.getElementById('panelSeguimiento').classList.toggle('d-none', !esAdmin);
+            document.getElementById('bloqueoPanel').classList.toggle('d-none', esAdmin);
 
             var $tabla = document.getElementById('tablaManuscritos');
             var $vacio = document.getElementById('vacioManuscritos');
@@ -425,10 +440,50 @@
                 }).join('');
             }
 
-            // ---- Envío de manuscrito (requisito 1)
+            // ---- Solo los autores con cuenta pueden enviar obra (RF4)
+            var A = window.PEGASSO_AUTH;
+            var sesion = A ? A.sesion() : null;
+            document.getElementById('tarjetaEnvio').classList.toggle('d-none', !sesion);
+            document.getElementById('bloqueoEnvio').classList.toggle('d-none', !!sesion);
+
+            if (sesion) {
+                document.getElementById('msAutor').value = sesion.nombre || '';
+                document.getElementById('msEmail').value = sesion.email || '';
+            }
+
+            // Validación del archivo antes de enviarlo
+            var EXTENSIONES = ['pdf', 'doc', 'docx', 'odt'];
+            var MAX_MB = 20;
+
+            function validarArchivo(archivo) {
+                if (!archivo) { return 'Adjunta el archivo de tu manuscrito.'; }
+                var ext = archivo.name.split('.').pop().toLowerCase();
+                if (EXTENSIONES.indexOf(ext) === -1) {
+                    return 'Formato no aceptado (.' + ext + '). Usa PDF, DOC, DOCX u ODT.';
+                }
+                if (archivo.size > MAX_MB * 1024 * 1024) {
+                    return 'El archivo pesa ' + (archivo.size / 1048576).toFixed(1) + ' MB y el máximo es ' + MAX_MB + ' MB.';
+                }
+                if (archivo.size === 0) { return 'El archivo está vacío.'; }
+                return null;
+            }
+
+            document.getElementById('msArchivo').addEventListener('change', function () {
+                var archivo = this.files[0];
+                var info = document.getElementById('archivoInfo');
+                if (!archivo) { info.textContent = ''; return; }
+                var error = validarArchivo(archivo);
+                info.innerHTML = error
+                    ? '<i class="fa fa-times-circle mr-1"></i>' + esc(error)
+                    : '<i class="fa fa-check-circle mr-1"></i>' + esc(archivo.name) +
+                      ' (' + (archivo.size / 1048576).toFixed(2) + ' MB)';
+            });
+
+            // ---- Envío de manuscrito (requisitos 1 y 4)
             document.getElementById('formManuscrito').addEventListener('submit', function (ev) {
                 ev.preventDefault();
                 var form = ev.target;
+                var archivo = document.getElementById('msArchivo').files[0];
                 var datos = {
                     titulo: document.getElementById('msTitulo').value.trim(),
                     autor: document.getElementById('msAutor').value.trim(),
@@ -436,16 +491,27 @@
                     genero: document.getElementById('msGenero').value,
                     paginas: document.getElementById('msPaginas').value,
                     sinopsis: document.getElementById('msSinopsis').value.trim(),
-                    archivo: (document.getElementById('msArchivo').files[0] || {}).name || ''
+                    archivo: archivo ? archivo.name : ''
                 };
                 if (!datos.titulo || !datos.autor || !datos.email || !datos.genero) {
                     P.toast('Completa los campos obligatorios de la obra.');
                     return;
                 }
+                var errorArchivo = validarArchivo(archivo);
+                if (errorArchivo) {
+                    P.toast(errorArchivo);
+                    return;
+                }
                 var creado = P.agregarManuscrito(datos);
                 form.reset();
+                document.getElementById('archivoInfo').textContent = '';
+                if (sesion) {
+                    document.getElementById('msAutor').value = sesion.nombre || '';
+                    document.getElementById('msEmail').value = sesion.email || '';
+                }
                 render();
-                P.toast('Manuscrito recibido. Folio ' + creado.folio + ' — se notificó al autor.');
+                P.toast('Recibimos "' + creado.titulo + '" (' + datos.archivo + '). Folio ' +
+                    creado.folio + ' — se notificó al autor.');
                 document.getElementById('consultaFolio').value = creado.folio;
                 consultar();
             });

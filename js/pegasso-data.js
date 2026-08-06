@@ -22,7 +22,7 @@
         seed: 'pegasso_seed_version'
     };
 
-    var SEED_VERSION = '1';
+    var SEED_VERSION = '2';
 
     /* ---------------------------------------------------------------- Estados */
 
@@ -43,12 +43,203 @@
         'publicado': 'Tu obra "{titulo}" ya está publicada en el catálogo digital de PEGASSO Editorial.'
     };
 
-    var GENEROS = ['Infantil', 'Educativo', 'Religioso', 'Novela', 'Ensayo', 'Poesía', 'Didáctico'];
+    var GENEROS = ['Infantil', 'Juvenil', 'Educativo', 'Didáctico', 'Idiomas', 'Religioso', 'Novela', 'Ensayo', 'Poesía'];
 
     /* ------------------------------------------------------- Catálogo semilla */
     /* Libros que ya existen en el sitio, cargados la primera vez que se abre. */
 
     var LIBROS_SEED = [
+        /* ---------------------------------------------- Coleccion Rody Matematicas */
+        {
+            titulo: 'Rody Matemáticas - Bloque 1',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2021,
+            paginas: 180,
+            precio: 320,
+            isbn: '978-607-0001-01-1',
+            portada: 'EDUCATIVO/MATEMATICAS/rody matematicas.png',
+            descripcion: 'Cuaderno de trabajo para desarrollar el pensamiento matemático conforme a la Nueva Escuela Mexicana.',
+            keywords: ['matematicas', 'primaria', 'nem', 'ejercicios', 'rody'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Rody Matemáticas - Bloque 2',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2022,
+            paginas: 176,
+            precio: 320,
+            isbn: '978-607-0001-02-8',
+            portada: 'EDUCATIVO/MATEMATICAS/rody matematicas bloque-2.png',
+            descripcion: 'Segundo bloque de la colección: operaciones, fracciones y resolución de problemas cotidianos.',
+            keywords: ['matematicas', 'fracciones', 'problemas', 'primaria', 'rody'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Rody Matemáticas - Bloque 3',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2023,
+            paginas: 184,
+            precio: 340,
+            isbn: '978-607-0001-03-5',
+            portada: 'EDUCATIVO/MATEMATICAS/rody matematicas bloque-3.png',
+            descripcion: 'Geometría, medición y estadística básica con actividades para trabajar en casa y en el aula.',
+            keywords: ['matematicas', 'geometria', 'medicion', 'estadistica', 'rody'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Rody Matemáticas - Guía del Docente',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Didáctico',
+            anio: 2023,
+            paginas: 96,
+            precio: 260,
+            isbn: '978-607-0001-04-2',
+            portada: 'EDUCATIVO/MATEMATICAS/f92d7a03-b020-4093-9464-c714ab4b06dd.png',
+            descripcion: 'Secuencias didácticas, rúbricas y soluciones para acompañar los tres bloques de la colección.',
+            keywords: ['docente', 'planeacion', 'rubricas', 'matematicas', 'nem'],
+            formato: 'Digital (PDF)'
+        },
+
+        /* ------------------------------------------------ Coleccion Lectoescritura */
+        {
+            titulo: 'Lectoescritura Rody - Cuaderno 1',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2022,
+            paginas: 160,
+            precio: 310,
+            isbn: '978-607-0001-05-9',
+            portada: 'EDUCATIVO/LECTOESCRITURA/PORTA LECTO 1.png',
+            descripcion: 'Método integral de lectoescritura con actividades graduadas para primeros lectores.',
+            keywords: ['lectoescritura', 'lectura', 'escritura', 'preescolar', 'trazos'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Lectoescritura Rody - Cuaderno 2',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2022,
+            paginas: 158,
+            precio: 310,
+            isbn: '978-607-0001-06-6',
+            portada: 'EDUCATIVO/LECTOESCRITURA/PORTA LECTO 2.png',
+            descripcion: 'Sílabas compuestas, formación de palabras y primeras oraciones con apoyo visual.',
+            keywords: ['lectoescritura', 'silabas', 'palabras', 'primaria'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Lectoescritura Rody - Cuaderno 3',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2023,
+            paginas: 164,
+            precio: 320,
+            isbn: '978-607-0001-07-3',
+            portada: 'EDUCATIVO/LECTOESCRITURA/PORTA LECTO 3.png',
+            descripcion: 'Comprensión lectora, dictado y redacción de textos breves para segundo grado.',
+            keywords: ['comprension lectora', 'dictado', 'redaccion', 'lectoescritura'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Lectoescritura Rody - Cuaderno 4',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Educativo',
+            anio: 2024,
+            paginas: 168,
+            precio: 330,
+            isbn: '978-607-0001-08-0',
+            portada: 'EDUCATIVO/LECTOESCRITURA/PORTA LECTO 4.png',
+            descripcion: 'Ortografía, tipos de texto y producción escrita con proyectos integradores.',
+            keywords: ['ortografia', 'redaccion', 'proyectos', 'lectoescritura'],
+            formato: 'Digital (PDF)'
+        },
+
+        /* --------------------------------------------------- Coleccion de Idiomas */
+        {
+            titulo: 'Curso de Inglés PEGASSO - Nivel Básico',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Idiomas',
+            anio: 2024,
+            paginas: 210,
+            precio: 380,
+            isbn: '978-607-0001-09-7',
+            portada: 'EDUCATIVO/CURSO DE INGLÉS/c0bf3554-eed0-4809-8c1e-5a6e8d0509c1.png',
+            descripcion: 'Curso de inglés con audios y ejercicios prácticos para el nivel básico escolar.',
+            keywords: ['ingles', 'idiomas', 'curso', 'basico', 'bilingue'],
+            formato: 'Digital (PDF + audio)'
+        },
+        {
+            titulo: 'Curso de Inglés PEGASSO - Nivel Intermedio',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Idiomas',
+            anio: 2025,
+            paginas: 224,
+            precio: 410,
+            isbn: '978-607-0001-10-3',
+            portada: 'EDUCATIVO/CURSO DE INGLÉS/4451c69d-7956-4bc8-8260-7424a651e0c-2.png',
+            descripcion: 'Segundo nivel: tiempos verbales, conversación guiada y comprensión auditiva.',
+            keywords: ['ingles', 'idiomas', 'intermedio', 'conversacion', 'gramatica'],
+            formato: 'Digital (PDF + audio)'
+        },
+
+        /* --------------------------------------------- Coleccion Conoce y Descubre */
+        {
+            titulo: 'Conoce y Descubre 1: Dinosaurios',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Didáctico',
+            anio: 2022,
+            paginas: 140,
+            precio: 290,
+            isbn: '978-607-0001-11-0',
+            portada: 'EDUCATIVO/CONOCE Y DESCUBRE/libro-tomo-dinosaurio-web.png',
+            descripcion: 'Los gigantes que habitaron la Tierra, explicados con ilustraciones y datos sorprendentes.',
+            keywords: ['dinosaurios', 'ciencia', 'prehistoria', 'infantil', 'descubrir'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Conoce y Descubre 2: El Cuerpo Humano',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Didáctico',
+            anio: 2023,
+            paginas: 140,
+            precio: 290,
+            isbn: '978-607-0001-12-7',
+            portada: 'EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE-2.png',
+            descripcion: 'Un recorrido por los sistemas del cuerpo humano con lenguaje claro para niñas y niños.',
+            keywords: ['cuerpo humano', 'anatomia', 'ciencia', 'salud', 'infantil'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Conoce y Descubre 3: Grandes Inventos',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Didáctico',
+            anio: 2023,
+            paginas: 144,
+            precio: 295,
+            isbn: '978-607-0001-13-4',
+            portada: 'EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE-3.png',
+            descripcion: 'Los inventos que cambiaron la historia y las mentes curiosas que los hicieron posibles.',
+            keywords: ['inventos', 'historia', 'tecnologia', 'ciencia', 'descubrir'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Conoce y Descubre 4: Nuestro Planeta',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Didáctico',
+            anio: 2024,
+            paginas: 148,
+            precio: 300,
+            isbn: '978-607-0001-14-1',
+            portada: 'EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE.png',
+            descripcion: 'Ecosistemas, biodiversidad y cuidado del medio ambiente en un libro borrable y reutilizable.',
+            keywords: ['planeta', 'ecologia', 'biodiversidad', 'medio ambiente', 'ciencia'],
+            formato: 'Digital (PDF)'
+        },
+
+        /* ------------------------------------------------- Coleccion El Principito */
         {
             titulo: 'El Principito - Edición Ilustrada',
             autor: 'Antoine de Saint-Exupéry',
@@ -56,77 +247,53 @@
             anio: 2023,
             paginas: 120,
             precio: 249,
-            isbn: '978-607-0001-01-1',
+            isbn: '978-607-0001-15-8',
             portada: 'EDUCATIVO/EL PRINCIPITO/PRINCIPITO.PNG',
-            descripcion: 'Una historia mágica llena de enseñanzas valiosas para los más pequeños, con ilustraciones originales de PEGASSO.',
+            descripcion: 'Una historia mágica llena de enseñanzas valiosas, con ilustraciones originales de PEGASSO.',
             keywords: ['principito', 'ilustrado', 'infantil', 'clasico', 'lectura'],
             formato: 'Digital (PDF/EPUB)'
         },
         {
-            titulo: 'Rody Matemáticas',
+            titulo: 'El Principito - Cuaderno de Actividades',
             autor: 'Equipo Pedagógico PEGASSO',
-            genero: 'Educativo',
-            anio: 2021,
-            paginas: 180,
-            precio: 320,
-            isbn: '978-607-0001-02-8',
-            portada: 'EDUCATIVO/MATEMATICAS/rody matematicas.png',
-            descripcion: 'Cuaderno de trabajo por bloques para desarrollar el pensamiento matemático conforme a la Nueva Escuela Mexicana.',
-            keywords: ['matematicas', 'primaria', 'nem', 'ejercicios', 'rody'],
-            formato: 'Digital (PDF)'
-        },
-        {
-            titulo: 'Lectoescritura Rody',
-            autor: 'Equipo Pedagógico PEGASSO',
-            genero: 'Educativo',
-            anio: 2022,
-            paginas: 160,
-            precio: 310,
-            isbn: '978-607-0001-03-5',
-            portada: 'EDUCATIVO/LECTOESCRITURA/PORTA LECTO 1.png',
-            descripcion: 'Método integral de lectoescritura con actividades graduadas para primeros lectores.',
-            keywords: ['lectoescritura', 'lectura', 'escritura', 'preescolar', 'primaria'],
-            formato: 'Digital (PDF)'
-        },
-        {
-            titulo: 'Curso de Inglés PEGASSO',
-            autor: 'Equipo Pedagógico PEGASSO',
-            genero: 'Educativo',
-            anio: 2024,
-            paginas: 210,
-            precio: 380,
-            isbn: '978-607-0001-04-2',
-            portada: 'EDUCATIVO/CURSO DE INGLÉS/c0bf3554-eed0-4809-8c1e-5a6e8d0509c1.png',
-            descripcion: 'Curso de inglés por niveles con audios y ejercicios prácticos para nivel básico escolar.',
-            keywords: ['ingles', 'idiomas', 'curso', 'bilingue'],
-            formato: 'Digital (PDF + audio)'
-        },
-        {
-            titulo: 'Conoce y Descubre',
-            autor: 'Equipo Pedagógico PEGASSO',
-            genero: 'Didáctico',
+            genero: 'Infantil',
             anio: 2023,
-            paginas: 140,
-            precio: 290,
-            isbn: '978-607-0001-05-9',
-            portada: 'EDUCATIVO/CONOCE Y DESCUBRE/RODY-CONOCE.png',
-            descripcion: 'Colección de tomos temáticos que despiertan la curiosidad científica de niñas y niños.',
-            keywords: ['ciencia', 'descubrir', 'dinosaurios', 'coleccion', 'infantil'],
+            paginas: 64,
+            precio: 180,
+            isbn: '978-607-0001-16-5',
+            portada: 'EDUCATIVO/EL PRINCIPITO/PRINCIPITO-2.PNG',
+            descripcion: 'Juegos, recortables y ejercicios de comprensión para acompañar la lectura del clásico.',
+            keywords: ['principito', 'actividades', 'juegos', 'comprension', 'infantil'],
             formato: 'Digital (PDF)'
         },
         {
-            titulo: 'Mariología',
-            autor: 'Pbro. J. Rodríguez',
-            genero: 'Religioso',
-            anio: 2022,
-            paginas: 250,
-            precio: 420,
-            isbn: '978-607-0001-06-6',
-            portada: 'img/RELIGIOSO/MARIOLOGIA/PORTADA LIBRO-2.png',
-            descripcion: 'Estudio profundo sobre la figura de María en la tradición y el magisterio de la Iglesia.',
-            keywords: ['mariologia', 'maria', 'teologia', 'catolico', 'fe'],
+            titulo: 'El Principito - Edición Escolar Comentada',
+            autor: 'Antoine de Saint-Exupéry',
+            genero: 'Juvenil',
+            anio: 2024,
+            paginas: 156,
+            precio: 285,
+            isbn: '978-607-0001-17-2',
+            portada: 'EDUCATIVO/EL PRINCIPITO/PRINCIPITO-5.PNG',
+            descripcion: 'Texto íntegro con notas al margen, contexto histórico y preguntas de análisis para secundaria.',
+            keywords: ['principito', 'escolar', 'comentada', 'secundaria', 'analisis'],
             formato: 'Digital (PDF/EPUB)'
         },
+        {
+            titulo: 'El Principito - Guía de Lectura para Docentes',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Didáctico',
+            anio: 2024,
+            paginas: 72,
+            precio: 195,
+            isbn: '978-607-0001-18-9',
+            portada: 'EDUCATIVO/EL PRINCIPITO/PRINCIPITO-7.PNG',
+            descripcion: 'Planeación por sesiones, dinámicas de grupo y evaluación para trabajar la obra en el aula.',
+            keywords: ['docente', 'guia', 'planeacion', 'principito', 'lectura'],
+            formato: 'Digital (PDF)'
+        },
+
+        /* ----------------------------------------------------- Coleccion Religiosa */
         {
             titulo: 'Biblia de Estudio PEGASSO',
             autor: 'Comité Bíblico PEGASSO',
@@ -134,36 +301,36 @@
             anio: 2024,
             paginas: 1450,
             precio: 890,
-            isbn: '978-607-0001-07-3',
+            isbn: '978-607-0001-19-6',
             portada: 'img/RELIGIOSO/BIBLIA DE ESTUDIO/BIBLIA-ESTUDIO.png',
             descripcion: 'Biblia con notas de estudio, mapas, cronologías y comentarios versículo por versículo.',
-            keywords: ['biblia', 'estudio', 'comentarios', 'escrituras'],
+            keywords: ['biblia', 'estudio', 'comentarios', 'escrituras', 'mapas'],
             formato: 'Digital (PDF/EPUB)'
         },
         {
-            titulo: 'Biblia Infantil Ilustrada',
+            titulo: 'Biblia de Estudio - Edición de Bolsillo',
             autor: 'Comité Bíblico PEGASSO',
-            genero: 'Infantil',
-            anio: 2023,
-            paginas: 220,
-            precio: 350,
-            isbn: '978-607-0001-08-0',
-            portada: 'img/RELIGIOSO/BIBLIA INFANTIL/PORTADA.png',
-            descripcion: 'Relatos bíblicos adaptados para niños con ilustraciones a todo color.',
-            keywords: ['biblia', 'infantil', 'ilustrada', 'catequesis'],
-            formato: 'Digital (PDF)'
+            genero: 'Religioso',
+            anio: 2025,
+            paginas: 1180,
+            precio: 620,
+            isbn: '978-607-0001-20-2',
+            portada: 'img/RELIGIOSO/BIBLIA DE ESTUDIO/BIBLIA-ESTUDIO-2.png',
+            descripcion: 'La misma edición de estudio en formato compacto, ideal para grupos parroquiales y viaje.',
+            keywords: ['biblia', 'bolsillo', 'estudio', 'parroquia', 'grupos'],
+            formato: 'Digital (EPUB)'
         },
         {
-            titulo: 'Defendiendo la Fe',
-            autor: 'Pbro. J. Rodríguez',
-            genero: 'Ensayo',
-            anio: 2024,
-            paginas: 310,
-            precio: 460,
-            isbn: '978-607-0001-09-7',
-            portada: 'img/RELIGIOSO/DEFENDIENDO LA FE/EN-DEFENSA-1-PAGINADO-TERMINA-EN-IZQ-2024-2.png',
-            descripcion: 'Apologética accesible para responder las preguntas más frecuentes sobre la fe católica.',
-            keywords: ['apologetica', 'fe', 'ensayo', 'catolico', 'defensa'],
+            titulo: 'Biblia de Estudio - Edición Familiar',
+            autor: 'Comité Bíblico PEGASSO',
+            genero: 'Religioso',
+            anio: 2025,
+            paginas: 1520,
+            precio: 980,
+            isbn: '978-607-0001-21-9',
+            portada: 'img/RELIGIOSO/BIBLIA DE ESTUDIO/BIBLIA-ESTUDIO-3.png',
+            descripcion: 'Edición con árbol genealógico, guía de lectura anual y espacio para registros familiares.',
+            keywords: ['biblia', 'familiar', 'lectura anual', 'hogar', 'estudio'],
             formato: 'Digital (PDF/EPUB)'
         },
         {
@@ -173,11 +340,89 @@
             anio: 2023,
             paginas: 980,
             precio: 1250,
-            isbn: '978-607-0001-10-3',
+            isbn: '978-607-0001-22-6',
             portada: 'img/RELIGIOSO/BIBLIA DE ARTE/AIE23072-biblia-de-arte-PEGASSO-1.JPG',
             descripcion: 'Edición de lujo que acompaña el texto bíblico con obras maestras del arte sacro universal.',
             keywords: ['biblia', 'arte', 'lujo', 'coleccion', 'sacro'],
             formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Biblia Infantil Ilustrada',
+            autor: 'Comité Bíblico PEGASSO',
+            genero: 'Infantil',
+            anio: 2023,
+            paginas: 220,
+            precio: 350,
+            isbn: '978-607-0001-23-3',
+            portada: 'img/RELIGIOSO/BIBLIA INFANTIL/PORTADA.png',
+            descripcion: 'Relatos bíblicos adaptados para niños con ilustraciones a todo color.',
+            keywords: ['biblia', 'infantil', 'ilustrada', 'catequesis', 'relatos'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Biblia Infantil - Nuevo Testamento para Niños',
+            autor: 'Comité Bíblico PEGASSO',
+            genero: 'Infantil',
+            anio: 2024,
+            paginas: 190,
+            precio: 320,
+            isbn: '978-607-0001-24-0',
+            portada: 'img/RELIGIOSO/BIBLIA INFANTIL/biblia infantil pegasso.png',
+            descripcion: 'La vida y las parábolas de Jesús contadas con lenguaje sencillo para primeros lectores.',
+            keywords: ['nuevo testamento', 'jesus', 'parabolas', 'infantil', 'catequesis'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Mariología',
+            autor: 'Pbro. J. Rodríguez',
+            genero: 'Religioso',
+            anio: 2022,
+            paginas: 250,
+            precio: 420,
+            isbn: '978-607-0001-25-7',
+            portada: 'img/RELIGIOSO/MARIOLOGIA/PORTADA LIBRO-2.png',
+            descripcion: 'Estudio sobre la figura de María en la tradición y el magisterio de la Iglesia.',
+            keywords: ['mariologia', 'maria', 'teologia', 'catolico', 'fe'],
+            formato: 'Digital (PDF/EPUB)'
+        },
+        {
+            titulo: 'Mariología - Edición de Estudio',
+            autor: 'Pbro. J. Rodríguez',
+            genero: 'Ensayo',
+            anio: 2024,
+            paginas: 310,
+            precio: 520,
+            isbn: '978-607-0001-26-4',
+            portada: 'img/RELIGIOSO/MARIOLOGIA/PORTADA LIBRO-3.png',
+            descripcion: 'Versión ampliada con aparato crítico, fuentes patrísticas y guía para seminarios.',
+            keywords: ['mariologia', 'patristica', 'seminario', 'teologia', 'estudio'],
+            formato: 'Digital (PDF)'
+        },
+        {
+            titulo: 'Defendiendo la Fe - Tomo I',
+            autor: 'Pbro. J. Rodríguez',
+            genero: 'Ensayo',
+            anio: 2024,
+            paginas: 310,
+            precio: 460,
+            isbn: '978-607-0001-27-1',
+            portada: 'img/RELIGIOSO/DEFENDIENDO LA FE/EN-DEFENSA-1-PAGINADO-TERMINA-EN-IZQ-2024-2.png',
+            descripcion: 'Apologética accesible para responder las preguntas más frecuentes sobre la fe católica.',
+            keywords: ['apologetica', 'fe', 'ensayo', 'catolico', 'defensa'],
+            formato: 'Digital (PDF/EPUB)'
+        },
+        {
+            titulo: 'Defendiendo la Fe - Tomo II',
+            autor: 'Pbro. J. Rodríguez',
+            genero: 'Ensayo',
+            anio: 2025,
+            paginas: 328,
+            precio: 480,
+            isbn: '978-607-0001-28-8',
+            portada: 'img/RELIGIOSO/DEFENDIENDO LA FE/EN-DEFENSA-2-PAGINADO-TERMINA-EN-IZQ-RECUPERADO-2024-2-2.png',
+            descripcion: 'Segunda parte: sacramentos, historia de la Iglesia y objeciones contemporáneas.',
+            keywords: ['apologetica', 'sacramentos', 'historia', 'iglesia', 'fe'],
+            formato: 'Digital (PDF/EPUB)'
         }
     ];
 
@@ -331,7 +576,7 @@
         var libros = LIBROS_SEED.map(function (l, i) {
             return Object.assign({}, l, {
                 id: 'lib-seed-' + (i + 1),
-                fechaPublicacion: fechaMenos(120 - i * 9),
+                fechaPublicacion: fechaMenos(15 + i * 12),
                 keywords: l.keywords.slice(),
                 publicado: true,
                 origen: 'catalogo'
@@ -404,10 +649,13 @@
         var canales = ['Tienda en línea', 'Librería aliada', 'Venta directa', 'Distribuidor escolar'];
         var hoy = new Date();
         libros.forEach(function (libro, li) {
+            var publicado = new Date(libro.fechaPublicacion);
             for (var mes = 11; mes >= 0; mes--) {
                 var operaciones = 1 + Math.floor(rnd() * 4);
                 for (var k = 0; k < operaciones; k++) {
                     var f = new Date(hoy.getFullYear(), hoy.getMonth() - mes, 1 + Math.floor(rnd() * 27));
+                    // Un libro no puede tener ventas anteriores a su publicación.
+                    if (f < publicado) { continue; }
                     var unidades = 1 + Math.floor(rnd() * 18);
                     ventas.push({
                         id: 'ven-seed-' + li + '-' + mes + '-' + k,

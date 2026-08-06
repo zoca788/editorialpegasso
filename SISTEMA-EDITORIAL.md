@@ -38,8 +38,18 @@ El menú muestra el usuario conectado con la opción de cerrar sesión.
 
 - `js/pegasso-data.js` — capa de datos compartida: catálogo, manuscritos, ventas,
   notificaciones, búsquedas, agregados de reportes, exportación CSV y avisos flotantes.
-  Incluye datos de demostración (10 libros del sitio, 5 manuscritos y 12 meses de ventas)
+  Incluye datos de demostración (28 libros del sitio, 5 manuscritos y 12 meses de ventas)
   que se cargan la primera vez que se abre el sitio.
+
+  El catálogo cubre las colecciones reales con sus portadas: Rody Matemáticas (3 bloques
+  y guía docente), Lectoescritura (4 cuadernos), Curso de Inglés (2 niveles), Conoce y
+  Descubre (4 tomos), El Principito (4 ediciones) y la línea religiosa (Biblia de Estudio
+  en 3 ediciones, Biblia de Arte, Biblia Infantil en 2 títulos, Mariología en 2 ediciones
+  y Defendiendo la Fe en 2 tomos). Géneros disponibles: Infantil, Juvenil, Educativo,
+  Didáctico, Idiomas, Religioso, Novela, Ensayo y Poesía.
+
+  Al ampliar el catálogo se subió `SEED_VERSION` a `2`, así que la primera visita después
+  del cambio recarga los datos de demostración.
 - `js/pegasso-auth.js` — control de acceso: usuarios, sesión, guarda de páginas
   protegidas y menú de usuario en la barra de navegación.
 - `css/pegasso-app.css` — estilos del sistema respetando la paleta original

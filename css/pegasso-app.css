@@ -1,0 +1,333 @@
+/* ==========================================================================
+   PEGASSO - Estilos del sistema editorial (manuscritos, catálogo, reportes)
+   Reutiliza la paleta y el estilo del sitio: --primary #17a2b8 / --secondary #00394f
+   ========================================================================== */
+
+body {
+    background: linear-gradient(to bottom, #bed9ee, #f4dede);
+    background-attachment: fixed;
+    font-family: 'Nunito', sans-serif;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+.btn {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 15px rgba(23, 162, 184, 0.6);
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+    transition: transform 0.4s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.bg-primary {
+    background: linear-gradient(90deg, #4e72d8, #198cd8) !important;
+}
+
+.container-fluid.bg-primary h1,
+.container-fluid.bg-primary h3,
+.container-fluid.bg-primary h4 {
+    font-family: 'Cormorant Garamond', serif !important;
+}
+
+/* --------------------------------------------------------------------------
+   Paneles del sistema
+   -------------------------------------------------------------------------- */
+
+.panel-card {
+    background: #fff;
+    border: 0;
+    border-radius: .5rem;
+    box-shadow: 0 4px 18px rgba(0, 57, 79, .08);
+}
+
+.panel-card .panel-card-header {
+    background: #fff;
+    border-bottom: 1px solid rgba(23, 162, 184, .25);
+    border-radius: .5rem .5rem 0 0;
+    padding: 1.25rem 1.5rem;
+}
+
+.panel-card .panel-card-header h4 {
+    margin: 0;
+    color: #00394f;
+}
+
+/* Tarjetas de métricas (KPI) */
+.kpi-card {
+    background: #fff;
+    border-radius: .5rem;
+    border-top: 3px solid #17a2b8;
+    box-shadow: 0 4px 18px rgba(0, 57, 79, .08);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.kpi-card .kpi-label {
+    color: #6c757d;
+    font-size: 14px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.kpi-card .kpi-value {
+    color: #00394f;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: .25rem 0 0;
+}
+
+.kpi-card .kpi-hint {
+    color: #17a2b8;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Estados de manuscrito */
+.estado-badge {
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    padding: .35rem .85rem;
+    white-space: nowrap;
+}
+
+.estado-recibido {
+    background: #e2e3e5;
+    color: #41464b;
+}
+
+.estado-en-revision {
+    background: #fff3cd;
+    color: #8a6100;
+}
+
+.estado-aprobado {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.estado-rechazado {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.estado-publicado {
+    background: #cfe9ee;
+    color: #00394f;
+}
+
+/* Línea de tiempo del seguimiento */
+.timeline {
+    border-left: 2px solid rgba(23, 162, 184, .35);
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1.25rem;
+}
+
+.timeline li {
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+.timeline li::before {
+    background: #17a2b8;
+    border-radius: 50%;
+    content: '';
+    height: 10px;
+    left: -1.55rem;
+    position: absolute;
+    top: 6px;
+    width: 10px;
+}
+
+.timeline .timeline-fecha {
+    color: #6c757d;
+    display: block;
+    font-size: 12px;
+}
+
+/* Tablas del sistema */
+.table-pegasso thead th {
+    background: #00394f;
+    border: 0;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.table-pegasso tbody tr {
+    background: #fff;
+}
+
+.table-pegasso tbody tr:hover {
+    background: #f1f9fb;
+}
+
+/* Gráfica de barras (reportes de ventas, sin librerías externas) */
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 260px;
+    overflow-x: auto;
+    padding-top: 1rem;
+}
+
+.bar-chart .bar-col {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    min-width: 40px;
+    text-align: center;
+}
+
+.bar-chart .bar {
+    background: linear-gradient(180deg, #4e72d8, #17a2b8);
+    border-radius: 6px 6px 0 0;
+    min-height: 4px;
+    transition: height .6s ease;
+    width: 100%;
+}
+
+.bar-chart .bar-col:hover .bar {
+    filter: brightness(1.12);
+}
+
+.bar-chart .bar-value {
+    color: #00394f;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.bar-chart .bar-label {
+    color: #6c757d;
+    font-size: 12px;
+    margin-top: .35rem;
+    word-break: break-word;
+}
+
+/* Notificaciones */
+.notif-item {
+    background: #fff;
+    border-left: 4px solid #17a2b8;
+    border-radius: .35rem;
+    box-shadow: 0 3px 12px rgba(0, 57, 79, .07);
+    margin-bottom: 1rem;
+    padding: 1.1rem 1.25rem;
+}
+
+.notif-item.no-leida {
+    background: #f1f9fb;
+    border-left-color: #4e72d8;
+}
+
+.notif-item .notif-titulo {
+    color: #00394f;
+    font-weight: 700;
+    margin: 0;
+}
+
+.notif-item .notif-meta {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+/* Resultados de búsqueda del catálogo */
+.libro-card .libro-portada {
+    background: #f8f9fa;
+    height: 260px;
+    object-fit: contain;
+    padding: .5rem;
+    width: 100%;
+}
+
+.libro-card .libro-precio {
+    color: #00394f;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.tag-keyword {
+    background: rgba(23, 162, 184, .12);
+    border-radius: 20px;
+    color: #0c6b7a;
+    display: inline-block;
+    font-size: 11px;
+    margin: 0 .25rem .25rem 0;
+    padding: .15rem .6rem;
+}
+
+/* Aviso flotante de acción realizada */
+.app-toast {
+    background: #00394f;
+    border-radius: .4rem;
+    bottom: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+    color: #fff;
+    left: 50%;
+    max-width: 90vw;
+    opacity: 0;
+    padding: .9rem 1.4rem;
+    pointer-events: none;
+    position: fixed;
+    transform: translate(-50%, 20px);
+    transition: all .35s ease;
+    z-index: 2000;
+}
+
+.app-toast.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.empty-state {
+    color: #6c757d;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.empty-state i {
+    color: rgba(23, 162, 184, .5);
+    font-size: 46px;
+}

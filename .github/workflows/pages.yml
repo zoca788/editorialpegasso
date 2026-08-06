@@ -28,11 +28,31 @@ jobs:
       - name: Configurar Pages
         uses: actions/configure-pages@v5
 
+      # El repositorio pesa ~372 MB y el despliegue se agotaba por tiempo.
+      # Estas carpetas no las referencia ninguna pagina (RELIGIOSO/ es copia
+      # de img/RELIGIOSO/, y scss/ son fuentes de Bootstrap, no se sirven),
+      # asi que se quedan en el repositorio pero no se publican.
+      - name: Preparar el sitio
+        run: |
+          mkdir -p _sitio
+          rsync -a ./ _sitio/ \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_sitio' \
+            --exclude 'RELIGIOSO/' \
+            --exclude 'LOGO RODY OBRAS/' \
+            --exclude 'ELEMENTOS/' \
+            --exclude 'scss/'
+          echo "Tamano publicado:"
+          du -sh _sitio
+
       - name: Empaquetar el sitio
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _sitio
 
       - name: Desplegar
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000

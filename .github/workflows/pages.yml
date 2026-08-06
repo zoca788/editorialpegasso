@@ -35,16 +35,20 @@ jobs:
       - name: Preparar el sitio
         run: |
           mkdir -p _sitio
+          # Las rutas van ancladas con "/" para no excluir img/RELIGIOSO/,
+          # que si se usa en el catalogo y en la pagina religiosa.
           rsync -a ./ _sitio/ \
-            --exclude '.git' \
-            --exclude '.github' \
-            --exclude '_sitio' \
-            --exclude 'RELIGIOSO/' \
-            --exclude 'LOGO RODY OBRAS/' \
-            --exclude 'ELEMENTOS/' \
-            --exclude 'scss/'
+            --exclude '/.git' \
+            --exclude '/.github' \
+            --exclude '/_sitio' \
+            --exclude '/RELIGIOSO/' \
+            --exclude '/LOGO RODY OBRAS/' \
+            --exclude '/ELEMENTOS/' \
+            --exclude '/scss/'
           echo "Tamano publicado:"
           du -sh _sitio
+          echo "Portadas religiosas incluidas:"
+          find _sitio/img/RELIGIOSO -type f | wc -l
 
       - name: Empaquetar el sitio
         uses: actions/upload-pages-artifact@v3

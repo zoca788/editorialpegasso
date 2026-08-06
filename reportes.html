@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Reportes de Ventas</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="reportes, ventas, editorial, indicadores" name="keywords">
+    <meta content="Reportes de ventas de los libros de PEGASSO Editorial para la toma de decisiones." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+    <style>
+        @media print {
+            .navbar, .container-fluid.bg-primary, .no-print, .back-to-top, .bg-secondary.text-white { display: none !important; }
+            body { background: #fff !important; }
+        }
+    </style>
+
+    <!-- Control de acceso: seccion interna, requiere sesion iniciada -->
+    <script src="js/pegasso-auth.js"></script>
+    <script>PEGASSO_AUTH.requerirSesion();</script>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="catalogo.html" class="nav-item nav-link">Catálogo</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Editorial</a>
+                        <div class="dropdown-menu border-0 rounded-0 m-0">
+                            <a href="manuscritos.html" class="dropdown-item">Manuscritos</a>
+                            <a href="publicar.html" class="dropdown-item">Publicar libro digital</a>
+                            <a href="reportes.html" class="dropdown-item active">Reportes de ventas</a>
+                            <a href="notificaciones.html" class="dropdown-item">Notificaciones <span class="badge badge-primary ml-1" data-notif-badge>0</span></a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Reportes de Ventas</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Reportes</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Filtros Start -->
+    <div class="container-fluid pt-3">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Inteligencia Editorial</span></p>
+                <h1 class="mb-4">Ventas para la toma de decisiones</h1>
+            </div>
+
+            <div class="panel-card p-4 mb-5 no-print">
+                <div class="row">
+                    <div class="col-lg-2 col-md-4 mb-3">
+                        <label class="font-weight-bold mb-1">Periodo</label>
+                        <select class="custom-select" id="periodo">
+                            <option value="30">Últimos 30 días</option>
+                            <option value="90">Últimos 3 meses</option>
+                            <option value="180">Últimos 6 meses</option>
+                            <option value="365" selected>Últimos 12 meses</option>
+                            <option value="0">Todo el histórico</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-3">
+                        <label class="font-weight-bold mb-1">Desde</label>
+                        <input type="date" class="form-control" id="desde" disabled>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-3">
+                        <label class="font-weight-bold mb-1">Hasta</label>
+                        <input type="date" class="form-control" id="hasta" disabled>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-3">
+                        <label class="font-weight-bold mb-1">Género</label>
+                        <select class="custom-select" id="fGenero"><option value="">Todos</option></select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-3">
+                        <label class="font-weight-bold mb-1">Canal</label>
+                        <select class="custom-select" id="fCanal"><option value="">Todos</option></select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-3">
+                        <label class="font-weight-bold mb-1">Libro</label>
+                        <select class="custom-select" id="fLibro"><option value="">Todos</option></select>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-outline-secondary mr-2" id="btnImprimir"><i class="fa fa-print mr-1"></i>Imprimir / PDF</button>
+                    <button class="btn btn-primary" id="btnExportar"><i class="fa fa-file-csv mr-1"></i>Exportar CSV</button>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <div class="row mb-5">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Ingresos totales</p>
+                        <p class="kpi-value" id="kpiIngresos">$0.00</p>
+                        <p class="kpi-hint" id="kpiIngresosHint">&nbsp;</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Ejemplares vendidos</p>
+                        <p class="kpi-value" id="kpiUnidades">0</p>
+                        <p class="kpi-hint"><i class="fa fa-book mr-1"></i>En el periodo</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Operaciones</p>
+                        <p class="kpi-value" id="kpiOperaciones">0</p>
+                        <p class="kpi-hint"><i class="fa fa-receipt mr-1"></i>Ventas registradas</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Ticket promedio</p>
+                        <p class="kpi-value" id="kpiTicket">$0.00</p>
+                        <p class="kpi-hint"><i class="fa fa-chart-line mr-1"></i>Por operación</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfica mensual -->
+            <div class="panel-card mb-5">
+                <div class="panel-card-header d-flex justify-content-between align-items-center">
+                    <h4>Ingresos por mes</h4>
+                    <div class="btn-group btn-group-sm no-print" role="group">
+                        <button type="button" class="btn btn-outline-primary active" data-metrica="ingresos">Ingresos</button>
+                        <button type="button" class="btn btn-outline-primary" data-metrica="unidades">Unidades</button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="bar-chart" id="grafica"></div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <!-- Ranking de libros -->
+                <div class="col-lg-7 mb-4">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header"><h4>Libros más vendidos</h4></div>
+                        <div class="table-responsive">
+                            <table class="table table-pegasso mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Libro</th>
+                                        <th>Género</th>
+                                        <th class="text-right">Unidades</th>
+                                        <th class="text-right">Ingresos</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaRanking"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Por canal y género -->
+                <div class="col-lg-5 mb-4">
+                    <div class="panel-card mb-4">
+                        <div class="panel-card-header"><h4>Por canal de venta</h4></div>
+                        <div class="p-4" id="listaCanales"></div>
+                    </div>
+                    <div class="panel-card">
+                        <div class="panel-card-header"><h4>Por género</h4></div>
+                        <div class="p-4" id="listaGeneros"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalle -->
+            <div class="panel-card mb-5">
+                <div class="panel-card-header d-flex justify-content-between align-items-center">
+                    <h4>Detalle de operaciones</h4>
+                    <span class="text-muted small" id="detalleContador"></span>
+                </div>
+                <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
+                    <table class="table table-pegasso mb-0">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Libro</th>
+                                <th>Género</th>
+                                <th>Canal</th>
+                                <th class="text-right">Unidades</th>
+                                <th class="text-right">P. unitario</th>
+                                <th class="text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaDetalle"></tbody>
+                    </table>
+                </div>
+                <div id="vacioReporte" class="empty-state d-none">
+                    <i class="fa fa-chart-bar d-block mb-3"></i>
+                    <p class="m-0">No hay ventas registradas en este periodo.</p>
+                </div>
+            </div>
+
+            <!-- Registrar venta -->
+            <div class="panel-card mb-5 no-print">
+                <div class="panel-card-header"><h4>Registrar una venta</h4></div>
+                <div class="p-4">
+                    <form id="formVenta" class="form-row align-items-end">
+                        <div class="form-group col-md-4">
+                            <label class="font-weight-bold">Libro</label>
+                            <select class="custom-select" id="vLibro" required></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold">Unidades</label>
+                            <input type="number" class="form-control" id="vUnidades" min="1" value="1" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="font-weight-bold">Canal</label>
+                            <select class="custom-select" id="vCanal">
+                                <option>Tienda en línea</option>
+                                <option>Librería aliada</option>
+                                <option>Venta directa</option>
+                                <option>Distribuidor escolar</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="font-weight-bold">Fecha</label>
+                            <input type="date" class="form-control" id="vFecha">
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Filtros End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <i class="flaticon-032-book"></i>
+                    <span class="text-white">PEGASSO</span>
+                </a>
+                <p>PEGASSO Editorial se dedica a la publicación de obras literarias de calidad. Desde novelas hasta ensayos, conectamos autores con lectores apasionados por la literatura en todo el mundo.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Sistema Editorial</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Gestión de manuscritos</a>
+                    <a class="text-white mb-2" href="publicar.html"><i class="fa fa-angle-right mr-2"></i>Publicación digital</a>
+                    <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Búsqueda de libros</a>
+                    <a class="text-white mb-2" href="reportes.html"><i class="fa fa-angle-right mr-2"></i>Reportes de ventas</a>
+                    <a class="text-white" href="notificaciones.html"><i class="fa fa-angle-right mr-2"></i>Notificaciones a autores</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Contacto</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>dir.gral.pegasso@gmail.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Teléfono</h5>
+                        <p>+52 222 755 6588</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var esc = P.escapeHtml;
+            var metrica = 'ingresos';
+
+            var $periodo = document.getElementById('periodo');
+            var $desde = document.getElementById('desde');
+            var $hasta = document.getElementById('hasta');
+            var $fGenero = document.getElementById('fGenero');
+            var $fCanal = document.getElementById('fCanal');
+            var $fLibro = document.getElementById('fLibro');
+
+            var MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+            // ---- Poblar filtros con los valores existentes
+            var ventas = P.getVentas();
+            var generos = ventas.map(function (v) { return v.genero; }).filter(function (g, i, a) { return a.indexOf(g) === i; }).sort();
+            var canales = ventas.map(function (v) { return v.canal; }).filter(function (c, i, a) { return a.indexOf(c) === i; }).sort();
+
+            generos.forEach(function (g) { $fGenero.insertAdjacentHTML('beforeend', '<option value="' + esc(g) + '">' + esc(g) + '</option>'); });
+            canales.forEach(function (c) { $fCanal.insertAdjacentHTML('beforeend', '<option value="' + esc(c) + '">' + esc(c) + '</option>'); });
+            P.getLibros().forEach(function (l) {
+                $fLibro.insertAdjacentHTML('beforeend', '<option value="' + esc(l.id) + '">' + esc(l.titulo) + '</option>');
+                document.getElementById('vLibro').insertAdjacentHTML('beforeend', '<option value="' + esc(l.id) + '">' + esc(l.titulo) + ' — ' + P.formatoMoneda(l.precio) + '</option>');
+            });
+            document.getElementById('vFecha').valueAsDate = new Date();
+
+            function rango() {
+                if ($periodo.value === 'custom') {
+                    return { desde: $desde.value || null, hasta: $hasta.value || null };
+                }
+                var dias = Number($periodo.value);
+                if (!dias) { return { desde: null, hasta: null }; }
+                var d = new Date();
+                d.setDate(d.getDate() - dias);
+                return { desde: d.toISOString().slice(0, 10), hasta: null };
+            }
+
+            function etiquetaMes(clave) {
+                var partes = clave.split('-');
+                return MESES[Number(partes[1]) - 1] + ' ' + partes[0].slice(2);
+            }
+
+            function barraProporcional(items, campoValor, campoNombre) {
+                var max = Math.max.apply(null, items.map(function (i) { return i[campoValor]; }).concat([1]));
+                return items.map(function (i) {
+                    var pct = Math.round((i[campoValor] / max) * 100);
+                    return '<div class="mb-3">' +
+                        '<div class="d-flex justify-content-between"><span>' + esc(i[campoNombre]) + '</span>' +
+                        '<strong>' + P.formatoMoneda(i.ingresos) + '</strong></div>' +
+                        '<div class="progress" style="height: 8px;">' +
+                        '<div class="progress-bar bg-primary" style="width: ' + pct + '%"></div></div>' +
+                        '<small class="text-muted">' + i.unidades + ' ejemplares</small>' +
+                        '</div>';
+                }).join('');
+            }
+
+            function render() {
+                var r = rango();
+                var rep = P.reporteVentas({
+                    desde: r.desde, hasta: r.hasta,
+                    genero: $fGenero.value, canal: $fCanal.value, libroId: $fLibro.value
+                });
+
+                // KPIs
+                document.getElementById('kpiIngresos').textContent = P.formatoMoneda(rep.totalIngresos);
+                document.getElementById('kpiUnidades').textContent = rep.totalUnidades.toLocaleString('es-MX');
+                document.getElementById('kpiOperaciones').textContent = rep.totalOperaciones.toLocaleString('es-MX');
+                document.getElementById('kpiTicket').textContent = P.formatoMoneda(rep.ticketPromedio);
+
+                // Variación contra el mes anterior
+                var meses = rep.porMes;
+                var hint = '&nbsp;';
+                if (meses.length >= 2) {
+                    var ultimo = meses[meses.length - 1].ingresos;
+                    var previo = meses[meses.length - 2].ingresos;
+                    var delta = previo ? ((ultimo - previo) / previo) * 100 : 0;
+                    var arriba = delta >= 0;
+                    hint = '<i class="fa fa-arrow-' + (arriba ? 'up' : 'down') + ' mr-1"></i>' +
+                        Math.abs(delta).toFixed(1) + '% vs. mes anterior';
+                }
+                document.getElementById('kpiIngresosHint').innerHTML = hint;
+
+                // Gráfica de barras
+                var max = Math.max.apply(null, meses.map(function (m) { return m[metrica]; }).concat([1]));
+                document.getElementById('grafica').innerHTML = meses.length
+                    ? meses.map(function (m) {
+                        var altura = Math.max(4, Math.round((m[metrica] / max) * 100));
+                        var valor = metrica === 'ingresos'
+                            ? '$' + Math.round(m.ingresos / 1000) + 'k'
+                            : m.unidades;
+                        return '<div class="bar-col" title="' + etiquetaMes(m.mes) + ': ' + P.formatoMoneda(m.ingresos) + ' · ' + m.unidades + ' ejemplares">' +
+                            '<div class="bar-value">' + valor + '</div>' +
+                            '<div class="bar" style="height: ' + altura + '%"></div>' +
+                            '<div class="bar-label">' + etiquetaMes(m.mes) + '</div>' +
+                            '</div>';
+                    }).join('')
+                    : '<p class="text-muted w-100 text-center align-self-center">Sin datos en el periodo seleccionado.</p>';
+
+                // Ranking
+                document.getElementById('tablaRanking').innerHTML = rep.porLibro.slice(0, 10).map(function (l, i) {
+                    return '<tr>' +
+                        '<td class="align-middle"><strong>' + (i + 1) + '</strong></td>' +
+                        '<td class="align-middle">' + esc(l.titulo) + '</td>' +
+                        '<td class="align-middle">' + esc(l.genero) + '</td>' +
+                        '<td class="align-middle text-right">' + l.unidades + '</td>' +
+                        '<td class="align-middle text-right"><strong>' + P.formatoMoneda(l.ingresos) + '</strong></td>' +
+                        '</tr>';
+                }).join('') || '<tr><td colspan="5" class="text-center text-muted py-4">Sin datos</td></tr>';
+
+                document.getElementById('listaCanales').innerHTML = rep.porCanal.length
+                    ? barraProporcional(rep.porCanal, 'ingresos', 'canal')
+                    : '<p class="text-muted m-0">Sin datos</p>';
+                document.getElementById('listaGeneros').innerHTML = rep.porGenero.length
+                    ? barraProporcional(rep.porGenero, 'ingresos', 'genero')
+                    : '<p class="text-muted m-0">Sin datos</p>';
+
+                // Detalle
+                var detalle = rep.ventas.slice().sort(function (a, b) { return new Date(b.fecha) - new Date(a.fecha); });
+                document.getElementById('detalleContador').textContent = detalle.length + ' operaciones';
+                document.getElementById('vacioReporte').classList.toggle('d-none', detalle.length > 0);
+                document.getElementById('tablaDetalle').innerHTML = detalle.slice(0, 250).map(function (v) {
+                    return '<tr>' +
+                        '<td class="align-middle">' + P.formatoFecha(v.fecha) + '</td>' +
+                        '<td class="align-middle">' + esc(v.titulo) + '</td>' +
+                        '<td class="align-middle">' + esc(v.genero) + '</td>' +
+                        '<td class="align-middle">' + esc(v.canal) + '</td>' +
+                        '<td class="align-middle text-right">' + v.unidades + '</td>' +
+                        '<td class="align-middle text-right">' + P.formatoMoneda(v.precioUnitario) + '</td>' +
+                        '<td class="align-middle text-right"><strong>' + P.formatoMoneda(v.total) + '</strong></td>' +
+                        '</tr>';
+                }).join('');
+
+                window._reporteActual = rep;
+            }
+
+            $periodo.addEventListener('change', function () {
+                var custom = $periodo.value === 'custom';
+                $desde.disabled = !custom;
+                $hasta.disabled = !custom;
+                render();
+            });
+
+            [$desde, $hasta, $fGenero, $fCanal, $fLibro].forEach(function (el) {
+                el.addEventListener('change', render);
+            });
+
+            Array.prototype.forEach.call(document.querySelectorAll('[data-metrica]'), function (btn) {
+                btn.addEventListener('click', function () {
+                    Array.prototype.forEach.call(document.querySelectorAll('[data-metrica]'), function (b) {
+                        b.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    metrica = btn.getAttribute('data-metrica');
+                    render();
+                });
+            });
+
+            document.getElementById('btnExportar').addEventListener('click', function () {
+                var rep = window._reporteActual;
+                if (!rep || !rep.ventas.length) { P.toast('No hay ventas para exportar.'); return; }
+                P.exportarCSV(rep.ventas.map(function (v) {
+                    return {
+                        Fecha: P.formatoFecha(v.fecha),
+                        Libro: v.titulo,
+                        Genero: v.genero,
+                        Canal: v.canal,
+                        Unidades: v.unidades,
+                        PrecioUnitario: v.precioUnitario,
+                        Total: v.total
+                    };
+                }), 'reporte-ventas-pegasso.csv');
+            });
+
+            document.getElementById('btnImprimir').addEventListener('click', function () { window.print(); });
+
+            document.getElementById('formVenta').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var v = P.registrarVenta({
+                    libroId: document.getElementById('vLibro').value,
+                    unidades: document.getElementById('vUnidades').value,
+                    canal: document.getElementById('vCanal').value,
+                    fecha: document.getElementById('vFecha').value || null
+                });
+                render();
+                P.toast('Venta registrada: ' + v.titulo + ' · ' + P.formatoMoneda(v.total));
+            });
+
+            render();
+        })();
+    </script>
+</body>
+
+</html>

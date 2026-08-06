@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Catálogo Digital</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="catálogo, libros digitales, búsqueda, editorial" name="keywords">
+    <meta content="Busca libros del catálogo de PEGASSO Editorial por título, autor, género o palabras clave." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="catalogo.html" class="nav-item nav-link active">Catálogo</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editorial</a>
+                        <div class="dropdown-menu border-0 rounded-0 m-0">
+                            <a href="manuscritos.html" class="dropdown-item">Manuscritos</a>
+                            <a href="publicar.html" class="dropdown-item">Publicar libro digital</a>
+                            <a href="reportes.html" class="dropdown-item">Reportes de ventas</a>
+                            <a href="notificaciones.html" class="dropdown-item">Notificaciones <span class="badge badge-primary ml-1" data-notif-badge>0</span></a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Catálogo Digital</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Catálogo</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Buscador Start -->
+    <div class="container-fluid pt-3">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Búsqueda de Libros</span></p>
+                <h1 class="mb-4">Encuentra tu próxima lectura</h1>
+            </div>
+
+            <div class="panel-card p-4 mb-5">
+                <div class="row">
+                    <div class="col-lg-5 mb-3">
+                        <label class="font-weight-bold mb-1">Búsqueda</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="q" placeholder="Título, autor, género o palabra clave">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-4" type="button" id="btnBuscar"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="font-weight-bold mb-1">Buscar en</label>
+                        <select class="custom-select" id="campo">
+                            <option value="todos">Todos los campos</option>
+                            <option value="titulo">Título</option>
+                            <option value="autor">Autor</option>
+                            <option value="genero">Género</option>
+                            <option value="keywords">Palabras clave</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="font-weight-bold mb-1">Género</label>
+                        <select class="custom-select" id="genero">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="font-weight-bold mb-1">Año</label>
+                        <select class="custom-select" id="anio">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row align-items-end">
+                    <div class="col-lg-5 col-md-6 mb-3">
+                        <label class="font-weight-bold mb-1">Precio máximo: <span id="precioLabel" class="text-primary"></span></label>
+                        <input type="range" class="custom-range" id="precioMax" min="0" max="1500" step="10" value="1500">
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="font-weight-bold mb-1">Ordenar por</label>
+                        <select class="custom-select" id="orden">
+                            <option value="reciente">Más recientes</option>
+                            <option value="titulo">Título (A-Z)</option>
+                            <option value="precio-asc">Precio: menor a mayor</option>
+                            <option value="precio-desc">Precio: mayor a menor</option>
+                            <option value="anio">Año de edición</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 mb-3 text-lg-right">
+                        <button class="btn btn-outline-secondary mr-2" id="btnLimpiar"><i class="fa fa-eraser mr-1"></i>Limpiar</button>
+                        <a href="publicar.html" class="btn btn-primary"><i class="fa fa-plus mr-1"></i>Publicar libro</a>
+                    </div>
+                </div>
+                <div class="border-top pt-3">
+                    <span class="font-weight-bold mr-2">Búsquedas rápidas:</span>
+                    <button class="btn btn-sm btn-outline-primary mr-1 mb-1 sugerencia" data-q="biblia">biblia</button>
+                    <button class="btn btn-sm btn-outline-primary mr-1 mb-1 sugerencia" data-q="matematicas">matemáticas</button>
+                    <button class="btn btn-sm btn-outline-primary mr-1 mb-1 sugerencia" data-q="infantil">infantil</button>
+                    <button class="btn btn-sm btn-outline-primary mr-1 mb-1 sugerencia" data-q="nem">NEM</button>
+                    <button class="btn btn-sm btn-outline-primary mr-1 mb-1 sugerencia" data-q="ingles">inglés</button>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="m-0" id="contadorResultados">Mostrando 0 libros</h5>
+                <button class="btn btn-sm btn-outline-primary" id="btnExportarCatalogo"><i class="fa fa-file-csv mr-1"></i>Exportar resultados</button>
+            </div>
+
+            <div class="row" id="resultados"></div>
+            <div id="vacioCatalogo" class="empty-state d-none">
+                <i class="fa fa-book d-block mb-3"></i>
+                <p class="m-0">No encontramos libros con esos criterios. Prueba con otra palabra clave.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Buscador End -->
+
+
+    <!-- Modal detalle libro -->
+    <div class="modal fade" id="modalLibro" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title" id="modalLibroTitulo">Detalle del libro</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4" id="modalLibroCuerpo"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <i class="flaticon-032-book"></i>
+                    <span class="text-white">PEGASSO</span>
+                </a>
+                <p>PEGASSO Editorial se dedica a la publicación de obras literarias de calidad. Desde novelas hasta ensayos, conectamos autores con lectores apasionados por la literatura en todo el mundo.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Sistema Editorial</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Gestión de manuscritos</a>
+                    <a class="text-white mb-2" href="publicar.html"><i class="fa fa-angle-right mr-2"></i>Publicación digital</a>
+                    <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Búsqueda de libros</a>
+                    <a class="text-white mb-2" href="reportes.html"><i class="fa fa-angle-right mr-2"></i>Reportes de ventas</a>
+                    <a class="text-white" href="notificaciones.html"><i class="fa fa-angle-right mr-2"></i>Notificaciones a autores</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Contacto</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>dir.gral.pegasso@gmail.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Teléfono</h5>
+                        <p>+52 222 755 6588</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var esc = P.escapeHtml;
+
+            var $q = document.getElementById('q');
+            var $campo = document.getElementById('campo');
+            var $genero = document.getElementById('genero');
+            var $anio = document.getElementById('anio');
+            var $precio = document.getElementById('precioMax');
+            var $orden = document.getElementById('orden');
+            var $resultados = document.getElementById('resultados');
+
+            // Poblar filtros con los datos reales del catálogo
+            var libros = P.getLibros();
+            var generos = libros.map(function (l) { return l.genero; })
+                .filter(function (g, i, arr) { return arr.indexOf(g) === i; }).sort();
+            var anios = libros.map(function (l) { return l.anio; })
+                .filter(function (a, i, arr) { return arr.indexOf(a) === i; }).sort(function (a, b) { return b - a; });
+
+            generos.forEach(function (g) {
+                $genero.insertAdjacentHTML('beforeend', '<option value="' + esc(g) + '">' + esc(g) + '</option>');
+            });
+            anios.forEach(function (a) {
+                $anio.insertAdjacentHTML('beforeend', '<option value="' + a + '">' + a + '</option>');
+            });
+
+            var precioTope = Math.max.apply(null, libros.map(function (l) { return l.precio; }).concat([500]));
+            $precio.max = Math.ceil(precioTope / 50) * 50;
+            $precio.value = $precio.max;
+
+            function ordenar(lista) {
+                var copia = lista.slice();
+                switch ($orden.value) {
+                    case 'titulo': return copia.sort(function (a, b) { return a.titulo.localeCompare(b.titulo, 'es'); });
+                    case 'precio-asc': return copia.sort(function (a, b) { return a.precio - b.precio; });
+                    case 'precio-desc': return copia.sort(function (a, b) { return b.precio - a.precio; });
+                    case 'anio': return copia.sort(function (a, b) { return b.anio - a.anio; });
+                    default: return copia;
+                }
+            }
+
+            function resaltar(texto, q) {
+                if (!q) { return esc(texto); }
+                var plano = esc(texto);
+                var indice = P.normalizar(plano).indexOf(P.normalizar(q));
+                if (indice === -1) { return plano; }
+                return plano.slice(0, indice) +
+                    '<mark>' + plano.slice(indice, indice + q.length) + '</mark>' +
+                    plano.slice(indice + q.length);
+            }
+
+            function buscar() {
+                var q = $q.value.trim();
+                var lista = ordenar(P.buscarLibros({
+                    q: q,
+                    campo: $campo.value,
+                    genero: $genero.value,
+                    anio: $anio.value,
+                    precioMax: $precio.value
+                }));
+
+                document.getElementById('precioLabel').textContent = 'hasta ' + P.formatoMoneda($precio.value);
+                document.getElementById('contadorResultados').textContent =
+                    'Mostrando ' + lista.length + (lista.length === 1 ? ' libro' : ' libros');
+                document.getElementById('vacioCatalogo').classList.toggle('d-none', lista.length > 0);
+
+                $resultados.innerHTML = lista.map(function (l) {
+                    return '' +
+                        '<div class="col-lg-4 col-md-6 mb-5">' +
+                        '  <div class="card libro-card border-0 bg-light shadow-sm h-100 pb-2">' +
+                        '    <img class="card-img-top libro-portada" src="' + esc(l.portada) + '" alt="' + esc(l.titulo) + '"' +
+                        '         onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                        '    <div class="card-body text-center">' +
+                        '      <h5 class="card-title mb-1">' + resaltar(l.titulo, q) + '</h5>' +
+                        '      <p class="text-muted mb-2"><i class="fa fa-user-edit mr-1"></i>' + resaltar(l.autor, q) + '</p>' +
+                        '      <p class="card-text small">' + esc((l.descripcion || '').slice(0, 110)) + ((l.descripcion || '').length > 110 ? '…' : '') + '</p>' +
+                        '      <div>' + (l.keywords || []).slice(0, 4).map(function (k) {
+                            return '<span class="tag-keyword">' + esc(k) + '</span>';
+                        }).join('') + '</div>' +
+                        '    </div>' +
+                        '    <div class="card-footer bg-transparent py-3 px-4">' +
+                        '      <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Género</strong></div><div class="col-6 py-1">' + esc(l.genero) + '</div></div>' +
+                        '      <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Páginas</strong></div><div class="col-6 py-1">' + esc(l.paginas) + '</div></div>' +
+                        '      <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Año</strong></div><div class="col-6 py-1">' + esc(l.anio) + '</div></div>' +
+                        '      <div class="d-flex justify-content-between align-items-center mt-3">' +
+                        '        <span class="libro-precio">' + P.formatoMoneda(l.precio) + '</span>' +
+                        '        <button class="btn btn-sm btn-primary" data-detalle="' + esc(l.id) + '">Ver detalle</button>' +
+                        '      </div>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '</div>';
+                }).join('');
+            }
+
+            $resultados.addEventListener('click', function (ev) {
+                var btn = ev.target.closest('[data-detalle]');
+                if (!btn) { return; }
+                var l = P.getLibro(btn.getAttribute('data-detalle'));
+                if (!l) { return; }
+                document.getElementById('modalLibroTitulo').textContent = l.titulo;
+                document.getElementById('modalLibroCuerpo').innerHTML = '' +
+                    '<div class="row">' +
+                    '  <div class="col-md-5 mb-3">' +
+                    '    <img class="img-fluid rounded" src="' + esc(l.portada) + '" alt="' + esc(l.titulo) + '" onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                    '  </div>' +
+                    '  <div class="col-md-7">' +
+                    '    <p class="mb-2"><strong>Autor:</strong> ' + esc(l.autor) + '</p>' +
+                    '    <p class="mb-2"><strong>Género:</strong> ' + esc(l.genero) + '</p>' +
+                    '    <p class="mb-2"><strong>Año:</strong> ' + esc(l.anio) + ' · <strong>Páginas:</strong> ' + esc(l.paginas) + '</p>' +
+                    '    <p class="mb-2"><strong>ISBN:</strong> ' + esc(l.isbn) + '</p>' +
+                    '    <p class="mb-2"><strong>Formato:</strong> ' + esc(l.formato) + '</p>' +
+                    '    <p class="mb-2"><strong>Publicado:</strong> ' + P.formatoFecha(l.fechaPublicacion) + '</p>' +
+                    '    <p class="libro-precio mt-3">' + P.formatoMoneda(l.precio) + '</p>' +
+                    '    <p>' + esc(l.descripcion) + '</p>' +
+                    '    <div class="mb-3">' + (l.keywords || []).map(function (k) {
+                        return '<span class="tag-keyword">' + esc(k) + '</span>';
+                    }).join('') + '</div>' +
+                    '    <button class="btn btn-primary" data-comprar="' + esc(l.id) + '"><i class="fa fa-shopping-cart mr-2"></i>Registrar venta</button>' +
+                    '  </div>' +
+                    '</div>';
+                $('#modalLibro').modal('show');
+            });
+
+            // La compra de demostración alimenta los reportes de ventas (requisito 4)
+            document.getElementById('modalLibroCuerpo').addEventListener('click', function (ev) {
+                var btn = ev.target.closest('[data-comprar]');
+                if (!btn) { return; }
+                var venta = P.registrarVenta({ libroId: btn.getAttribute('data-comprar'), unidades: 1, canal: 'Tienda en línea' });
+                $('#modalLibro').modal('hide');
+                P.toast('Venta registrada: ' + venta.titulo + ' · ' + P.formatoMoneda(venta.total));
+            });
+
+            document.getElementById('btnExportarCatalogo').addEventListener('click', function () {
+                var filas = ordenar(P.buscarLibros({
+                    q: $q.value.trim(), campo: $campo.value, genero: $genero.value,
+                    anio: $anio.value, precioMax: $precio.value
+                })).map(function (l) {
+                    return {
+                        Titulo: l.titulo, Autor: l.autor, Genero: l.genero, Anio: l.anio,
+                        Paginas: l.paginas, Precio: l.precio, ISBN: l.isbn, Formato: l.formato,
+                        PalabrasClave: (l.keywords || []).join(' | ')
+                    };
+                });
+                if (!filas.length) { P.toast('No hay resultados para exportar.'); return; }
+                P.exportarCSV(filas, 'catalogo-pegasso.csv');
+            });
+
+            document.getElementById('btnLimpiar').addEventListener('click', function () {
+                $q.value = ''; $campo.value = 'todos'; $genero.value = '';
+                $anio.value = ''; $precio.value = $precio.max; $orden.value = 'reciente';
+                buscar();
+            });
+
+            Array.prototype.forEach.call(document.querySelectorAll('.sugerencia'), function (btn) {
+                btn.addEventListener('click', function () {
+                    $q.value = btn.getAttribute('data-q');
+                    buscar();
+                });
+            });
+
+            [$q, $campo, $genero, $anio, $precio, $orden].forEach(function (el) {
+                el.addEventListener('input', buscar);
+                el.addEventListener('change', buscar);
+            });
+            document.getElementById('btnBuscar').addEventListener('click', buscar);
+
+            // Permite llegar desde otra página con ?q=palabra
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('q')) { $q.value = params.get('q'); }
+            if (params.get('genero')) { $genero.value = params.get('genero'); }
+
+            buscar();
+        })();
+    </script>
+</body>
+
+</html>

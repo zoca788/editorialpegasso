@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Publicación Digital</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="publicación digital, libros digitales, editorial" name="keywords">
+    <meta content="Publica libros en formato digital para que estén disponibles en el catálogo de PEGASSO Editorial." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+
+    <!-- Control de acceso: seccion interna, requiere sesion iniciada -->
+    <script src="js/pegasso-auth.js"></script>
+    <script>PEGASSO_AUTH.requerirSesion();</script>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="catalogo.html" class="nav-item nav-link">Catálogo</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Editorial</a>
+                        <div class="dropdown-menu border-0 rounded-0 m-0">
+                            <a href="manuscritos.html" class="dropdown-item">Manuscritos</a>
+                            <a href="publicar.html" class="dropdown-item active">Publicar libro digital</a>
+                            <a href="reportes.html" class="dropdown-item">Reportes de ventas</a>
+                            <a href="notificaciones.html" class="dropdown-item">Notificaciones <span class="badge badge-primary ml-1" data-notif-badge>0</span></a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Publicación Digital</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Publicar libro</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Manuscritos aprobados Start -->
+    <div class="container-fluid pt-3">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Listos para publicar</span></p>
+                <h1 class="mb-4">Manuscritos aprobados por el comité</h1>
+            </div>
+            <div class="row" id="aprobados"></div>
+            <div id="vacioAprobados" class="empty-state d-none">
+                <i class="fa fa-clipboard-check d-block mb-3"></i>
+                <p class="m-0">Por ahora no hay manuscritos aprobados pendientes de publicar.
+                    Revisa la <a href="manuscritos.html">gestión de manuscritos</a>.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Manuscritos aprobados End -->
+
+
+    <!-- Formulario Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 mb-5">
+                    <p class="section-title pr-5"><span class="pr-2">Ficha del libro</span></p>
+                    <h1 class="mb-4" id="tituloFormulario">Publicar un libro digital</h1>
+                    <p id="avisoManuscrito" class="alert alert-info d-none"></p>
+                    <form id="formLibro" class="bg-light shadow-sm rounded p-4" novalidate>
+                        <input type="hidden" id="libManuscritoId">
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label class="font-weight-bold">Título *</label>
+                                <input type="text" class="form-control" id="libTitulo" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Año</label>
+                                <input type="number" class="form-control" id="libAnio" min="1900" max="2100">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Autor *</label>
+                                <input type="text" class="form-control" id="libAutor" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Género *</label>
+                                <select class="custom-select" id="libGenero" required>
+                                    <option value="">Selecciona género</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Páginas</label>
+                                <input type="number" class="form-control" id="libPaginas" min="1">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">Precio (MXN) *</label>
+                                <input type="number" class="form-control" id="libPrecio" min="0" step="10" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="font-weight-bold">ISBN</label>
+                                <input type="text" class="form-control" id="libIsbn" placeholder="978-607-...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Formato digital</label>
+                                <select class="custom-select" id="libFormato">
+                                    <option>Digital (PDF)</option>
+                                    <option>Digital (EPUB)</option>
+                                    <option>Digital (PDF/EPUB)</option>
+                                    <option>Digital (PDF + audio)</option>
+                                    <option>Digital interactivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="font-weight-bold">Ruta de la portada</label>
+                                <input type="text" class="form-control" id="libPortada" placeholder="img/RELIGIOSO/... o EDUCATIVO/...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Descripción / sinopsis</label>
+                            <textarea class="form-control" id="libDescripcion" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Palabras clave</label>
+                            <input type="text" class="form-control" id="libKeywords" placeholder="Sepáralas con comas: biblia, estudio, catequesis">
+                            <small class="text-muted">Se usan en la búsqueda del catálogo.</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Archivo digital</label>
+                            <input type="file" class="form-control-file" id="libArchivo" accept=".pdf,.epub">
+                            <small class="text-muted">PDF o EPUB del libro terminado.</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary py-2 px-4"><i class="fa fa-cloud-upload-alt mr-2"></i>Publicar en el catálogo</button>
+                        <button type="reset" class="btn btn-outline-secondary py-2 px-4 ml-2">Limpiar</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-5">
+                    <p class="section-title pr-5"><span class="pr-2">Vista previa</span></p>
+                    <h1 class="mb-4">Así se verá en el catálogo</h1>
+                    <div class="card libro-card border-0 bg-light shadow-sm pb-2" id="preview">
+                        <img class="card-img-top libro-portada" id="pvPortada" src="img/LOGO SIN BIRRETE.png" alt="Vista previa"
+                             onerror="this.src='img/LOGO SIN BIRRETE.png'">
+                        <div class="card-body text-center">
+                            <h4 class="card-title" id="pvTitulo">Título del libro</h4>
+                            <p class="text-muted mb-2"><i class="fa fa-user-edit mr-1"></i><span id="pvAutor">Autor</span></p>
+                            <p class="card-text" id="pvDescripcion">La descripción aparecerá aquí.</p>
+                            <div id="pvKeywords"></div>
+                        </div>
+                        <div class="card-footer bg-transparent py-3 px-4">
+                            <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Género</strong></div><div class="col-6 py-1" id="pvGenero">-</div></div>
+                            <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Páginas</strong></div><div class="col-6 py-1" id="pvPaginas">-</div></div>
+                            <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Formato</strong></div><div class="col-6 py-1" id="pvFormato">Digital (PDF)</div></div>
+                            <p class="libro-precio text-center mt-3 mb-0" id="pvPrecio">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Formulario End -->
+
+
+    <!-- Publicados Start -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Catálogo digital</span></p>
+                <h1 class="mb-4">Libros publicados</h1>
+            </div>
+            <div class="panel-card">
+                <div class="table-responsive">
+                    <table class="table table-pegasso mb-0">
+                        <thead>
+                            <tr>
+                                <th>Libro</th>
+                                <th>Autor</th>
+                                <th>Género</th>
+                                <th>Formato</th>
+                                <th>Precio</th>
+                                <th>Publicación</th>
+                                <th>Estado</th>
+                                <th class="text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaLibros"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Publicados End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <i class="flaticon-032-book"></i>
+                    <span class="text-white">PEGASSO</span>
+                </a>
+                <p>PEGASSO Editorial se dedica a la publicación de obras literarias de calidad. Desde novelas hasta ensayos, conectamos autores con lectores apasionados por la literatura en todo el mundo.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Sistema Editorial</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Gestión de manuscritos</a>
+                    <a class="text-white mb-2" href="publicar.html"><i class="fa fa-angle-right mr-2"></i>Publicación digital</a>
+                    <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Búsqueda de libros</a>
+                    <a class="text-white mb-2" href="reportes.html"><i class="fa fa-angle-right mr-2"></i>Reportes de ventas</a>
+                    <a class="text-white" href="notificaciones.html"><i class="fa fa-angle-right mr-2"></i>Notificaciones a autores</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Contacto</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>dir.gral.pegasso@gmail.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Teléfono</h5>
+                        <p>+52 222 755 6588</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var esc = P.escapeHtml;
+
+            var campos = {
+                manuscritoId: document.getElementById('libManuscritoId'),
+                titulo: document.getElementById('libTitulo'),
+                autor: document.getElementById('libAutor'),
+                genero: document.getElementById('libGenero'),
+                anio: document.getElementById('libAnio'),
+                paginas: document.getElementById('libPaginas'),
+                precio: document.getElementById('libPrecio'),
+                isbn: document.getElementById('libIsbn'),
+                portada: document.getElementById('libPortada'),
+                descripcion: document.getElementById('libDescripcion'),
+                keywords: document.getElementById('libKeywords'),
+                formato: document.getElementById('libFormato')
+            };
+
+            P.GENEROS.forEach(function (g) {
+                campos.genero.insertAdjacentHTML('beforeend', '<option value="' + g + '">' + g + '</option>');
+            });
+            campos.anio.value = new Date().getFullYear();
+
+            // ---------------------------------------------- Vista previa en vivo
+            function preview() {
+                document.getElementById('pvTitulo').textContent = campos.titulo.value || 'Título del libro';
+                document.getElementById('pvAutor').textContent = campos.autor.value || 'Autor';
+                document.getElementById('pvDescripcion').textContent = campos.descripcion.value || 'La descripción aparecerá aquí.';
+                document.getElementById('pvGenero').textContent = campos.genero.value || '-';
+                document.getElementById('pvPaginas').textContent = campos.paginas.value || '-';
+                document.getElementById('pvFormato').textContent = campos.formato.value;
+                document.getElementById('pvPrecio').textContent = P.formatoMoneda(campos.precio.value || 0);
+                document.getElementById('pvPortada').src = campos.portada.value || 'img/LOGO SIN BIRRETE.png';
+                document.getElementById('pvKeywords').innerHTML = campos.keywords.value.split(',')
+                    .map(function (k) { return k.trim(); }).filter(Boolean)
+                    .map(function (k) { return '<span class="tag-keyword">' + esc(k) + '</span>'; }).join('');
+            }
+
+            Object.keys(campos).forEach(function (k) {
+                campos[k].addEventListener('input', preview);
+                campos[k].addEventListener('change', preview);
+            });
+
+            // ------------------------------------- Manuscritos aprobados (req. 1 + 2)
+            function renderAprobados() {
+                var lista = P.getManuscritos().filter(function (m) { return m.estado === 'aprobado'; });
+                document.getElementById('vacioAprobados').classList.toggle('d-none', lista.length > 0);
+                document.getElementById('aprobados').innerHTML = lista.map(function (m) {
+                    return '' +
+                        '<div class="col-lg-4 col-md-6 mb-4">' +
+                        '  <div class="panel-card h-100 p-4">' +
+                        '    <span class="estado-badge estado-aprobado mb-3 d-inline-block">Aprobado</span>' +
+                        '    <h5 class="mb-1">' + esc(m.titulo) + '</h5>' +
+                        '    <p class="text-muted mb-2"><i class="fa fa-user-edit mr-1"></i>' + esc(m.autor) + '</p>' +
+                        '    <p class="small mb-3">' + esc((m.sinopsis || '').slice(0, 120)) + '</p>' +
+                        '    <p class="small text-muted mb-3"><code>' + esc(m.folio) + '</code> · ' + esc(m.genero) + ' · ' + esc(m.paginas) + ' págs.</p>' +
+                        '    <button class="btn btn-sm btn-primary" data-cargar="' + esc(m.id) + '"><i class="fa fa-arrow-down mr-1"></i>Cargar en el formulario</button>' +
+                        '  </div>' +
+                        '</div>';
+                }).join('');
+            }
+
+            function cargarManuscrito(id) {
+                var m = P.getManuscrito(id);
+                if (!m) { return; }
+                campos.manuscritoId.value = m.id;
+                campos.titulo.value = m.titulo;
+                campos.autor.value = m.autor;
+                campos.genero.value = P.GENEROS.indexOf(m.genero) !== -1 ? m.genero : '';
+                campos.paginas.value = m.paginas;
+                campos.descripcion.value = m.sinopsis || '';
+                campos.anio.value = new Date().getFullYear();
+                var aviso = document.getElementById('avisoManuscrito');
+                aviso.classList.remove('d-none');
+                aviso.innerHTML = '<i class="fa fa-info-circle mr-2"></i>Publicando el manuscrito <strong>' + esc(m.folio) +
+                    '</strong>. Al guardar, pasará a estado <strong>Publicado</strong> y se enviará la notificación a ' + esc(m.email) + '.';
+                document.getElementById('tituloFormulario').textContent = 'Publicar: ' + m.titulo;
+                preview();
+                document.getElementById('formLibro').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            document.getElementById('aprobados').addEventListener('click', function (ev) {
+                var btn = ev.target.closest('[data-cargar]');
+                if (btn) { cargarManuscrito(btn.getAttribute('data-cargar')); }
+            });
+
+            // ------------------------------------------------ Publicar (requisito 2)
+            document.getElementById('formLibro').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                if (!campos.titulo.value.trim() || !campos.autor.value.trim() || !campos.genero.value || !campos.precio.value) {
+                    P.toast('Título, autor, género y precio son obligatorios.');
+                    return;
+                }
+                var libro = P.publicarLibro({
+                    titulo: campos.titulo.value.trim(),
+                    autor: campos.autor.value.trim(),
+                    genero: campos.genero.value,
+                    anio: campos.anio.value,
+                    paginas: campos.paginas.value,
+                    precio: campos.precio.value,
+                    isbn: campos.isbn.value.trim(),
+                    portada: campos.portada.value.trim(),
+                    descripcion: campos.descripcion.value.trim(),
+                    keywords: campos.keywords.value,
+                    formato: campos.formato.value,
+                    manuscritoId: campos.manuscritoId.value || null
+                });
+                document.getElementById('formLibro').reset();
+                campos.manuscritoId.value = '';
+                campos.anio.value = new Date().getFullYear();
+                document.getElementById('avisoManuscrito').classList.add('d-none');
+                document.getElementById('tituloFormulario').textContent = 'Publicar un libro digital';
+                preview();
+                renderAprobados();
+                renderLibros();
+                P.toast('"' + libro.titulo + '" ya está en el catálogo digital.');
+            });
+
+            document.getElementById('formLibro').addEventListener('reset', function () {
+                setTimeout(function () {
+                    campos.manuscritoId.value = '';
+                    campos.anio.value = new Date().getFullYear();
+                    document.getElementById('avisoManuscrito').classList.add('d-none');
+                    document.getElementById('tituloFormulario').textContent = 'Publicar un libro digital';
+                    preview();
+                }, 0);
+            });
+
+            // ---------------------------------------------------- Tabla de libros
+            function renderLibros() {
+                document.getElementById('tablaLibros').innerHTML = P.getLibros().map(function (l) {
+                    return '' +
+                        '<tr>' +
+                        '<td class="align-middle"><strong>' + esc(l.titulo) + '</strong><br><small class="text-muted">' + esc(l.isbn) + '</small></td>' +
+                        '<td class="align-middle">' + esc(l.autor) + '</td>' +
+                        '<td class="align-middle">' + esc(l.genero) + '</td>' +
+                        '<td class="align-middle">' + esc(l.formato) + '</td>' +
+                        '<td class="align-middle">' + P.formatoMoneda(l.precio) + '</td>' +
+                        '<td class="align-middle">' + P.formatoFecha(l.fechaPublicacion) + '</td>' +
+                        '<td class="align-middle"><span class="estado-badge ' + (l.publicado ? 'estado-publicado' : 'estado-recibido') + '">' +
+                        (l.publicado ? 'Publicado' : 'Oculto') + '</span></td>' +
+                        '<td class="align-middle text-right" style="min-width: 170px;">' +
+                        '  <a class="btn btn-sm btn-outline-primary mr-1" href="catalogo.html?q=' + encodeURIComponent(l.titulo) + '" title="Ver en catálogo"><i class="fa fa-search"></i></a>' +
+                        '  <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle-pub="' + esc(l.id) + '" title="Publicar / ocultar"><i class="fa fa-' + (l.publicado ? 'eye-slash' : 'eye') + '"></i></button>' +
+                        '  <button class="btn btn-sm btn-outline-success" data-venta="' + esc(l.id) + '" title="Registrar venta"><i class="fa fa-cash-register"></i></button>' +
+                        '</td>' +
+                        '</tr>';
+                }).join('');
+            }
+
+            document.getElementById('tablaLibros').addEventListener('click', function (ev) {
+                var toggle = ev.target.closest('[data-toggle-pub]');
+                var venta = ev.target.closest('[data-venta]');
+                if (toggle) {
+                    P.despublicarLibro(toggle.getAttribute('data-toggle-pub'));
+                    renderLibros();
+                    P.toast('Visibilidad del libro actualizada.');
+                } else if (venta) {
+                    var unidades = window.prompt('¿Cuántas unidades vendidas?', '1');
+                    if (unidades === null) { return; }
+                    var v = P.registrarVenta({ libroId: venta.getAttribute('data-venta'), unidades: unidades, canal: 'Venta directa' });
+                    P.toast('Venta registrada: ' + v.unidades + ' u. · ' + P.formatoMoneda(v.total));
+                }
+            });
+
+            // Permite llegar desde manuscritos.html con ?manuscrito=ID
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('manuscrito')) { cargarManuscrito(params.get('manuscrito')); }
+
+            renderAprobados();
+            renderLibros();
+            preview();
+        })();
+    </script>
+</body>
+
+</html>

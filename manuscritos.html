@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Gestión de Manuscritos</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="manuscritos, editorial, publicación, autores" name="keywords">
+    <meta content="Recepción, almacenamiento y seguimiento de manuscritos enviados por autores a PEGASSO Editorial." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="catalogo.html" class="nav-item nav-link">Catálogo</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Editorial</a>
+                        <div class="dropdown-menu border-0 rounded-0 m-0">
+                            <a href="manuscritos.html" class="dropdown-item active">Manuscritos</a>
+                            <a href="publicar.html" class="dropdown-item">Publicar libro digital</a>
+                            <a href="reportes.html" class="dropdown-item">Reportes de ventas</a>
+                            <a href="notificaciones.html" class="dropdown-item">Notificaciones <span class="badge badge-primary ml-1" data-notif-badge>0</span></a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Gestión de Manuscritos</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Manuscritos</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Resumen Start -->
+    <div class="container-fluid pt-3">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Portal de Autores</span></p>
+                <h1 class="mb-4">Recibe, almacena y da seguimiento a cada obra</h1>
+            </div>
+            <div class="row mb-5">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Manuscritos recibidos</p>
+                        <p class="kpi-value" id="kpiTotal">0</p>
+                        <p class="kpi-hint"><i class="fa fa-inbox mr-1"></i>Histórico completo</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">En revisión</p>
+                        <p class="kpi-value" id="kpiRevision">0</p>
+                        <p class="kpi-hint"><i class="fa fa-hourglass-half mr-1"></i>Con el comité editorial</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Aprobados</p>
+                        <p class="kpi-value" id="kpiAprobados">0</p>
+                        <p class="kpi-hint"><i class="fa fa-check-circle mr-1"></i>Listos para publicar</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="kpi-card">
+                        <p class="kpi-label">Publicados</p>
+                        <p class="kpi-value" id="kpiPublicados">0</p>
+                        <p class="kpi-hint"><i class="fa fa-book-open mr-1"></i>Ya en el catálogo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Resumen End -->
+
+
+    <!-- Envío Start -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 mb-5">
+                    <div class="card border-0">
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Enviar Manuscrito</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <form id="formManuscrito" novalidate>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" id="msTitulo" placeholder="Título de la obra" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" id="msAutor" placeholder="Nombre del autor" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 p-4" id="msEmail" placeholder="Correo electrónico" required />
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select border-0 px-4" id="msGenero" style="height: 47px;" required>
+                                        <option value="">Selecciona género</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" min="1" class="form-control border-0 p-4" id="msPaginas" placeholder="Número de páginas" required />
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control border-0 py-3 px-4" id="msSinopsis" rows="4" placeholder="Sinopsis breve de la obra"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" class="form-control-file text-white" id="msArchivo" accept=".pdf,.doc,.docx,.odt">
+                                    <small class="text-white">Formatos aceptados: PDF, DOC, DOCX, ODT</small>
+                                </div>
+                                <div>
+                                    <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Enviar manuscrito</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <p class="section-title pr-5"><span class="pr-2">¿Cómo funciona?</span></p>
+                    <h1 class="mb-4">Del correo del autor al catálogo</h1>
+                    <p>Cada manuscrito recibido genera un <strong>folio único</strong> y queda almacenado con toda su información.
+                        A partir de ese momento el comité editorial actualiza su estado y el autor recibe una notificación
+                        automática en cada cambio.</p>
+                    <ul class="timeline mt-4">
+                        <li>
+                            <span class="timeline-fecha">Paso 1</span>
+                            <strong>Recepción.</strong> El autor envía la obra desde este portal y recibe su folio de seguimiento.
+                        </li>
+                        <li>
+                            <span class="timeline-fecha">Paso 2</span>
+                            <strong>Revisión.</strong> El comité editorial evalúa calidad, originalidad y potencial de la obra.
+                        </li>
+                        <li>
+                            <span class="timeline-fecha">Paso 3</span>
+                            <strong>Dictamen.</strong> El manuscrito se aprueba o se rechaza, siempre con retroalimentación.
+                        </li>
+                        <li>
+                            <span class="timeline-fecha">Paso 4</span>
+                            <strong>Publicación.</strong> Los manuscritos aprobados pasan a
+                            <a href="publicar.html">publicación digital</a> y entran al catálogo.
+                        </li>
+                    </ul>
+                    <div class="bg-light shadow-sm rounded p-4 mt-4">
+                        <h5 class="mb-3"><i class="fa fa-search text-primary mr-2"></i>Consulta el estado de tu manuscrito</h5>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="consultaFolio" placeholder="Escribe tu folio (ej. MS-2025-101) o tu correo">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-4" type="button" id="btnConsultar">Consultar</button>
+                            </div>
+                        </div>
+                        <div id="resultadoConsulta" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Envío End -->
+
+
+    <!-- Seguimiento Start -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Panel Editorial</span></p>
+                <h1 class="mb-4">Seguimiento de Manuscritos</h1>
+            </div>
+
+            <!-- Aviso para visitantes sin sesión -->
+            <div class="panel-card p-5 text-center d-none" id="bloqueoPanel">
+                <i class="fa fa-lock text-primary" style="font-size: 46px;"></i>
+                <h4 class="mt-3">Sección reservada al personal de la editorial</h4>
+                <p class="text-muted mb-4">Este panel muestra los datos de contacto de los autores y el dictamen de
+                    cada obra, así que necesita sesión iniciada. Si eres autor, consulta el avance de tu manuscrito
+                    con tu folio en el buscador de arriba.</p>
+                <a href="login.html?redirect=manuscritos.html" class="btn btn-primary py-2 px-4">
+                    <i class="fa fa-sign-in-alt mr-2"></i>Iniciar sesión
+                </a>
+            </div>
+
+            <div class="panel-card mb-4" id="panelSeguimiento">
+                <div class="panel-card-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 mb-2 mb-md-0">
+                            <input type="text" class="form-control" id="filtroTexto" placeholder="Buscar por título, autor, folio o correo">
+                        </div>
+                        <div class="col-md-3 mb-2 mb-md-0">
+                            <select class="custom-select" id="filtroEstado">
+                                <option value="">Todos los estados</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2 mb-md-0">
+                            <select class="custom-select" id="filtroGenero">
+                                <option value="">Todos los géneros</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 text-md-right">
+                            <button class="btn btn-outline-primary btn-block" id="btnExportarManuscritos">
+                                <i class="fa fa-file-csv mr-1"></i>CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-pegasso mb-0">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Obra</th>
+                                <th>Autor</th>
+                                <th>Género</th>
+                                <th>Recepción</th>
+                                <th>Estado</th>
+                                <th class="text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaManuscritos"></tbody>
+                    </table>
+                </div>
+                <div id="vacioManuscritos" class="empty-state d-none">
+                    <i class="fa fa-folder-open d-block mb-3"></i>
+                    <p class="m-0">No hay manuscritos que coincidan con los filtros.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Seguimiento End -->
+
+
+    <!-- Modal detalle -->
+    <div class="modal fade" id="modalDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title" id="modalTitulo">Detalle del manuscrito</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4" id="modalCuerpo"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <i class="flaticon-032-book"></i>
+                    <span class="text-white">PEGASSO</span>
+                </a>
+                <p>PEGASSO Editorial se dedica a la publicación de obras literarias de calidad. Desde novelas hasta ensayos, conectamos autores con lectores apasionados por la literatura en todo el mundo.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Sistema Editorial</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Gestión de manuscritos</a>
+                    <a class="text-white mb-2" href="publicar.html"><i class="fa fa-angle-right mr-2"></i>Publicación digital</a>
+                    <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Búsqueda de libros</a>
+                    <a class="text-white mb-2" href="reportes.html"><i class="fa fa-angle-right mr-2"></i>Reportes de ventas</a>
+                    <a class="text-white" href="notificaciones.html"><i class="fa fa-angle-right mr-2"></i>Notificaciones a autores</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Contacto</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>dir.gral.pegasso@gmail.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Teléfono</h5>
+                        <p>+52 222 755 6588</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var esc = P.escapeHtml;
+
+            // El envío y la consulta por folio son públicos; el panel con los datos
+            // de los autores solo se muestra con sesión iniciada.
+            var conSesion = !!(window.PEGASSO_AUTH && window.PEGASSO_AUTH.autenticado());
+            document.getElementById('panelSeguimiento').classList.toggle('d-none', !conSesion);
+            document.getElementById('bloqueoPanel').classList.toggle('d-none', conSesion);
+
+            var $tabla = document.getElementById('tablaManuscritos');
+            var $vacio = document.getElementById('vacioManuscritos');
+            var $filtroTexto = document.getElementById('filtroTexto');
+            var $filtroEstado = document.getElementById('filtroEstado');
+            var $filtroGenero = document.getElementById('filtroGenero');
+
+            // ---- Poblar selects
+            P.GENEROS.forEach(function (g) {
+                document.getElementById('msGenero').insertAdjacentHTML('beforeend', '<option value="' + g + '">' + g + '</option>');
+                $filtroGenero.insertAdjacentHTML('beforeend', '<option value="' + g + '">' + g + '</option>');
+            });
+            P.ESTADOS.forEach(function (e) {
+                $filtroEstado.insertAdjacentHTML('beforeend', '<option value="' + e.id + '">' + e.nombre + '</option>');
+            });
+
+            function badge(estadoId) {
+                var info = P.estadoInfo(estadoId);
+                return '<span class="estado-badge ' + info.clase + '">' + info.nombre + '</span>';
+            }
+
+            function selectEstados(actual) {
+                return P.ESTADOS.map(function (e) {
+                    return '<option value="' + e.id + '"' + (e.id === actual ? ' selected' : '') + '>' + e.nombre + '</option>';
+                }).join('');
+            }
+
+            function actualizarKPIs(lista) {
+                function contar(estado) {
+                    return lista.filter(function (m) { return m.estado === estado; }).length;
+                }
+                document.getElementById('kpiTotal').textContent = lista.length;
+                document.getElementById('kpiRevision').textContent = contar('en-revision');
+                document.getElementById('kpiAprobados').textContent = contar('aprobado');
+                document.getElementById('kpiPublicados').textContent = contar('publicado');
+            }
+
+            function filtrados() {
+                var q = P.normalizar($filtroTexto.value.trim());
+                return P.getManuscritos().filter(function (m) {
+                    if ($filtroEstado.value && m.estado !== $filtroEstado.value) { return false; }
+                    if ($filtroGenero.value && m.genero !== $filtroGenero.value) { return false; }
+                    if (!q) { return true; }
+                    return [m.titulo, m.autor, m.folio, m.email].some(function (campo) {
+                        return P.normalizar(campo).indexOf(q) !== -1;
+                    });
+                });
+            }
+
+            function render() {
+                var todos = P.getManuscritos();
+                actualizarKPIs(todos);
+
+                var lista = filtrados();
+                $vacio.classList.toggle('d-none', lista.length > 0);
+
+                $tabla.innerHTML = lista.map(function (m) {
+                    return '' +
+                        '<tr>' +
+                        '<td class="align-middle"><code>' + esc(m.folio) + '</code></td>' +
+                        '<td class="align-middle"><strong>' + esc(m.titulo) + '</strong><br><small class="text-muted">' + esc(m.paginas) + ' páginas</small></td>' +
+                        '<td class="align-middle">' + esc(m.autor) + '<br><small class="text-muted">' + esc(m.email) + '</small></td>' +
+                        '<td class="align-middle">' + esc(m.genero) + '</td>' +
+                        '<td class="align-middle">' + P.formatoFecha(m.fechaRecepcion) + '</td>' +
+                        '<td class="align-middle">' + badge(m.estado) + '</td>' +
+                        '<td class="align-middle text-right" style="min-width: 230px;">' +
+                        '  <div class="d-flex justify-content-end align-items-center">' +
+                        '    <select class="custom-select custom-select-sm mr-2" data-cambiar="' + m.id + '" style="width: 130px;">' + selectEstados(m.estado) + '</select>' +
+                        '    <button class="btn btn-sm btn-outline-primary mr-1" data-ver="' + m.id + '" title="Ver seguimiento"><i class="fa fa-eye"></i></button>' +
+                        '    <button class="btn btn-sm btn-outline-danger" data-borrar="' + m.id + '" title="Eliminar"><i class="fa fa-trash"></i></button>' +
+                        '  </div>' +
+                        '</td>' +
+                        '</tr>';
+                }).join('');
+            }
+
+            // ---- Envío de manuscrito (requisito 1)
+            document.getElementById('formManuscrito').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var form = ev.target;
+                var datos = {
+                    titulo: document.getElementById('msTitulo').value.trim(),
+                    autor: document.getElementById('msAutor').value.trim(),
+                    email: document.getElementById('msEmail').value.trim(),
+                    genero: document.getElementById('msGenero').value,
+                    paginas: document.getElementById('msPaginas').value,
+                    sinopsis: document.getElementById('msSinopsis').value.trim(),
+                    archivo: (document.getElementById('msArchivo').files[0] || {}).name || ''
+                };
+                if (!datos.titulo || !datos.autor || !datos.email || !datos.genero) {
+                    P.toast('Completa los campos obligatorios de la obra.');
+                    return;
+                }
+                var creado = P.agregarManuscrito(datos);
+                form.reset();
+                render();
+                P.toast('Manuscrito recibido. Folio ' + creado.folio + ' — se notificó al autor.');
+                document.getElementById('consultaFolio').value = creado.folio;
+                consultar();
+            });
+
+            // ---- Cambio de estado (dispara notificación al autor, requisito 5)
+            $tabla.addEventListener('change', function (ev) {
+                var id = ev.target.getAttribute('data-cambiar');
+                if (!id) { return; }
+                var nota = window.prompt('Nota para el autor (opcional):', '');
+                if (nota === null) { render(); return; }
+                P.cambiarEstado(id, ev.target.value, nota.trim());
+                render();
+                P.toast('Estado actualizado y notificación enviada al autor.');
+            });
+
+            $tabla.addEventListener('click', function (ev) {
+                var btnVer = ev.target.closest('[data-ver]');
+                var btnBorrar = ev.target.closest('[data-borrar]');
+
+                if (btnVer) {
+                    verDetalle(btnVer.getAttribute('data-ver'));
+                } else if (btnBorrar) {
+                    if (window.confirm('¿Eliminar este manuscrito del sistema?')) {
+                        P.eliminarManuscrito(btnBorrar.getAttribute('data-borrar'));
+                        render();
+                        P.toast('Manuscrito eliminado.');
+                    }
+                }
+            });
+
+            function verDetalle(id) {
+                var m = P.getManuscrito(id);
+                if (!m) { return; }
+                document.getElementById('modalTitulo').textContent = m.folio + ' · ' + m.titulo;
+                document.getElementById('modalCuerpo').innerHTML = '' +
+                    '<div class="row mb-4">' +
+                    '  <div class="col-md-6"><strong>Autor:</strong> ' + esc(m.autor) + '</div>' +
+                    '  <div class="col-md-6"><strong>Correo:</strong> ' + esc(m.email) + '</div>' +
+                    '  <div class="col-md-6"><strong>Género:</strong> ' + esc(m.genero) + '</div>' +
+                    '  <div class="col-md-6"><strong>Páginas:</strong> ' + esc(m.paginas) + '</div>' +
+                    '  <div class="col-md-6"><strong>Recepción:</strong> ' + P.formatoFecha(m.fechaRecepcion) + '</div>' +
+                    '  <div class="col-md-6"><strong>Estado actual:</strong> ' + badge(m.estado) + '</div>' +
+                    (m.archivo ? '  <div class="col-12 mt-2"><strong>Archivo:</strong> ' + esc(m.archivo) + '</div>' : '') +
+                    '</div>' +
+                    (m.sinopsis ? '<p class="bg-light rounded p-3"><em>' + esc(m.sinopsis) + '</em></p>' : '') +
+                    '<h6 class="mt-4 mb-3">Historial de seguimiento</h6>' +
+                    '<ul class="timeline">' +
+                    (m.historial || []).slice().reverse().map(function (h) {
+                        return '<li><span class="timeline-fecha">' + P.formatoFechaHora(h.fecha) + '</span>' +
+                            badge(h.estado) + ' <span class="ml-2">' + esc(h.nota || '') + '</span></li>';
+                    }).join('') +
+                    '</ul>' +
+                    (m.estado === 'aprobado'
+                        ? '<a href="publicar.html?manuscrito=' + encodeURIComponent(m.id) + '" class="btn btn-primary mt-3"><i class="fa fa-book-open mr-2"></i>Publicar en el catálogo digital</a>'
+                        : '');
+                $('#modalDetalle').modal('show');
+            }
+
+            // ---- Consulta pública por folio o correo
+            function consultar() {
+                var q = P.normalizar(document.getElementById('consultaFolio').value.trim());
+                var salida = document.getElementById('resultadoConsulta');
+                if (!q) {
+                    salida.innerHTML = '<p class="text-muted m-0">Escribe tu folio o el correo con el que enviaste la obra.</p>';
+                    return;
+                }
+                var encontrados = P.getManuscritos().filter(function (m) {
+                    return P.normalizar(m.folio) === q || P.normalizar(m.email) === q;
+                });
+                if (!encontrados.length) {
+                    salida.innerHTML = '<p class="text-danger m-0">No encontramos manuscritos con ese folio o correo.</p>';
+                    return;
+                }
+                salida.innerHTML = encontrados.map(function (m) {
+                    var ultimo = (m.historial || [])[m.historial.length - 1] || {};
+                    return '<div class="border rounded p-3 mb-2 bg-white">' +
+                        '<div class="d-flex justify-content-between align-items-center">' +
+                        '<strong>' + esc(m.titulo) + '</strong>' + badge(m.estado) +
+                        '</div>' +
+                        '<small class="text-muted d-block">Folio ' + esc(m.folio) + ' · última actualización ' + P.formatoFecha(m.actualizado) + '</small>' +
+                        '<small class="d-block mt-1">' + esc(ultimo.nota || '') + '</small>' +
+                        '</div>';
+                }).join('');
+            }
+
+            document.getElementById('btnConsultar').addEventListener('click', consultar);
+            document.getElementById('consultaFolio').addEventListener('keypress', function (ev) {
+                if (ev.key === 'Enter') { consultar(); }
+            });
+
+            [$filtroTexto, $filtroEstado, $filtroGenero].forEach(function (el) {
+                el.addEventListener('input', render);
+                el.addEventListener('change', render);
+            });
+
+            document.getElementById('btnExportarManuscritos').addEventListener('click', function () {
+                var filas = filtrados().map(function (m) {
+                    return {
+                        Folio: m.folio,
+                        Titulo: m.titulo,
+                        Autor: m.autor,
+                        Correo: m.email,
+                        Genero: m.genero,
+                        Paginas: m.paginas,
+                        Estado: P.estadoInfo(m.estado).nombre,
+                        Recepcion: P.formatoFecha(m.fechaRecepcion),
+                        Actualizado: P.formatoFecha(m.actualizado)
+                    };
+                });
+                if (!filas.length) { P.toast('No hay manuscritos para exportar.'); return; }
+                P.exportarCSV(filas, 'manuscritos-pegasso.csv');
+            });
+
+            render();
+            consultar();
+        })();
+    </script>
+</body>
+
+</html>

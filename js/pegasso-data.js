@@ -19,10 +19,16 @@
         libros: 'pegasso_libros',
         ventas: 'pegasso_ventas',
         notificaciones: 'pegasso_notificaciones',
+        citas: 'pegasso_citas',
+        eventos: 'pegasso_eventos',
+        asistencias: 'pegasso_asistencias',
         seed: 'pegasso_seed_version'
     };
 
-    var SEED_VERSION = '2';
+    var SEED_VERSION = '3';
+
+    // Disponibilidad de cada libro en el catálogo (RF2 y RF7).
+    var DISPONIBILIDAD = ['Disponible', 'Últimas copias', 'Agotado', 'Próximamente'];
 
     /* ---------------------------------------------------------------- Estados */
 
@@ -574,10 +580,19 @@
 
         // Libros del catálogo
         var libros = LIBROS_SEED.map(function (l, i) {
+            // Disponibilidad repartida: la mayoría disponible, con algunos
+            // agotados o por salir para que el catálogo se vea realista.
+            var disp = 'Disponible';
+            if (i % 9 === 4) { disp = 'Últimas copias'; }
+            if (i % 13 === 7) { disp = 'Agotado'; }
+            if (l.anio >= 2025 && i % 5 === 0) { disp = 'Próximamente'; }
             return Object.assign({}, l, {
                 id: 'lib-seed-' + (i + 1),
                 fechaPublicacion: fechaMenos(15 + i * 12),
                 keywords: l.keywords.slice(),
+                editorial: 'PEGASSO Editorial',
+                sinopsis: l.descripcion,
+                disponibilidad: disp,
                 publicado: true,
                 origen: 'catalogo'
             });
@@ -673,6 +688,73 @@
         });
         escribir(KEYS.ventas, ventas);
 
+        // Agenda de eventos de la editorial (RF9)
+        function enDias(dias, hora) {
+            var d = new Date();
+            d.setDate(d.getDate() + dias);
+            return d.getFullYear() + '-' +
+                String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                String(d.getDate()).padStart(2, '0') + (hora ? 'T' + hora : '');
+        }
+
+        escribir(KEYS.eventos, [
+            {
+                id: 'eve-seed-1', titulo: 'Taller: Cómo preparar tu manuscrito',
+                tipo: 'Taller', fecha: enDias(4), hora: '17:00', duracion: 120,
+                lugar: 'Sala de juntas PEGASSO, Puebla', capacidad: 25,
+                descripcion: 'Guía práctica sobre formato, estructura y errores frecuentes al enviar una obra a dictamen.',
+                creado: ahora()
+            },
+            {
+                id: 'eve-seed-2', titulo: 'Reunión del comité editorial',
+                tipo: 'Reunión', fecha: enDias(9), hora: '10:00', duracion: 180,
+                lugar: 'Oficina central', capacidad: 12,
+                descripcion: 'Dictamen de los manuscritos recibidos durante el mes y calendario de publicación.',
+                creado: ahora()
+            },
+            {
+                id: 'eve-seed-3', titulo: 'Debate: La lectura en la Nueva Escuela Mexicana',
+                tipo: 'Debate', fecha: enDias(16), hora: '18:30', duracion: 90,
+                lugar: 'Auditorio Casa de Cultura', capacidad: 80,
+                descripcion: 'Mesa de discusión con docentes sobre materiales de lectura en el aula.',
+                creado: ahora()
+            },
+            {
+                id: 'eve-seed-4', titulo: 'Presentación: Biblia de Arte',
+                tipo: 'Evento', fecha: enDias(23), hora: '19:00', duracion: 120,
+                lugar: 'Librería Central, Puebla', capacidad: 120,
+                descripcion: 'Presentación editorial con firma de ejemplares y recorrido por las láminas de arte sacro.',
+                creado: ahora()
+            },
+            {
+                id: 'eve-seed-5', titulo: 'Taller de lectoescritura para docentes',
+                tipo: 'Taller', fecha: enDias(-12), hora: '16:00', duracion: 150,
+                lugar: 'Escuela Primaria Benito Juárez', capacidad: 30,
+                descripcion: 'Sesión práctica con la colección Rody Lectoescritura.',
+                creado: ahora()
+            }
+        ]);
+
+        escribir(KEYS.asistencias, [
+            { id: 'asi-seed-1', eventoId: 'eve-seed-5', miembro: 'María Fernanda Luna', email: 'mf.luna@ejemplo.com', estado: 'asistio', registro: fechaMenos(14) },
+            { id: 'asi-seed-2', eventoId: 'eve-seed-5', miembro: 'Ricardo Solís', email: 'r.solis@ejemplo.com', estado: 'asistio', registro: fechaMenos(15) },
+            { id: 'asi-seed-3', eventoId: 'eve-seed-1', miembro: 'Claudia Ibarra', email: 'c.ibarra@ejemplo.com', estado: 'registrado', registro: fechaMenos(2) }
+        ]);
+
+        // Solicitudes de cita (RF6)
+        escribir(KEYS.citas, [
+            {
+                id: 'cit-seed-1', nombre: 'Jorge Antonio Vega', email: 'ja.vega@ejemplo.com',
+                telefono: '222 111 2233', fecha: enDias(3), hora: '11:00',
+                motivo: 'Revisión de contrato de edición', estado: 'confirmada', creado: fechaMenos(3)
+            },
+            {
+                id: 'cit-seed-2', nombre: 'Guadalupe Ramos', email: 'g.ramos@ejemplo.com',
+                telefono: '222 445 8890', fecha: enDias(6), hora: '13:30',
+                motivo: 'Presentación de propuesta de colección catequética', estado: 'pendiente', creado: fechaMenos(1)
+            }
+        ]);
+
         window.localStorage.setItem(KEYS.seed, SEED_VERSION);
     }
 
@@ -682,6 +764,7 @@
         KEYS: KEYS,
         ESTADOS: ESTADOS,
         GENEROS: GENEROS,
+        DISPONIBILIDAD: DISPONIBILIDAD,
         MENSAJES_ESTADO: MENSAJES_ESTADO,
 
         // -------- utilidades expuestas
@@ -781,6 +864,9 @@
                 isbn: datos.isbn || 'Por asignar',
                 portada: datos.portada || 'img/LOGO SIN BIRRETE.png',
                 descripcion: datos.descripcion || '',
+                sinopsis: datos.sinopsis || datos.descripcion || '',
+                editorial: datos.editorial || 'PEGASSO Editorial',
+                disponibilidad: datos.disponibilidad || 'Disponible',
                 keywords: (datos.keywords || '').split(',').map(function (k) {
                     return k.trim();
                 }).filter(Boolean),
@@ -809,29 +895,244 @@
             escribir(KEYS.libros, lista);
         },
 
+        // Edición y baja de libros del catálogo (RF7)
+        actualizarLibro: function (id, datos) {
+            var actualizado = null;
+            var lista = leer(KEYS.libros).map(function (l) {
+                if (l.id !== id) { return l; }
+                ['titulo', 'autor', 'genero', 'editorial', 'isbn', 'portada', 'formato', 'disponibilidad'].forEach(function (campo) {
+                    if (datos[campo] !== undefined && datos[campo] !== '') { l[campo] = datos[campo]; }
+                });
+                if (datos.anio !== undefined && datos.anio !== '') { l.anio = Number(datos.anio); }
+                if (datos.paginas !== undefined && datos.paginas !== '') { l.paginas = Number(datos.paginas); }
+                if (datos.precio !== undefined && datos.precio !== '') { l.precio = Number(datos.precio); }
+                if (datos.sinopsis !== undefined) { l.sinopsis = datos.sinopsis; l.descripcion = datos.sinopsis; }
+                if (datos.keywords !== undefined) {
+                    l.keywords = (datos.keywords || '').split(',').map(function (k) { return k.trim(); }).filter(Boolean);
+                }
+                l.actualizado = ahora();
+                actualizado = l;
+                return l;
+            });
+            escribir(KEYS.libros, lista);
+            return actualizado;
+        },
+
+        eliminarLibro: function (id) {
+            escribir(KEYS.libros, leer(KEYS.libros).filter(function (l) { return l.id !== id; }));
+        },
+
+        /* Búsqueda con puntaje de relevancia (RF8).
+           El título pesa más que el autor, el autor más que el género y las
+           palabras clave cierran; una coincidencia exacta o al inicio suma. */
         buscarLibros: function (filtros) {
             filtros = filtros || {};
             var q = normalizar(filtros.q);
-            return API.getLibros().filter(function (libro) {
-                if (filtros.soloPublicados !== false && !libro.publicado) { return false; }
-                if (filtros.genero && libro.genero !== filtros.genero) { return false; }
-                if (filtros.anio && String(libro.anio) !== String(filtros.anio)) { return false; }
-                if (filtros.precioMax && Number(libro.precio) > Number(filtros.precioMax)) { return false; }
-                if (!q) { return true; }
+            var campo = filtros.campo || 'todos';
 
-                var campo = filtros.campo || 'todos';
-                var enTitulo = normalizar(libro.titulo).indexOf(q) !== -1;
-                var enAutor = normalizar(libro.autor).indexOf(q) !== -1;
-                var enGenero = normalizar(libro.genero).indexOf(q) !== -1;
-                var enKeywords = (libro.keywords || []).some(function (k) {
-                    return normalizar(k).indexOf(q) !== -1;
-                }) || normalizar(libro.descripcion).indexOf(q) !== -1;
+            var resultados = API.getLibros().map(function (libro) {
+                if (filtros.soloPublicados !== false && !libro.publicado) { return null; }
+                if (filtros.genero && libro.genero !== filtros.genero) { return null; }
+                if (filtros.anio && String(libro.anio) !== String(filtros.anio)) { return null; }
+                if (filtros.precioMax && Number(libro.precio) > Number(filtros.precioMax)) { return null; }
+                if (filtros.disponibilidad && libro.disponibilidad !== filtros.disponibilidad) { return null; }
+                if (!q) { return { libro: libro, score: 0 }; }
 
-                if (campo === 'titulo') { return enTitulo; }
-                if (campo === 'autor') { return enAutor; }
-                if (campo === 'genero') { return enGenero; }
-                if (campo === 'keywords') { return enKeywords; }
-                return enTitulo || enAutor || enGenero || enKeywords;
+                var titulo = normalizar(libro.titulo);
+                var autor = normalizar(libro.autor);
+                var genero = normalizar(libro.genero);
+                var texto = normalizar(libro.sinopsis || libro.descripcion);
+                var keys = (libro.keywords || []).map(normalizar);
+
+                var score = 0;
+                if (campo === 'todos' || campo === 'titulo') {
+                    if (titulo === q) { score += 120; }
+                    else if (titulo.indexOf(q) === 0) { score += 90; }
+                    else if (titulo.indexOf(q) !== -1) { score += 70; }
+                }
+                if (campo === 'todos' || campo === 'autor') {
+                    if (autor === q) { score += 60; }
+                    else if (autor.indexOf(q) !== -1) { score += 45; }
+                }
+                if (campo === 'todos' || campo === 'genero') {
+                    if (genero === q) { score += 40; }
+                    else if (genero.indexOf(q) !== -1) { score += 30; }
+                }
+                if (campo === 'todos' || campo === 'keywords') {
+                    keys.forEach(function (k) {
+                        if (k === q) { score += 25; }
+                        else if (k.indexOf(q) !== -1) { score += 15; }
+                    });
+                    if (texto.indexOf(q) !== -1) { score += 10; }
+                }
+
+                return score > 0 ? { libro: libro, score: score } : null;
+            }).filter(Boolean);
+
+            resultados.sort(function (a, b) {
+                if (b.score !== a.score) { return b.score - a.score; }
+                return a.libro.titulo.localeCompare(b.libro.titulo, 'es');
+            });
+
+            return resultados.map(function (r) {
+                r.libro.relevancia = r.score;
+                return r.libro;
+            });
+        },
+
+        /* -------------------------------------------- Citas con la editorial (RF6) */
+        getCitas: function () {
+            return leer(KEYS.citas).sort(function (a, b) {
+                return new Date(b.creado) - new Date(a.creado);
+            });
+        },
+
+        solicitarCita: function (datos) {
+            var lista = leer(KEYS.citas);
+            // Una misma fecha y hora no puede tener dos citas confirmadas.
+            var ocupada = lista.some(function (c) {
+                return c.fecha === datos.fecha && c.hora === datos.hora && c.estado !== 'cancelada';
+            });
+            var cita = {
+                id: uid('cit'),
+                folio: 'CITA-' + new Date().getFullYear() + '-' + String(100 + lista.length + 1),
+                nombre: datos.nombre,
+                email: datos.email,
+                telefono: datos.telefono,
+                fecha: datos.fecha,
+                hora: datos.hora,
+                motivo: datos.motivo,
+                estado: ocupada ? 'en-espera' : 'pendiente',
+                creado: ahora()
+            };
+            lista.push(cita);
+            escribir(KEYS.citas, lista);
+            return cita;
+        },
+
+        cambiarEstadoCita: function (id, estado) {
+            var lista = leer(KEYS.citas).map(function (c) {
+                if (c.id === id) { c.estado = estado; c.actualizado = ahora(); }
+                return c;
+            });
+            escribir(KEYS.citas, lista);
+        },
+
+        eliminarCita: function (id) {
+            escribir(KEYS.citas, leer(KEYS.citas).filter(function (c) { return c.id !== id; }));
+        },
+
+        horarioOcupado: function (fecha, hora) {
+            return leer(KEYS.citas).some(function (c) {
+                return c.fecha === fecha && c.hora === hora && c.estado !== 'cancelada';
+            });
+        },
+
+        /* ------------------------------------- Eventos y asistencia (RF9 y RF10) */
+        getEventos: function () {
+            return leer(KEYS.eventos).sort(function (a, b) {
+                return new Date(a.fecha + 'T' + (a.hora || '00:00')) - new Date(b.fecha + 'T' + (b.hora || '00:00'));
+            });
+        },
+
+        getEvento: function (id) {
+            return leer(KEYS.eventos).filter(function (e) { return e.id === id; })[0] || null;
+        },
+
+        guardarEvento: function (datos) {
+            var lista = leer(KEYS.eventos);
+            if (datos.id) {
+                lista = lista.map(function (e) {
+                    return e.id === datos.id ? Object.assign({}, e, datos, { actualizado: ahora() }) : e;
+                });
+                escribir(KEYS.eventos, lista);
+                return API.getEvento(datos.id);
+            }
+            var evento = {
+                id: uid('eve'),
+                titulo: datos.titulo,
+                tipo: datos.tipo || 'Evento',
+                fecha: datos.fecha,
+                hora: datos.hora,
+                duracion: Number(datos.duracion) || 60,
+                lugar: datos.lugar || '',
+                descripcion: datos.descripcion || '',
+                capacidad: Number(datos.capacidad) || 0,
+                creado: ahora()
+            };
+            lista.push(evento);
+            escribir(KEYS.eventos, lista);
+            return evento;
+        },
+
+        eliminarEvento: function (id) {
+            escribir(KEYS.eventos, leer(KEYS.eventos).filter(function (e) { return e.id !== id; }));
+            escribir(KEYS.asistencias, leer(KEYS.asistencias).filter(function (a) { return a.eventoId !== id; }));
+        },
+
+        getAsistencias: function (filtros) {
+            filtros = filtros || {};
+            return leer(KEYS.asistencias).filter(function (a) {
+                if (filtros.eventoId && a.eventoId !== filtros.eventoId) { return false; }
+                if (filtros.email && normalizar(a.email) !== normalizar(filtros.email)) { return false; }
+                return true;
+            }).sort(function (a, b) { return new Date(b.registro) - new Date(a.registro); });
+        },
+
+        cupoDisponible: function (eventoId) {
+            var evento = API.getEvento(eventoId);
+            if (!evento) { return 0; }
+            var inscritos = API.getAsistencias({ eventoId: eventoId }).length;
+            return Math.max(0, (Number(evento.capacidad) || 0) - inscritos);
+        },
+
+        inscribirse: function (eventoId, miembro, email) {
+            var evento = API.getEvento(eventoId);
+            if (!evento) { return { ok: false, mensaje: 'El evento ya no existe.' }; }
+
+            var yaInscrito = API.getAsistencias({ eventoId: eventoId }).some(function (a) {
+                return normalizar(a.email) === normalizar(email);
+            });
+            if (yaInscrito) { return { ok: false, mensaje: 'Ya estabas registrado en este evento.' }; }
+            if (API.cupoDisponible(eventoId) <= 0) { return { ok: false, mensaje: 'El evento alcanzó su capacidad máxima.' }; }
+
+            var lista = leer(KEYS.asistencias);
+            var registro = {
+                id: uid('asi'),
+                eventoId: eventoId,
+                miembro: miembro,
+                email: email,
+                estado: 'registrado',
+                registro: ahora()
+            };
+            lista.push(registro);
+            escribir(KEYS.asistencias, lista);
+            return { ok: true, registro: registro, mensaje: 'Registro confirmado para "' + evento.titulo + '".' };
+        },
+
+        cambiarAsistencia: function (id, estado) {
+            var lista = leer(KEYS.asistencias).map(function (a) {
+                if (a.id === id) { a.estado = estado; }
+                return a;
+            });
+            escribir(KEYS.asistencias, lista);
+        },
+
+        cancelarInscripcion: function (id) {
+            escribir(KEYS.asistencias, leer(KEYS.asistencias).filter(function (a) { return a.id !== id; }));
+        },
+
+        // Historial de asistencia de un miembro (RF10)
+        historialMiembro: function (email) {
+            return API.getAsistencias({ email: email }).map(function (a) {
+                var evento = API.getEvento(a.eventoId);
+                return Object.assign({}, a, {
+                    evento: evento ? evento.titulo : '(evento eliminado)',
+                    fecha: evento ? evento.fecha : '',
+                    hora: evento ? evento.hora : '',
+                    lugar: evento ? evento.lugar : '',
+                    tipo: evento ? evento.tipo : ''
+                });
             });
         },
 
@@ -1015,6 +1316,71 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+        },
+
+        /* Catálogo completo en PDF (RF5).
+           Se arma una hoja imprimible con los datos actuales del catálogo y se
+           manda a imprimir: el navegador ofrece "Guardar como PDF". Se genera
+           en el momento, así que siempre refleja el catálogo vigente. */
+        catalogoPDF: function (libros) {
+            var lista = (libros && libros.length ? libros : API.buscarLibros({}));
+            if (!lista.length) { return false; }
+
+            var generado = new Date().toLocaleDateString('es-MX', {
+                day: '2-digit', month: 'long', year: 'numeric'
+            });
+
+            // Agrupado por género para que el PDF salga por categorías.
+            var porGenero = {};
+            lista.forEach(function (l) {
+                (porGenero[l.genero] = porGenero[l.genero] || []).push(l);
+            });
+
+            var secciones = Object.keys(porGenero).sort().map(function (genero) {
+                var filas = porGenero[genero].map(function (l) {
+                    return '<tr>' +
+                        '<td class="t">' + escapeHtml(l.titulo) + '</td>' +
+                        '<td>' + escapeHtml(l.autor) + '</td>' +
+                        '<td>' + escapeHtml(l.genero) + '</td>' +
+                        '<td class="c">' + escapeHtml(l.anio) + '</td>' +
+                        '<td class="s">' + escapeHtml(l.sinopsis || l.descripcion || '') + '</td>' +
+                        '</tr>';
+                }).join('');
+                return '<h2>' + escapeHtml(genero) + ' <span>(' + porGenero[genero].length + ')</span></h2>' +
+                    '<table><thead><tr><th>Título</th><th>Autor</th><th>Género</th><th>Año</th><th>Sinopsis</th></tr></thead>' +
+                    '<tbody>' + filas + '</tbody></table>';
+            }).join('');
+
+            var html = '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">' +
+                '<title>Catálogo PEGASSO Editorial</title><style>' +
+                'body{font-family:Georgia,"Times New Roman",serif;color:#00394f;margin:32px;}' +
+                'header{border-bottom:3px solid #17a2b8;padding-bottom:12px;margin-bottom:24px;}' +
+                'h1{margin:0 0 4px;font-size:26px;}' +
+                'header p{margin:0;color:#5a6b73;font-size:12px;}' +
+                'h2{font-size:16px;margin:26px 0 8px;color:#0c6b7a;border-left:4px solid #17a2b8;padding-left:8px;}' +
+                'h2 span{color:#8a9aa1;font-weight:normal;font-size:12px;}' +
+                'table{width:100%;border-collapse:collapse;font-size:11px;}' +
+                'th{background:#00394f;color:#fff;text-align:left;padding:6px 8px;font-size:11px;}' +
+                'td{border-bottom:1px solid #dde5e8;padding:6px 8px;vertical-align:top;}' +
+                'td.t{font-weight:bold;width:22%;}td.c{text-align:center;width:7%;}td.s{width:37%;color:#3d5560;}' +
+                'tr{page-break-inside:avoid;}h2{page-break-after:avoid;}' +
+                'footer{margin-top:28px;border-top:1px solid #dde5e8;padding-top:10px;font-size:10px;color:#8a9aa1;text-align:center;}' +
+                '@page{margin:14mm;}' +
+                '</style></head><body>' +
+                '<header><h1>PEGASSO Editorial · Catálogo de libros</h1>' +
+                '<p>' + lista.length + ' títulos · generado el ' + generado + '</p></header>' +
+                secciones +
+                '<footer>PEGASSO Editorial · dir.gral.pegasso@gmail.com · +52 222 755 6588</footer>' +
+                '</body></html>';
+
+            var ventana = window.open('', '_blank');
+            if (!ventana) { return false; }
+            ventana.document.open();
+            ventana.document.write(html);
+            ventana.document.close();
+            ventana.focus();
+            setTimeout(function () { ventana.print(); }, 400);
+            return true;
         },
 
         toast: function (mensaje) {

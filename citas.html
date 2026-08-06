@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Solicitar una Cita</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="cita, agenda, editorial, asesoría" name="keywords">
+    <meta content="Solicita una cita con el equipo de PEGASSO Editorial." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body data-pagina="citas">
+    <div id="pegasso-navbar"></div>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Solicitar una Cita</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Citas</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Agenda editorial</span></p>
+                <h1 class="mb-4">Habla con nosotros en persona</h1>
+            </div>
+
+            <div class="row">
+                <!-- Formulario -->
+                <div class="col-lg-6 mb-5">
+                    <div class="card border-0">
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Datos de la cita</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <div id="avisoCita" class="alert alert-light d-none mb-4"></div>
+                            <form id="formCita" novalidate>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" id="cNombre" placeholder="Nombre completo *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 p-4" id="cEmail" placeholder="Correo electrónico *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control border-0 p-4" id="cTelefono" placeholder="Teléfono *" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="date" class="form-control border-0 p-4" id="cFecha" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <select class="custom-select border-0 px-4" id="cHora" style="height: 47px;" required>
+                                            <option value="">Hora *</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select border-0 px-4" id="cAsunto" style="height: 47px;">
+                                        <option value="">Tipo de asunto</option>
+                                        <option>Envío y dictamen de manuscrito</option>
+                                        <option>Contrato de edición</option>
+                                        <option>Distribución y ventas</option>
+                                        <option>Material educativo para escuelas</option>
+                                        <option>Otro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control border-0 py-3 px-4" id="cMotivo" rows="4"
+                                              placeholder="Motivo de la cita *" required></textarea>
+                                </div>
+                                <button class="btn btn-secondary btn-block border-0 py-3" type="submit">
+                                    <i class="fa fa-calendar-check mr-2"></i>Solicitar cita
+                                </button>
+                                <p class="text-white small text-center mt-3 mb-0">
+                                    La cita queda sujeta a disponibilidad. Te confirmamos por correo.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info y consulta -->
+                <div class="col-lg-6">
+                    <p class="section-title pr-5"><span class="pr-2">Cómo funciona</span></p>
+                    <h1 class="mb-4">Sujeto a disponibilidad</h1>
+                    <ul class="timeline mb-4">
+                        <li><span class="timeline-fecha">Paso 1</span><strong>Solicitas</strong> la cita indicando fecha, hora y motivo.</li>
+                        <li><span class="timeline-fecha">Paso 2</span><strong>Revisamos</strong> la agenda: si el horario está ocupado, queda en lista de espera.</li>
+                        <li><span class="timeline-fecha">Paso 3</span><strong>Confirmamos</strong> por correo con el folio de tu solicitud.</li>
+                    </ul>
+
+                    <div class="panel-card p-4 mb-4">
+                        <h5 class="mb-3"><i class="fa fa-clock text-primary mr-2"></i>Horario de atención</h5>
+                        <p class="mb-1">Lunes a viernes de 9:00 a 18:00 h</p>
+                        <p class="mb-0 text-muted small">Sábados solo con cita confirmada. No hay atención en domingo.</p>
+                    </div>
+
+                    <div class="panel-card p-4">
+                        <h5 class="mb-3"><i class="fa fa-search text-primary mr-2"></i>Consulta tu solicitud</h5>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="consultaCita" placeholder="Tu folio (CITA-2026-101) o correo">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-4" type="button" id="btnConsultarCita">Consultar</button>
+                            </div>
+                        </div>
+                        <div id="resultadoCita" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel administrativo -->
+            <div class="pt-5">
+                <div class="text-center pb-4">
+                    <p class="section-title px-5"><span class="px-2">Panel editorial</span></p>
+                    <h1 class="mb-4">Solicitudes recibidas</h1>
+                </div>
+
+                <div class="panel-card p-5 text-center d-none" id="bloqueoCitas">
+                    <i class="fa fa-lock text-primary" style="font-size: 46px;"></i>
+                    <h4 class="mt-3">Sección reservada al personal</h4>
+                    <p class="text-muted mb-4">La agenda con los datos de contacto de cada solicitante requiere sesión de administrador.</p>
+                    <a href="login.html?redirect=citas.html" class="btn btn-primary py-2 px-4">
+                        <i class="fa fa-sign-in-alt mr-2"></i>Iniciar sesión
+                    </a>
+                </div>
+
+                <div class="panel-card d-none" id="panelCitas">
+                    <div class="panel-card-header d-flex justify-content-between align-items-center">
+                        <h4>Agenda de citas</h4>
+                        <button class="btn btn-sm btn-outline-primary" id="btnExportarCitas">
+                            <i class="fa fa-file-csv mr-1"></i>Exportar
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-pegasso mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Folio</th>
+                                    <th>Solicitante</th>
+                                    <th>Contacto</th>
+                                    <th>Fecha y hora</th>
+                                    <th>Motivo</th>
+                                    <th>Estado</th>
+                                    <th class="text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaCitas"></tbody>
+                        </table>
+                    </div>
+                    <div id="vacioCitas" class="empty-state d-none">
+                        <i class="fa fa-calendar-times d-block mb-3"></i>
+                        <p class="m-0">Todavía no hay solicitudes de cita.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pegasso-footer"></div>
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var A = window.PEGASSO_AUTH;
+            var esc = P.escapeHtml;
+            var aviso = document.getElementById('avisoCita');
+
+            var ESTADOS_CITA = {
+                'pendiente': { texto: 'Pendiente', clase: 'estado-recibido' },
+                'en-espera': { texto: 'En lista de espera', clase: 'estado-en-revision' },
+                'confirmada': { texto: 'Confirmada', clase: 'estado-aprobado' },
+                'cancelada': { texto: 'Cancelada', clase: 'estado-rechazado' },
+                'atendida': { texto: 'Atendida', clase: 'estado-publicado' }
+            };
+
+            // Horarios de atención en bloques de 30 minutos
+            var $hora = document.getElementById('cHora');
+            for (var h = 9; h <= 17; h++) {
+                ['00', '30'].forEach(function (m) {
+                    var valor = String(h).padStart(2, '0') + ':' + m;
+                    $hora.insertAdjacentHTML('beforeend', '<option value="' + valor + '">' + valor + ' h</option>');
+                });
+            }
+
+            // La fecha mínima es mañana; no se aceptan domingos.
+            var manana = new Date();
+            manana.setDate(manana.getDate() + 1);
+            var $fecha = document.getElementById('cFecha');
+            $fecha.min = manana.toISOString().slice(0, 10);
+
+            // Si hay sesión, se rellenan los datos del usuario.
+            var sesion = A.sesion();
+            if (sesion) {
+                document.getElementById('cNombre').value = sesion.nombre || '';
+                document.getElementById('cEmail').value = sesion.email || '';
+            }
+
+            function mostrar(texto, tipo) {
+                aviso.className = 'alert alert-' + (tipo || 'danger') + ' mb-4';
+                aviso.innerHTML = texto;
+            }
+
+            function badgeCita(estado) {
+                var info = ESTADOS_CITA[estado] || ESTADOS_CITA.pendiente;
+                return '<span class="estado-badge ' + info.clase + '">' + info.texto + '</span>';
+            }
+
+            function avisarDisponibilidad() {
+                var f = $fecha.value, h = $hora.value;
+                if (!f || !h) { return; }
+                if (P.horarioOcupado(f, h)) {
+                    mostrar('<i class="fa fa-info-circle mr-2"></i>Ese horario ya está apartado. Puedes solicitarlo de todas formas y quedarás en lista de espera.', 'warning');
+                } else {
+                    aviso.classList.add('d-none');
+                }
+            }
+            $fecha.addEventListener('change', avisarDisponibilidad);
+            $hora.addEventListener('change', avisarDisponibilidad);
+
+            // Registro de la solicitud (RF6)
+            document.getElementById('formCita').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+
+                var datos = {
+                    nombre: document.getElementById('cNombre').value.trim(),
+                    email: document.getElementById('cEmail').value.trim(),
+                    telefono: document.getElementById('cTelefono').value.trim(),
+                    fecha: $fecha.value,
+                    hora: $hora.value,
+                    motivo: document.getElementById('cMotivo').value.trim()
+                };
+                var asunto = document.getElementById('cAsunto').value;
+                if (asunto) { datos.motivo = asunto + ': ' + datos.motivo; }
+
+                if (!datos.nombre || !datos.email || !datos.telefono || !datos.fecha || !datos.hora || !datos.motivo) {
+                    mostrar('<i class="fa fa-exclamation-circle mr-2"></i>Todos los campos marcados con * son obligatorios.');
+                    return;
+                }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(datos.email)) {
+                    mostrar('<i class="fa fa-exclamation-circle mr-2"></i>El correo no tiene un formato válido.');
+                    return;
+                }
+                if (!/^[\d\s()+-]{8,15}$/.test(datos.telefono)) {
+                    mostrar('<i class="fa fa-exclamation-circle mr-2"></i>El teléfono debe llevar entre 8 y 15 dígitos.');
+                    return;
+                }
+                var dia = new Date(datos.fecha + 'T12:00:00').getDay();
+                if (dia === 0) {
+                    mostrar('<i class="fa fa-exclamation-circle mr-2"></i>No atendemos los domingos. Elige otro día.');
+                    return;
+                }
+
+                var cita = P.solicitarCita(datos);
+                ev.target.reset();
+                if (sesion) {
+                    document.getElementById('cNombre').value = sesion.nombre || '';
+                    document.getElementById('cEmail').value = sesion.email || '';
+                }
+
+                mostrar('<i class="fa fa-check-circle mr-2"></i>Solicitud registrada con folio <strong>' + esc(cita.folio) +
+                    '</strong> para el ' + P.formatoFecha(cita.fecha) + ' a las ' + esc(cita.hora) + ' h. ' +
+                    (cita.estado === 'en-espera'
+                        ? 'Ese horario ya estaba apartado, así que quedaste en lista de espera.'
+                        : 'Queda sujeta a confirmación de la editorial.'), 'success');
+
+                document.getElementById('consultaCita').value = cita.folio;
+                consultar();
+                render();
+                P.toast('Cita solicitada. Folio ' + cita.folio);
+            });
+
+            // Consulta pública por folio o correo
+            function consultar() {
+                var q = P.normalizar(document.getElementById('consultaCita').value.trim());
+                var salida = document.getElementById('resultadoCita');
+                if (!q) {
+                    salida.innerHTML = '<p class="text-muted m-0">Escribe tu folio o el correo con el que solicitaste la cita.</p>';
+                    return;
+                }
+                var encontradas = P.getCitas().filter(function (c) {
+                    return P.normalizar(c.folio) === q || P.normalizar(c.email) === q;
+                });
+                salida.innerHTML = encontradas.length
+                    ? encontradas.map(function (c) {
+                        return '<div class="border rounded p-3 mb-2 bg-white">' +
+                            '<div class="d-flex justify-content-between align-items-center">' +
+                            '<strong>' + esc(c.folio) + '</strong>' + badgeCita(c.estado) + '</div>' +
+                            '<small class="text-muted d-block">' + P.formatoFecha(c.fecha) + ' · ' + esc(c.hora) + ' h</small>' +
+                            '<small class="d-block mt-1">' + esc(c.motivo) + '</small>' +
+                            '</div>';
+                    }).join('')
+                    : '<p class="text-danger m-0">No encontramos solicitudes con ese folio o correo.</p>';
+            }
+
+            document.getElementById('btnConsultarCita').addEventListener('click', consultar);
+            document.getElementById('consultaCita').addEventListener('keypress', function (ev) {
+                if (ev.key === 'Enter') { consultar(); }
+            });
+
+            // ------------------------------------------------ Panel administrativo
+            var esAdmin = A.esAdmin();
+            document.getElementById('panelCitas').classList.toggle('d-none', !esAdmin);
+            document.getElementById('bloqueoCitas').classList.toggle('d-none', esAdmin);
+
+            function render() {
+                if (!A.esAdmin()) { return; }
+                var citas = P.getCitas();
+                document.getElementById('vacioCitas').classList.toggle('d-none', citas.length > 0);
+                document.getElementById('tablaCitas').innerHTML = citas.map(function (c) {
+                    return '<tr>' +
+                        '<td class="align-middle"><code>' + esc(c.folio || '-') + '</code></td>' +
+                        '<td class="align-middle">' + esc(c.nombre) + '</td>' +
+                        '<td class="align-middle"><small>' + esc(c.email) + '<br>' + esc(c.telefono || '-') + '</small></td>' +
+                        '<td class="align-middle">' + P.formatoFecha(c.fecha) + '<br><small class="text-muted">' + esc(c.hora) + ' h</small></td>' +
+                        '<td class="align-middle"><small>' + esc(c.motivo) + '</small></td>' +
+                        '<td class="align-middle">' + badgeCita(c.estado) + '</td>' +
+                        '<td class="align-middle text-right" style="min-width: 200px;">' +
+                        '  <select class="custom-select custom-select-sm mb-1" data-estado-cita="' + esc(c.id) + '" style="width: 140px;">' +
+                        Object.keys(ESTADOS_CITA).map(function (k) {
+                            return '<option value="' + k + '"' + (k === c.estado ? ' selected' : '') + '>' + ESTADOS_CITA[k].texto + '</option>';
+                        }).join('') +
+                        '  </select>' +
+                        '  <button class="btn btn-sm btn-outline-danger ml-1" data-borrar-cita="' + esc(c.id) + '"><i class="fa fa-trash"></i></button>' +
+                        '</td>' +
+                        '</tr>';
+                }).join('');
+            }
+
+            document.getElementById('tablaCitas').addEventListener('change', function (ev) {
+                var id = ev.target.getAttribute('data-estado-cita');
+                if (!id) { return; }
+                P.cambiarEstadoCita(id, ev.target.value);
+                render();
+                consultar();
+                P.toast('Estado de la cita actualizado.');
+            });
+
+            document.getElementById('tablaCitas').addEventListener('click', function (ev) {
+                var btn = ev.target.closest('[data-borrar-cita]');
+                if (!btn) { return; }
+                if (window.confirm('¿Eliminar esta solicitud de cita?')) {
+                    P.eliminarCita(btn.getAttribute('data-borrar-cita'));
+                    render();
+                    P.toast('Solicitud eliminada.');
+                }
+            });
+
+            document.getElementById('btnExportarCitas').addEventListener('click', function () {
+                var filas = P.getCitas().map(function (c) {
+                    return {
+                        Folio: c.folio, Nombre: c.nombre, Correo: c.email, Telefono: c.telefono,
+                        Fecha: c.fecha, Hora: c.hora, Motivo: c.motivo,
+                        Estado: (ESTADOS_CITA[c.estado] || {}).texto || c.estado
+                    };
+                });
+                if (!filas.length) { P.toast('No hay citas para exportar.'); return; }
+                P.exportarCSV(filas, 'citas-pegasso.csv');
+            });
+
+            render();
+            consultar();
+        })();
+    </script>
+</body>
+
+</html>

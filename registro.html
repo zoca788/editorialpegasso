@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Registro de Autores</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="registro, autores, cuenta, manuscritos" name="keywords">
+    <meta content="Crea tu cuenta de autor en PEGASSO Editorial para enviar tus manuscritos a evaluación." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body data-pagina="registro">
+    <div id="pegasso-navbar"></div>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Registro de Autores</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Crear cuenta</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Únete a PEGASSO</span></p>
+                <h1 class="mb-4">Crea tu cuenta de autor</h1>
+            </div>
+
+            <div class="row justify-content-center">
+                <!-- Formulario -->
+                <div class="col-lg-6 mb-5" id="bloqueFormulario">
+                    <div class="card border-0">
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Datos del autor</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <div id="avisoRegistro" class="alert alert-light d-none mb-4"></div>
+                            <form id="formRegistro" novalidate>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" id="rNombre"
+                                           placeholder="Nombre completo *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 p-4" id="rEmail"
+                                           placeholder="Correo electrónico *" autocomplete="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control border-0 p-4" id="rTelefono"
+                                           placeholder="Teléfono (10 dígitos)">
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select border-0 px-4" id="rGenero" style="height: 47px;">
+                                        <option value="">Género literario que trabajas</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" id="rUsuario"
+                                           placeholder="Nombre de usuario *" autocomplete="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control border-0 p-4" id="rClave"
+                                           placeholder="Contraseña (mínimo 6 caracteres) *" autocomplete="new-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control border-0 p-4" id="rConfirmar"
+                                           placeholder="Confirmar contraseña *" autocomplete="new-password" required>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-4">
+                                    <input type="checkbox" class="custom-control-input" id="rTerminos">
+                                    <label class="custom-control-label text-white" for="rTerminos">
+                                        Acepto que PEGASSO Editorial evalúe las obras que envíe
+                                    </label>
+                                </div>
+                                <button class="btn btn-secondary btn-block border-0 py-3" type="submit">
+                                    <i class="fa fa-user-plus mr-2"></i>Crear cuenta
+                                </button>
+                                <p class="text-white text-center small mt-3 mb-0">
+                                    ¿Ya tienes cuenta? <a class="text-white font-weight-bold" href="login.html">Inicia sesión</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confirmación (RF3) -->
+                <div class="col-lg-6 mb-5 d-none" id="bloqueConfirmacion">
+                    <div class="panel-card p-5 text-center">
+                        <i class="fa fa-check-circle text-primary" style="font-size: 56px;"></i>
+                        <h3 class="mt-3 mb-2">¡Cuenta creada!</h3>
+                        <p class="text-muted" id="textoConfirmacion"></p>
+                        <div class="bg-light rounded p-4 my-4 text-left">
+                            <h6 class="mb-3"><i class="fa fa-paper-plane text-primary mr-2"></i>Siguiente paso: envía tu manuscrito</h6>
+                            <p class="small mb-0">Ya puedes mandar tu obra a evaluación. Se te asignará un folio de
+                                seguimiento y recibirás una notificación en cada cambio de estado.</p>
+                        </div>
+                        <a href="manuscritos.html" class="btn btn-primary py-2 px-4 mb-2">
+                            <i class="fa fa-file-upload mr-2"></i>Enviar mi manuscrito
+                        </a>
+                        <br>
+                        <a href="catalogo.html" class="btn btn-link">Explorar el catálogo</a>
+                    </div>
+                </div>
+
+                <!-- Información -->
+                <div class="col-lg-6">
+                    <p class="section-title pr-5"><span class="pr-2">Ventajas</span></p>
+                    <h1 class="mb-4">¿Para qué sirve la cuenta?</h1>
+                    <ul class="list-inline m-0 mb-4">
+                        <li class="py-2 border-top border-bottom"><i class="fa fa-check text-primary mr-3"></i>Enviar manuscritos a dictamen editorial</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Consultar el estado de cada obra con tu folio</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Recibir notificaciones de revisión, aprobación o publicación</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Inscribirte a talleres y eventos de la editorial</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-check text-primary mr-3"></i>Agendar una cita con el equipo editorial</li>
+                    </ul>
+
+                    <div class="panel-card p-4">
+                        <h5 class="mb-3"><i class="fa fa-users text-primary mr-2"></i>Autores registrados</h5>
+                        <div id="listaAutores"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pegasso-footer"></div>
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var A = window.PEGASSO_AUTH;
+            var esc = P.escapeHtml;
+            var aviso = document.getElementById('avisoRegistro');
+
+            P.GENEROS.forEach(function (g) {
+                document.getElementById('rGenero').insertAdjacentHTML('beforeend',
+                    '<option value="' + g + '">' + g + '</option>');
+            });
+
+            function mostrar(texto, tipo) {
+                aviso.className = 'alert alert-' + (tipo || 'danger') + ' mb-4';
+                aviso.innerHTML = texto;
+            }
+
+            function pintarAutores() {
+                var autores = A.getAutores();
+                document.getElementById('listaAutores').innerHTML = autores.length
+                    ? autores.slice().reverse().slice(0, 6).map(function (a) {
+                        return '<div class="d-flex align-items-center mb-3">' +
+                            '<span class="estado-badge estado-publicado mr-3">' + esc(a.iniciales) + '</span>' +
+                            '<div><strong>' + esc(a.nombre) + '</strong>' +
+                            '<br><small class="text-muted">' + esc(a.email) +
+                            (a.genero ? ' · ' + esc(a.genero) : '') + '</small></div>' +
+                            '</div>';
+                    }).join('')
+                    : '<p class="text-muted m-0">Todavía no hay autores registrados. Sé el primero.</p>';
+            }
+
+            // Validación y alta de la cuenta (RF3)
+            document.getElementById('formRegistro').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+
+                var telefono = document.getElementById('rTelefono').value.trim();
+                if (telefono && !/^[\d\s()+-]{8,15}$/.test(telefono)) {
+                    mostrar('<i class="fa fa-exclamation-circle mr-2"></i>El teléfono solo debe llevar números (8 a 15 dígitos).');
+                    return;
+                }
+                if (!document.getElementById('rTerminos').checked) {
+                    mostrar('<i class="fa fa-exclamation-circle mr-2"></i>Debes aceptar que evaluemos tus obras para continuar.');
+                    return;
+                }
+
+                var resultado = A.registrarAutor({
+                    nombre: document.getElementById('rNombre').value,
+                    email: document.getElementById('rEmail').value,
+                    telefono: telefono,
+                    genero: document.getElementById('rGenero').value,
+                    usuario: document.getElementById('rUsuario').value || document.getElementById('rEmail').value,
+                    clave: document.getElementById('rClave').value,
+                    confirmar: document.getElementById('rConfirmar').value
+                });
+
+                if (!resultado.ok) {
+                    mostrar('<i class="fa fa-times-circle mr-2"></i>' + esc(resultado.mensaje));
+                    return;
+                }
+
+                // Se deja la sesión iniciada para que pueda enviar su obra enseguida.
+                A.entrar(resultado.usuario.usuario, document.getElementById('rClave').value, false);
+
+                document.getElementById('bloqueFormulario').classList.add('d-none');
+                document.getElementById('bloqueConfirmacion').classList.remove('d-none');
+                document.getElementById('textoConfirmacion').textContent =
+                    'Bienvenido, ' + resultado.usuario.nombre + '. Tu cuenta quedó activa con el usuario "' +
+                    resultado.usuario.usuario + '" y ya iniciaste sesión.';
+                pintarAutores();
+                P.toast('Cuenta creada. Ya puedes enviar tu manuscrito.');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Si ya hay sesión de autor, no tiene caso mostrar el formulario.
+            if (A.esAutor()) {
+                document.getElementById('bloqueFormulario').classList.add('d-none');
+                document.getElementById('bloqueConfirmacion').classList.remove('d-none');
+                document.getElementById('textoConfirmacion').textContent =
+                    'Ya tienes una sesión activa como ' + A.sesion().nombre + '.';
+            }
+
+            pintarAutores();
+        })();
+    </script>
+</body>
+
+</html>

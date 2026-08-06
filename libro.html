@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Detalle del Libro</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="libro, ficha, sinopsis, catálogo" name="keywords">
+    <meta content="Información completa de un libro del catálogo de PEGASSO Editorial." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body data-pagina="catalogo">
+    <div id="pegasso-navbar"></div>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 260px">
+            <h3 class="display-4 font-weight-bold text-white text-center px-3" id="cabeceraTitulo">Detalle del libro</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0"><a class="text-white" href="catalogo.html">Catálogo</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Ficha</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <a href="catalogo.html" class="btn btn-outline-primary mb-4" id="btnVolver">
+                <i class="fa fa-arrow-left mr-2"></i>Volver al catálogo
+            </a>
+
+            <div id="fichaLibro"></div>
+
+            <div id="libroNoEncontrado" class="empty-state d-none">
+                <i class="fa fa-book-dead d-block mb-3"></i>
+                <h4>No encontramos ese libro</h4>
+                <p class="mb-4">Puede que haya sido retirado del catálogo.</p>
+                <a href="catalogo.html" class="btn btn-primary py-2 px-4">Ir al catálogo</a>
+            </div>
+
+            <!-- Otros de la misma categoría -->
+            <div id="bloqueRelacionados" class="pt-5 d-none">
+                <div class="text-center pb-2">
+                    <p class="section-title px-5"><span class="px-2">También te puede interesar</span></p>
+                    <h1 class="mb-4" id="tituloRelacionados">Más libros de la categoría</h1>
+                </div>
+                <div class="row" id="relacionados"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pegasso-footer"></div>
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var esc = P.escapeHtml;
+
+            var params = new URLSearchParams(window.location.search);
+            var id = params.get('id');
+            var origen = params.get('desde');
+            var libro = id ? P.getLibro(id) : null;
+
+            // Conserva los filtros con los que venía el usuario del catálogo.
+            if (origen) {
+                document.getElementById('btnVolver').setAttribute('href', 'catalogo.html?' + origen);
+            }
+
+            function claseDisponibilidad(d) {
+                if (d === 'Disponible') { return 'estado-aprobado'; }
+                if (d === 'Últimas copias') { return 'estado-en-revision'; }
+                if (d === 'Agotado') { return 'estado-rechazado'; }
+                return 'estado-publicado';
+            }
+
+            if (!libro) {
+                document.getElementById('libroNoEncontrado').classList.remove('d-none');
+                return;
+            }
+
+            document.title = 'PEGASSO - ' + libro.titulo;
+            document.getElementById('cabeceraTitulo').textContent = libro.titulo;
+
+            document.getElementById('fichaLibro').innerHTML = '' +
+                '<div class="row">' +
+                '  <div class="col-lg-5 mb-4">' +
+                '    <div class="panel-card p-4 text-center">' +
+                '      <img class="img-fluid rounded" src="' + esc(libro.portada) + '" alt="Portada de ' + esc(libro.titulo) + '"' +
+                '           style="max-height: 460px;" onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                '      <p class="libro-precio mt-4 mb-1">' + P.formatoMoneda(libro.precio) + '</p>' +
+                '      <span class="estado-badge ' + claseDisponibilidad(libro.disponibilidad) + '">' +
+                        esc(libro.disponibilidad || 'Disponible') + '</span>' +
+                '    </div>' +
+                '  </div>' +
+                '  <div class="col-lg-7">' +
+                '    <p class="section-title pr-5"><span class="pr-2">' + esc(libro.genero) + '</span></p>' +
+                '    <h1 class="mb-2">' + esc(libro.titulo) + '</h1>' +
+                '    <p class="h5 text-muted mb-4"><i class="fa fa-user-edit text-primary mr-2"></i>' + esc(libro.autor) + '</p>' +
+                '    <h5 class="mb-2">Sinopsis</h5>' +
+                '    <p class="mb-4">' + esc(libro.sinopsis || libro.descripcion || 'Sin sinopsis registrada.') + '</p>' +
+                '    <div class="panel-card p-0 mb-4">' +
+                '      <table class="table table-pegasso mb-0">' +
+                '        <tbody>' +
+                '          <tr><th style="width: 40%;">Género</th><td>' + esc(libro.genero) + '</td></tr>' +
+                '          <tr><th>Autor</th><td>' + esc(libro.autor) + '</td></tr>' +
+                '          <tr><th>Editorial</th><td>' + esc(libro.editorial || 'PEGASSO Editorial') + '</td></tr>' +
+                '          <tr><th>Número de páginas</th><td>' + esc(libro.paginas) + '</td></tr>' +
+                '          <tr><th>Año de publicación</th><td>' + esc(libro.anio) + '</td></tr>' +
+                '          <tr><th>ISBN</th><td>' + esc(libro.isbn) + '</td></tr>' +
+                '          <tr><th>Formato</th><td>' + esc(libro.formato) + '</td></tr>' +
+                '          <tr><th>Alta en el catálogo</th><td>' + P.formatoFecha(libro.fechaPublicacion) + '</td></tr>' +
+                '          <tr><th>Disponibilidad</th><td><span class="estado-badge ' + claseDisponibilidad(libro.disponibilidad) + '">' +
+                            esc(libro.disponibilidad || 'Disponible') + '</span></td></tr>' +
+                '        </tbody>' +
+                '      </table>' +
+                '    </div>' +
+                '    <div class="mb-4">' + (libro.keywords || []).map(function (k) {
+                    return '<a class="tag-keyword" href="catalogo.html?q=' + encodeURIComponent(k) + '">' + esc(k) + '</a>';
+                }).join('') + '</div>' +
+                '    <button class="btn btn-primary py-2 px-4 mr-2" id="btnComprar"' +
+                       (libro.disponibilidad === 'Disponible' || libro.disponibilidad === 'Últimas copias' ? '' : ' disabled') + '>' +
+                '      <i class="fa fa-shopping-cart mr-2"></i>Registrar venta</button>' +
+                '    <a href="catalogo.html?genero=' + encodeURIComponent(libro.genero) + '" class="btn btn-outline-secondary py-2 px-4">' +
+                '      Ver categoría ' + esc(libro.genero) + '</a>' +
+                '  </div>' +
+                '</div>';
+
+            var btnComprar = document.getElementById('btnComprar');
+            if (btnComprar) {
+                btnComprar.addEventListener('click', function () {
+                    var venta = P.registrarVenta({ libroId: libro.id, unidades: 1, canal: 'Tienda en línea' });
+                    P.toast('Venta registrada: ' + venta.titulo + ' · ' + P.formatoMoneda(venta.total));
+                });
+            }
+
+            // Otros títulos de la misma categoría
+            var relacionados = P.buscarLibros({ genero: libro.genero })
+                .filter(function (l) { return l.id !== libro.id; })
+                .slice(0, 3);
+
+            if (relacionados.length) {
+                document.getElementById('bloqueRelacionados').classList.remove('d-none');
+                document.getElementById('tituloRelacionados').textContent = 'Más libros de ' + libro.genero;
+                document.getElementById('relacionados').innerHTML = relacionados.map(function (l) {
+                    return '<div class="col-lg-4 col-md-6 mb-4">' +
+                        '<a class="text-decoration-none text-dark" href="libro.html?id=' + encodeURIComponent(l.id) + '">' +
+                        '  <div class="card libro-card border-0 bg-light shadow-sm h-100 pb-2">' +
+                        '    <img class="card-img-top libro-portada" src="' + esc(l.portada) + '" alt="' + esc(l.titulo) + '"' +
+                        '         onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                        '    <div class="card-body text-center">' +
+                        '      <h5 class="card-title mb-1">' + esc(l.titulo) + '</h5>' +
+                        '      <p class="text-muted mb-2">' + esc(l.autor) + '</p>' +
+                        '      <p class="libro-precio mb-0">' + P.formatoMoneda(l.precio) + '</p>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '</a></div>';
+                }).join('');
+            }
+        })();
+    </script>
+</body>
+
+</html>

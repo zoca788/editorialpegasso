@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Eventos y Asistencia</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eventos, talleres, calendario, asistencia" name="keywords">
+    <meta content="Calendario de reuniones, talleres, debates y eventos de PEGASSO Editorial." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body data-pagina="eventos">
+    <div id="pegasso-navbar"></div>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Eventos y Asistencia</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Eventos</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Calendario -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Agenda</span></p>
+                <h1 class="mb-4">Calendario de la editorial</h1>
+            </div>
+
+            <div class="panel-card mb-5">
+                <div class="panel-card-header d-flex justify-content-between align-items-center">
+                    <button class="btn btn-sm btn-outline-primary" id="mesAnterior"><i class="fa fa-chevron-left"></i></button>
+                    <h4 id="tituloMes">Mes</h4>
+                    <button class="btn btn-sm btn-outline-primary" id="mesSiguiente"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                <div class="p-3 p-md-4">
+                    <div class="calendario" id="calendario"></div>
+                    <div class="mt-3 small text-muted">
+                        <span class="cal-punto cal-taller"></span> Taller
+                        <span class="cal-punto cal-reunion ml-3"></span> Reunión
+                        <span class="cal-punto cal-debate ml-3"></span> Debate
+                        <span class="cal-punto cal-evento ml-3"></span> Evento
+                    </div>
+                </div>
+            </div>
+
+            <!-- Próximos eventos -->
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Participa</span></p>
+                <h1 class="mb-4">Próximos eventos</h1>
+            </div>
+            <div class="row" id="listaEventos"></div>
+            <div id="vacioEventos" class="empty-state d-none">
+                <i class="fa fa-calendar-day d-block mb-3"></i>
+                <p class="m-0">No hay eventos programados por ahora.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mi asistencia (RF10) -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Mi participación</span></p>
+                <h1 class="mb-4">Historial de asistencia</h1>
+            </div>
+
+            <div class="panel-card p-4 mb-4" id="bloqueIdentificacion">
+                <div class="row align-items-end">
+                    <div class="col-md-5 mb-2 mb-md-0">
+                        <label class="font-weight-bold mb-1">Nombre del miembro</label>
+                        <input type="text" class="form-control" id="miNombre" placeholder="Tu nombre completo">
+                    </div>
+                    <div class="col-md-5 mb-2 mb-md-0">
+                        <label class="font-weight-bold mb-1">Correo</label>
+                        <input type="email" class="form-control" id="miEmail" placeholder="tu@correo.com">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" id="btnVerHistorial">Ver historial</button>
+                    </div>
+                </div>
+                <small class="text-muted d-block mt-2">
+                    Con estos datos se registra tu asistencia a los eventos. Si inicias sesión se llenan solos.
+                </small>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-card-header"><h4>Eventos a los que me registré</h4></div>
+                <div class="table-responsive">
+                    <table class="table table-pegasso mb-0">
+                        <thead>
+                            <tr>
+                                <th>Evento</th>
+                                <th>Tipo</th>
+                                <th>Fecha</th>
+                                <th>Lugar</th>
+                                <th>Estado</th>
+                                <th class="text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaHistorial"></tbody>
+                    </table>
+                </div>
+                <div id="vacioHistorial" class="empty-state">
+                    <i class="fa fa-clipboard-list d-block mb-3"></i>
+                    <p class="m-0">Escribe tu correo para ver a qué eventos te has registrado.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel administrativo (RF9) -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="text-center pb-4">
+                <p class="section-title px-5"><span class="px-2">Panel editorial</span></p>
+                <h1 class="mb-4">Programar y controlar eventos</h1>
+            </div>
+
+            <div class="panel-card p-5 text-center d-none" id="bloqueoEventos">
+                <i class="fa fa-lock text-primary" style="font-size: 46px;"></i>
+                <h4 class="mt-3">Sección reservada al personal</h4>
+                <p class="text-muted mb-4">Programar eventos y consultar las listas de asistencia requiere sesión de administrador.</p>
+                <a href="login.html?redirect=eventos.html" class="btn btn-primary py-2 px-4">
+                    <i class="fa fa-sign-in-alt mr-2"></i>Iniciar sesión
+                </a>
+            </div>
+
+            <div class="d-none" id="panelEventos">
+                <div class="row">
+                    <div class="col-lg-5 mb-4">
+                        <div class="panel-card">
+                            <div class="panel-card-header"><h4 id="tituloFormEvento">Nuevo evento</h4></div>
+                            <div class="p-4">
+                                <form id="formEvento" novalidate>
+                                    <input type="hidden" id="eId">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold mb-1">Título *</label>
+                                        <input type="text" class="form-control" id="eTitulo" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-6">
+                                            <label class="font-weight-bold mb-1">Tipo</label>
+                                            <select class="custom-select" id="eTipo">
+                                                <option>Reunión</option>
+                                                <option>Taller</option>
+                                                <option>Debate</option>
+                                                <option>Evento</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="font-weight-bold mb-1">Capacidad *</label>
+                                            <input type="number" class="form-control" id="eCapacidad" min="1" value="25" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-6">
+                                            <label class="font-weight-bold mb-1">Fecha *</label>
+                                            <input type="date" class="form-control" id="eFecha" required>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label class="font-weight-bold mb-1">Hora *</label>
+                                            <input type="time" class="form-control" id="eHora" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold mb-1">Duración (minutos)</label>
+                                        <input type="number" class="form-control" id="eDuracion" min="15" step="15" value="90">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold mb-1">Lugar</label>
+                                        <input type="text" class="form-control" id="eLugar" placeholder="Sede o dirección">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold mb-1">Descripción</label>
+                                        <textarea class="form-control" id="eDescripcion" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary py-2 px-4">
+                                        <i class="fa fa-calendar-plus mr-2"></i>Guardar evento
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary py-2 px-4 ml-2" id="btnCancelarEdicion">Limpiar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="panel-card mb-4">
+                            <div class="panel-card-header"><h4>Eventos programados</h4></div>
+                            <div class="table-responsive">
+                                <table class="table table-pegasso mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Evento</th>
+                                            <th>Fecha</th>
+                                            <th>Cupo</th>
+                                            <th class="text-right">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaEventos"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="panel-card">
+                            <div class="panel-card-header d-flex justify-content-between align-items-center">
+                                <h4>Lista de asistencia</h4>
+                                <select class="custom-select custom-select-sm" id="filtroEventoAsistencia" style="width: 220px;"></select>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-pegasso mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Miembro</th>
+                                            <th>Correo</th>
+                                            <th>Registro</th>
+                                            <th>Estado</th>
+                                            <th class="text-right">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAsistencia"></tbody>
+                                </table>
+                            </div>
+                            <div id="vacioAsistencia" class="empty-state d-none">
+                                <i class="fa fa-user-check d-block mb-3"></i>
+                                <p class="m-0">Nadie se ha registrado a este evento todavía.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pegasso-footer"></div>
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var A = window.PEGASSO_AUTH;
+            var esc = P.escapeHtml;
+
+            var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+                'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+            var DIAS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+            var mesActual = new Date();
+            mesActual.setDate(1);
+
+            function claseTipo(tipo) {
+                return 'cal-' + (tipo || 'Evento').toLowerCase()
+                    .normalize('NFD').replace(/[̀-ͯ]/g, '');
+            }
+
+            function hoyISO() {
+                var d = new Date();
+                return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') +
+                    '-' + String(d.getDate()).padStart(2, '0');
+            }
+
+            /* ------------------------------------------------ Calendario (RF9) */
+            function pintarCalendario() {
+                var anio = mesActual.getFullYear();
+                var mes = mesActual.getMonth();
+                document.getElementById('tituloMes').textContent =
+                    MESES[mes].charAt(0).toUpperCase() + MESES[mes].slice(1) + ' ' + anio;
+
+                var primero = new Date(anio, mes, 1);
+                // La semana empieza en lunes.
+                var offset = (primero.getDay() + 6) % 7;
+                var diasMes = new Date(anio, mes + 1, 0).getDate();
+                var eventos = P.getEventos();
+
+                var celdas = DIAS.map(function (d) {
+                    return '<div class="cal-encabezado">' + d + '</div>';
+                }).join('');
+
+                for (var i = 0; i < offset; i++) { celdas += '<div class="cal-dia cal-vacio"></div>'; }
+
+                for (var dia = 1; dia <= diasMes; dia++) {
+                    var iso = anio + '-' + String(mes + 1).padStart(2, '0') + '-' + String(dia).padStart(2, '0');
+                    var delDia = eventos.filter(function (e) { return e.fecha === iso; });
+                    celdas += '<div class="cal-dia' + (iso === hoyISO() ? ' cal-hoy' : '') + '">' +
+                        '<span class="cal-numero">' + dia + '</span>' +
+                        delDia.map(function (e) {
+                            return '<a class="cal-evento-chip ' + claseTipo(e.tipo) + '" href="#evento-' + esc(e.id) + '" ' +
+                                'title="' + esc(e.titulo) + ' · ' + esc(e.hora) + ' h">' +
+                                esc(e.hora) + ' ' + esc(e.titulo) + '</a>';
+                        }).join('') +
+                        '</div>';
+                }
+
+                document.getElementById('calendario').innerHTML = celdas;
+            }
+
+            document.getElementById('mesAnterior').addEventListener('click', function () {
+                mesActual.setMonth(mesActual.getMonth() - 1);
+                pintarCalendario();
+            });
+            document.getElementById('mesSiguiente').addEventListener('click', function () {
+                mesActual.setMonth(mesActual.getMonth() + 1);
+                pintarCalendario();
+            });
+
+            /* ------------------------------------- Tarjetas de próximos eventos */
+            function pintarEventos() {
+                var eventos = P.getEventos().filter(function (e) { return e.fecha >= hoyISO(); });
+                document.getElementById('vacioEventos').classList.toggle('d-none', eventos.length > 0);
+
+                document.getElementById('listaEventos').innerHTML = eventos.map(function (e) {
+                    var libres = P.cupoDisponible(e.id);
+                    var inscritos = (Number(e.capacidad) || 0) - libres;
+                    return '<div class="col-lg-4 col-md-6 mb-4" id="evento-' + esc(e.id) + '">' +
+                        '  <div class="panel-card h-100 p-4 d-flex flex-column">' +
+                        '    <span class="estado-badge ' + (libres > 0 ? 'estado-aprobado' : 'estado-rechazado') + ' mb-3 align-self-start">' +
+                        esc(e.tipo) + '</span>' +
+                        '    <h5 class="mb-2">' + esc(e.titulo) + '</h5>' +
+                        '    <p class="small text-muted mb-2">' +
+                        '      <i class="fa fa-calendar-alt text-primary mr-1"></i>' + P.formatoFecha(e.fecha) +
+                        '      <span class="mx-2">·</span><i class="fa fa-clock text-primary mr-1"></i>' + esc(e.hora) + ' h' +
+                        '      <span class="mx-2">·</span>' + esc(e.duracion) + ' min</p>' +
+                        '    <p class="small mb-2"><i class="fa fa-map-marker-alt text-primary mr-1"></i>' + esc(e.lugar || 'Por confirmar') + '</p>' +
+                        '    <p class="small flex-grow-1">' + esc(e.descripcion || '') + '</p>' +
+                        '    <div class="d-flex justify-content-between align-items-center mt-2">' +
+                        '      <small class="text-muted">' + inscritos + ' / ' + esc(e.capacidad) + ' lugares</small>' +
+                        '      <button class="btn btn-sm btn-primary" data-inscribir="' + esc(e.id) + '"' + (libres > 0 ? '' : ' disabled') + '>' +
+                        (libres > 0 ? '<i class="fa fa-user-plus mr-1"></i>Asistir' : 'Cupo lleno') + '</button>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '</div>';
+                }).join('');
+            }
+
+            /* --------------------------------- Registro de asistencia (RF10) */
+            var sesion = A.sesion();
+            if (sesion) {
+                document.getElementById('miNombre').value = sesion.nombre || '';
+                document.getElementById('miEmail').value = sesion.email || '';
+            }
+
+            document.getElementById('listaEventos').addEventListener('click', function (ev) {
+                var btn = ev.target.closest('[data-inscribir]');
+                if (!btn) { return; }
+
+                var nombre = document.getElementById('miNombre').value.trim();
+                var email = document.getElementById('miEmail').value.trim();
+                if (!nombre || !email) {
+                    P.toast('Escribe tu nombre y correo en "Mi participación" para registrarte.');
+                    document.getElementById('bloqueIdentificacion').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+                    P.toast('El correo no tiene un formato válido.');
+                    return;
+                }
+
+                var r = P.inscribirse(btn.getAttribute('data-inscribir'), nombre, email);
+                P.toast(r.mensaje);
+                if (r.ok) {
+                    pintarEventos();
+                    pintarHistorial();
+                    pintarAsistencia();
+                }
+            });
+
+            function pintarHistorial() {
+                var email = document.getElementById('miEmail').value.trim();
+                var vacio = document.getElementById('vacioHistorial');
+                var cuerpo = document.getElementById('tablaHistorial');
+
+                if (!email) {
+                    cuerpo.innerHTML = '';
+                    vacio.classList.remove('d-none');
+                    vacio.querySelector('p').textContent = 'Escribe tu correo para ver a qué eventos te has registrado.';
+                    return;
+                }
+
+                var historial = P.historialMiembro(email);
+                vacio.classList.toggle('d-none', historial.length > 0);
+                if (!historial.length) {
+                    vacio.querySelector('p').textContent = 'No hay registros de asistencia para ese correo.';
+                }
+
+                cuerpo.innerHTML = historial.map(function (h) {
+                    return '<tr>' +
+                        '<td class="align-middle">' + esc(h.evento) + '</td>' +
+                        '<td class="align-middle">' + esc(h.tipo) + '</td>' +
+                        '<td class="align-middle">' + (h.fecha ? P.formatoFecha(h.fecha) : '-') +
+                        (h.hora ? '<br><small class="text-muted">' + esc(h.hora) + ' h</small>' : '') + '</td>' +
+                        '<td class="align-middle"><small>' + esc(h.lugar || '-') + '</small></td>' +
+                        '<td class="align-middle"><span class="estado-badge ' +
+                        (h.estado === 'asistio' ? 'estado-publicado' : 'estado-aprobado') + '">' +
+                        (h.estado === 'asistio' ? 'Asistió' : 'Registrado') + '</span></td>' +
+                        '<td class="align-middle text-right">' +
+                        '<button class="btn btn-sm btn-outline-danger" data-cancelar="' + esc(h.id) + '">Cancelar</button></td>' +
+                        '</tr>';
+                }).join('');
+            }
+
+            document.getElementById('tablaHistorial').addEventListener('click', function (ev) {
+                var btn = ev.target.closest('[data-cancelar]');
+                if (!btn) { return; }
+                if (window.confirm('¿Cancelar tu registro a este evento?')) {
+                    P.cancelarInscripcion(btn.getAttribute('data-cancelar'));
+                    pintarHistorial();
+                    pintarEventos();
+                    pintarAsistencia();
+                    P.toast('Registro cancelado.');
+                }
+            });
+
+            document.getElementById('btnVerHistorial').addEventListener('click', pintarHistorial);
+            document.getElementById('miEmail').addEventListener('change', pintarHistorial);
+
+            /* ------------------------------------------- Panel administrativo */
+            var esAdmin = A.esAdmin();
+            document.getElementById('panelEventos').classList.toggle('d-none', !esAdmin);
+            document.getElementById('bloqueoEventos').classList.toggle('d-none', esAdmin);
+
+            function pintarTablaEventos() {
+                if (!A.esAdmin()) { return; }
+                document.getElementById('tablaEventos').innerHTML = P.getEventos().map(function (e) {
+                    var libres = P.cupoDisponible(e.id);
+                    return '<tr>' +
+                        '<td class="align-middle"><strong>' + esc(e.titulo) + '</strong><br>' +
+                        '<small class="text-muted">' + esc(e.tipo) + ' · ' + esc(e.lugar || 'Sin sede') + '</small></td>' +
+                        '<td class="align-middle">' + P.formatoFecha(e.fecha) + '<br>' +
+                        '<small class="text-muted">' + esc(e.hora) + ' h · ' + esc(e.duracion) + ' min</small></td>' +
+                        '<td class="align-middle">' + ((Number(e.capacidad) || 0) - libres) + ' / ' + esc(e.capacidad) + '</td>' +
+                        '<td class="align-middle text-right" style="min-width: 120px;">' +
+                        '  <button class="btn btn-sm btn-outline-primary mr-1" data-editar="' + esc(e.id) + '"><i class="fa fa-pen"></i></button>' +
+                        '  <button class="btn btn-sm btn-outline-danger" data-borrar-evento="' + esc(e.id) + '"><i class="fa fa-trash"></i></button>' +
+                        '</td></tr>';
+                }).join('');
+
+                var filtro = document.getElementById('filtroEventoAsistencia');
+                var seleccion = filtro.value;
+                filtro.innerHTML = P.getEventos().map(function (e) {
+                    return '<option value="' + esc(e.id) + '">' + esc(e.titulo) + '</option>';
+                }).join('');
+                if (seleccion) { filtro.value = seleccion; }
+            }
+
+            function pintarAsistencia() {
+                if (!A.esAdmin()) { return; }
+                var eventoId = document.getElementById('filtroEventoAsistencia').value;
+                var lista = eventoId ? P.getAsistencias({ eventoId: eventoId }) : [];
+                document.getElementById('vacioAsistencia').classList.toggle('d-none', lista.length > 0);
+                document.getElementById('tablaAsistencia').innerHTML = lista.map(function (a) {
+                    return '<tr>' +
+                        '<td class="align-middle">' + esc(a.miembro) + '</td>' +
+                        '<td class="align-middle"><small>' + esc(a.email) + '</small></td>' +
+                        '<td class="align-middle">' + P.formatoFecha(a.registro) + '</td>' +
+                        '<td class="align-middle"><span class="estado-badge ' +
+                        (a.estado === 'asistio' ? 'estado-publicado' : 'estado-aprobado') + '">' +
+                        (a.estado === 'asistio' ? 'Asistió' : 'Registrado') + '</span></td>' +
+                        '<td class="align-middle text-right" style="min-width: 150px;">' +
+                        '  <button class="btn btn-sm btn-outline-success mr-1" data-marcar="' + esc(a.id) + '" data-estado="' +
+                        (a.estado === 'asistio' ? 'registrado' : 'asistio') + '" title="Marcar asistencia">' +
+                        '<i class="fa fa-' + (a.estado === 'asistio' ? 'undo' : 'check') + '"></i></button>' +
+                        '  <button class="btn btn-sm btn-outline-danger" data-quitar="' + esc(a.id) + '"><i class="fa fa-times"></i></button>' +
+                        '</td></tr>';
+                }).join('');
+            }
+
+            document.getElementById('formEvento').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var datos = {
+                    id: document.getElementById('eId').value || null,
+                    titulo: document.getElementById('eTitulo').value.trim(),
+                    tipo: document.getElementById('eTipo').value,
+                    fecha: document.getElementById('eFecha').value,
+                    hora: document.getElementById('eHora').value,
+                    duracion: document.getElementById('eDuracion').value,
+                    lugar: document.getElementById('eLugar').value.trim(),
+                    descripcion: document.getElementById('eDescripcion').value.trim(),
+                    capacidad: document.getElementById('eCapacidad').value
+                };
+                if (!datos.titulo || !datos.fecha || !datos.hora || !datos.capacidad) {
+                    P.toast('Título, fecha, hora y capacidad son obligatorios.');
+                    return;
+                }
+                P.guardarEvento(datos);
+                ev.target.reset();
+                document.getElementById('eId').value = '';
+                document.getElementById('eCapacidad').value = 25;
+                document.getElementById('eDuracion').value = 90;
+                document.getElementById('tituloFormEvento').textContent = 'Nuevo evento';
+                pintarTablaEventos();
+                pintarEventos();
+                pintarCalendario();
+                pintarAsistencia();
+                P.toast(datos.id ? 'Evento actualizado.' : 'Evento programado y publicado en el calendario.');
+            });
+
+            document.getElementById('btnCancelarEdicion').addEventListener('click', function () {
+                document.getElementById('formEvento').reset();
+                document.getElementById('eId').value = '';
+                document.getElementById('tituloFormEvento').textContent = 'Nuevo evento';
+            });
+
+            document.getElementById('tablaEventos').addEventListener('click', function (ev) {
+                var editar = ev.target.closest('[data-editar]');
+                var borrar = ev.target.closest('[data-borrar-evento]');
+
+                if (editar) {
+                    var e = P.getEvento(editar.getAttribute('data-editar'));
+                    if (!e) { return; }
+                    document.getElementById('eId').value = e.id;
+                    document.getElementById('eTitulo').value = e.titulo;
+                    document.getElementById('eTipo').value = e.tipo;
+                    document.getElementById('eFecha').value = e.fecha;
+                    document.getElementById('eHora').value = e.hora;
+                    document.getElementById('eDuracion').value = e.duracion;
+                    document.getElementById('eLugar').value = e.lugar;
+                    document.getElementById('eDescripcion').value = e.descripcion;
+                    document.getElementById('eCapacidad').value = e.capacidad;
+                    document.getElementById('tituloFormEvento').textContent = 'Editar: ' + e.titulo;
+                    document.getElementById('formEvento').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else if (borrar) {
+                    if (window.confirm('¿Eliminar el evento y sus registros de asistencia?')) {
+                        P.eliminarEvento(borrar.getAttribute('data-borrar-evento'));
+                        pintarTablaEventos();
+                        pintarEventos();
+                        pintarCalendario();
+                        pintarAsistencia();
+                        pintarHistorial();
+                        P.toast('Evento eliminado.');
+                    }
+                }
+            });
+
+            document.getElementById('filtroEventoAsistencia').addEventListener('change', pintarAsistencia);
+
+            document.getElementById('tablaAsistencia').addEventListener('click', function (ev) {
+                var marcar = ev.target.closest('[data-marcar]');
+                var quitar = ev.target.closest('[data-quitar]');
+                if (marcar) {
+                    P.cambiarAsistencia(marcar.getAttribute('data-marcar'), marcar.getAttribute('data-estado'));
+                    pintarAsistencia();
+                    pintarHistorial();
+                } else if (quitar) {
+                    if (window.confirm('¿Quitar a esta persona de la lista?')) {
+                        P.cancelarInscripcion(quitar.getAttribute('data-quitar'));
+                        pintarAsistencia();
+                        pintarEventos();
+                        pintarHistorial();
+                    }
+                }
+            });
+
+            pintarCalendario();
+            pintarEventos();
+            pintarTablaEventos();
+            pintarAsistencia();
+            pintarHistorial();
+        })();
+    </script>
+</body>
+
+</html>

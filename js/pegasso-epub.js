@@ -244,10 +244,47 @@
         };
     }
 
+    function desdeBase64(b64) {
+        var binario = window.atob(b64);
+        var bytes = new Uint8Array(binario.length);
+        for (var i = 0; i < binario.length; i++) { bytes[i] = binario.charCodeAt(i); }
+        return bytes.buffer;
+    }
+
+    // Copia incrustada del libro, si js/pegasso-epub-libros.js está cargado.
+    function copiaIncrustada(ruta) {
+        var libros = window.PEGASSO_EPUB_LIBROS;
+        if (!libros) { return null; }
+        var limpia = String(ruta).split('?')[0].replace(/^\.\//, '');
+        if (libros[limpia]) { return libros[limpia]; }
+        // También se acepta solo el nombre del archivo.
+        var nombre = limpia.split('/').pop();
+        var clave = Object.keys(libros).filter(function (k) { return k.split('/').pop() === nombre; })[0];
+        return clave ? libros[clave] : null;
+    }
+
     async function abrirDesdeURL(url) {
-        var respuesta = await fetch(url);
-        if (!respuesta.ok) { throw new Error('No se pudo descargar el archivo (' + respuesta.status + ').'); }
-        return abrir(await respuesta.arrayBuffer());
+        try {
+            var respuesta = await fetch(url);
+            if (respuesta.ok) { return abrir(await respuesta.arrayBuffer()); }
+            if (!copiaIncrustada(url)) {
+                throw new Error('No se pudo descargar el archivo (' + respuesta.status + ').');
+            }
+        } catch (e) {
+            // Abrir la página con doble clic (file://) impide descargar
+            // archivos; en ese caso se usa la copia incrustada.
+            var copia = copiaIncrustada(url);
+            if (!copia) {
+                if (window.location.protocol === 'file:') {
+                    throw new Error('Al abrir la página con doble clic, el navegador no deja ' +
+                        'leer archivos del disco. Publica el sitio o ábrelo con un servidor local ' +
+                        '(por ejemplo: python -m http.server). También puedes abrir el EPUB con ' +
+                        'el botón "Abrir un EPUB de tu equipo".');
+                }
+                throw e;
+            }
+        }
+        return abrir(desdeBase64(copiaIncrustada(url)));
     }
 
     function abrirDesdeArchivo(archivo) {

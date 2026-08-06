@@ -150,6 +150,7 @@
     <script src="js/pegasso-auth.js"></script>
     <script src="js/pegasso-layout.js"></script>
     <script src="js/pegasso-epub.js"></script>
+    <script src="js/pegasso-epub-libros.js"></script>
 
     <script>
         (function () {
@@ -168,6 +169,17 @@
 
             if (!E.soportado) {
                 document.getElementById('avisoSoporte').classList.remove('d-none');
+            }
+
+            // Con doble clic (file://) el navegador no deja descargar archivos:
+            // los libros del catálogo se abren desde la copia incrustada.
+            if (window.location.protocol === 'file:') {
+                var nota = document.createElement('div');
+                nota.className = 'alert alert-info mt-4';
+                nota.innerHTML = '<i class="fa fa-info-circle mr-2"></i>Estás viendo el sitio como archivo local. ' +
+                    'Los libros del catálogo se abren con una copia incrustada; para el resto de las funciones ' +
+                    'conviene publicarlo o abrirlo con un servidor local.';
+                document.getElementById('biblioteca').appendChild(nota);
             }
 
             /* ------------------------------------------------ Biblioteca */

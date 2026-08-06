@@ -383,8 +383,11 @@
                         '      <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Páginas</strong></div><div class="col-6 py-1">' + esc(l.paginas) + '</div></div>' +
                         '      <div class="row border-bottom"><div class="col-6 py-1 text-right border-right"><strong>Año</strong></div><div class="col-6 py-1">' + esc(l.anio) + '</div></div>' +
                         '      <div class="d-flex justify-content-between align-items-center mt-3">' +
-                        '        <span class="libro-precio">' + P.formatoMoneda(l.precio) + '</span>' +
-                        '        <a class="btn btn-sm btn-primary" href="' + ficha + '">Ver detalle</a>' +
+                        '        <span class="libro-precio">' + (l.precio ? P.formatoMoneda(l.precio) : 'Gratis') + '</span>' +
+                        '        <span>' +
+                        (l.epub ? '<a class="btn btn-sm btn-outline-primary mr-1" href="lector.html?libro=' + encodeURIComponent(l.id) + '" title="Leer en línea"><i class="fa fa-book-open"></i></a>' : '') +
+                        '          <a class="btn btn-sm btn-primary" href="' + ficha + '">Ver detalle</a>' +
+                        '        </span>' +
                         '      </div>' +
                         '    </div>' +
                         '  </div>' +

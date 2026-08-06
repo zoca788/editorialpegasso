@@ -20,6 +20,29 @@ publicándose igual en GitHub Pages.
 | **RF9** | Programación de eventos y calendario | [eventos.html](eventos.html) — título, fecha, hora, duración, lugar, descripción y capacidad; calendario mensual navegable por tipo de evento |
 | **RF10** | Registro de asistencia e historial por miembro | [eventos.html](eventos.html) — el miembro elige a qué evento asistir (con control de cupo) y consulta su historial; el administrador marca asistencia |
 
+## Lectura en línea (EPUB)
+
+[lector.html](lector.html) abre libros EPUB dentro de la propia página, sin descargas
+ni aplicaciones externas. Incluye índice navegable, avance por secciones (botones,
+teclado o índice), tamaño de letra ajustable, modo sepia, barra de progreso y memoria
+del punto de lectura por libro.
+
+Dos títulos del catálogo están en EPUB:
+
+| Libro | Contenido |
+|---|---|
+| **Guía del Autor PEGASSO** | Cinco capítulos sobre cómo preparar un manuscrito, el proceso de dictamen, la edición y la publicación. Gratuito. |
+| **Rody y el Bosque de las Preguntas** | Cuento infantil original en cinco capítulos, para lectores de 7 a 11 años. |
+
+Ambos son obra original de la editorial y se generaron como EPUB 3 válidos
+(`libros-epub/`), con portada, índice y hoja de estilos propia.
+
+El lector también abre cualquier EPUB del equipo del usuario: el archivo se procesa en
+el navegador y no se sube a ningún servidor. Está escrito sin librerías externas
+(`js/pegasso-epub.js`): lee el ZIP a mano y descomprime con `DecompressionStream`, que
+ya traen Chrome, Edge, Firefox y Safari recientes. Al mostrar cada capítulo se eliminan
+`script`, `iframe` y `embed`, y las imágenes internas se sirven como blobs.
+
 ## Acceso
 
 `login.html` — administrador: usuario `admin`, contraseña `123456`.

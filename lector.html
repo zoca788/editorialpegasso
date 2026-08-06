@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Lector EPUB</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="lector, epub, libros digitales" name="keywords">
+    <meta content="Lee los libros digitales de PEGASSO Editorial directamente en el navegador." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body data-pagina="catalogo">
+    <div id="pegasso-navbar"></div>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 240px">
+            <h3 class="display-4 font-weight-bold text-white text-center px-3" id="tituloCabecera">Lector EPUB</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0"><a class="text-white" href="catalogo.html">Catálogo</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Lector</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-fluid pb-5">
+        <div class="container">
+
+            <!-- Estado inicial: elegir libro -->
+            <div id="biblioteca">
+                <div class="text-center pb-4">
+                    <p class="section-title px-5"><span class="px-2">Lectura en línea</span></p>
+                    <h1 class="mb-4">Libros disponibles en EPUB</h1>
+                    <p class="text-muted">Se abren aquí mismo, sin descargar nada ni instalar aplicaciones.</p>
+                </div>
+                <div class="row justify-content-center" id="listaEpub"></div>
+
+                <div class="panel-card p-4 mt-4">
+                    <h5 class="mb-3"><i class="fa fa-folder-open text-primary mr-2"></i>Abrir un EPUB de tu equipo</h5>
+                    <p class="text-muted small">El lector funciona con cualquier archivo EPUB, no solo con los del catálogo.
+                        El archivo se procesa en tu navegador: no se sube a ningún servidor.</p>
+                    <input type="file" class="form-control-file" id="archivoLocal" accept=".epub,application/epub+zip">
+                </div>
+
+                <div class="alert alert-warning mt-4 d-none" id="avisoSoporte">
+                    <i class="fa fa-exclamation-triangle mr-2"></i>
+                    Este navegador no puede descomprimir archivos EPUB. Usa una versión reciente de
+                    Chrome, Edge, Firefox o Safari.
+                </div>
+            </div>
+
+            <!-- Cargando -->
+            <div id="cargando" class="empty-state d-none">
+                <i class="fa fa-book-reader d-block mb-3"></i>
+                <p class="m-0">Abriendo el libro…</p>
+            </div>
+
+            <!-- Error -->
+            <div id="errorLector" class="panel-card p-5 text-center d-none">
+                <i class="fa fa-exclamation-circle text-primary" style="font-size: 46px;"></i>
+                <h4 class="mt-3">No se pudo abrir el libro</h4>
+                <p class="text-muted mb-4" id="errorMensaje"></p>
+                <a href="lector.html" class="btn btn-primary py-2 px-4">Volver a la biblioteca</a>
+            </div>
+
+            <!-- Lector -->
+            <div id="lector" class="d-none">
+                <div class="row">
+                    <!-- Índice -->
+                    <div class="col-lg-3 mb-4">
+                        <div class="panel-card lector-lateral">
+                            <div class="panel-card-header">
+                                <h4>Índice</h4>
+                            </div>
+                            <div class="p-3" id="indice"></div>
+                        </div>
+                    </div>
+
+                    <!-- Contenido -->
+                    <div class="col-lg-9">
+                        <div class="panel-card mb-3">
+                            <div class="panel-card-header d-flex flex-wrap justify-content-between align-items-center">
+                                <div>
+                                    <h4 id="tituloLibro">Título</h4>
+                                    <small class="text-muted" id="autorLibro"></small>
+                                </div>
+                                <div class="btn-group btn-group-sm mt-2 mt-md-0">
+                                    <button class="btn btn-outline-primary" id="menosTexto" title="Reducir texto">
+                                        <i class="fa fa-minus"></i> A
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="masTexto" title="Agrandar texto">
+                                        A <i class="fa fa-plus"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="modoSepia" title="Modo sepia">
+                                        <i class="fa fa-adjust"></i>
+                                    </button>
+                                    <a class="btn btn-outline-primary" id="descargarEpub" download title="Descargar EPUB">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                    <a class="btn btn-outline-secondary" href="lector.html" title="Cerrar libro">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="lector-pagina" id="pagina"></div>
+
+                            <div class="p-3 border-top d-flex justify-content-between align-items-center">
+                                <button class="btn btn-outline-primary" id="anterior">
+                                    <i class="fa fa-chevron-left mr-1"></i>Anterior
+                                </button>
+                                <small class="text-muted text-center px-2" id="posicion"></small>
+                                <button class="btn btn-primary" id="siguiente">
+                                    Siguiente<i class="fa fa-chevron-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-primary" id="barraProgreso" style="width: 0%"></div>
+                        </div>
+                        <small class="text-muted d-block mt-2">
+                            <i class="fa fa-info-circle mr-1"></i>Tu avance se guarda solo. Usa las flechas del teclado para cambiar de capítulo.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pegasso-footer"></div>
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+    <script src="js/pegasso-layout.js"></script>
+    <script src="js/pegasso-epub.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var P = window.PEGASSO;
+            var E = window.PEGASSO_EPUB;
+            var esc = P.escapeHtml;
+
+            var libroActual = null;
+            var capituloActual = 0;
+            var claveProgreso = '';
+            var tamTexto = Number(localStorage.getItem('pegasso_lector_texto') || 18);
+            var sepia = localStorage.getItem('pegasso_lector_sepia') === '1';
+
+            var $pagina = document.getElementById('pagina');
+
+            if (!E.soportado) {
+                document.getElementById('avisoSoporte').classList.remove('d-none');
+            }
+
+            /* ------------------------------------------------ Biblioteca */
+            function pintarBiblioteca() {
+                var conEpub = P.getLibros().filter(function (l) { return l.epub; });
+                document.getElementById('listaEpub').innerHTML = conEpub.map(function (l) {
+                    return '<div class="col-lg-4 col-md-6 mb-4">' +
+                        '  <div class="card libro-card border-0 bg-light shadow-sm h-100 pb-2">' +
+                        '    <img class="card-img-top libro-portada" src="' + esc(l.portada) + '" alt="Portada de ' + esc(l.titulo) + '"' +
+                        '         onerror="this.src=\'img/LOGO SIN BIRRETE.png\'">' +
+                        '    <div class="card-body text-center">' +
+                        '      <span class="estado-badge estado-publicado mb-2">EPUB</span>' +
+                        '      <h5 class="card-title mb-1">' + esc(l.titulo) + '</h5>' +
+                        '      <p class="text-muted mb-2"><i class="fa fa-user-edit mr-1"></i>' + esc(l.autor) + '</p>' +
+                        '      <p class="card-text small">' + esc((l.sinopsis || '').slice(0, 120)) + '</p>' +
+                        '      <a class="btn btn-primary btn-sm" href="lector.html?libro=' + encodeURIComponent(l.id) + '">' +
+                        '        <i class="fa fa-book-open mr-1"></i>Leer ahora</a>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '</div>';
+                }).join('') || '<div class="col-12"><p class="empty-state m-0">Todavía no hay libros en formato EPUB.</p></div>';
+            }
+
+            /* ------------------------------------------------ Vistas */
+            function mostrar(cual) {
+                ['biblioteca', 'cargando', 'errorLector', 'lector'].forEach(function (id) {
+                    document.getElementById(id).classList.toggle('d-none', id !== cual);
+                });
+            }
+
+            function fallar(mensaje) {
+                document.getElementById('errorMensaje').textContent = mensaje;
+                mostrar('errorLector');
+            }
+
+            /* ------------------------------------------------ Lectura */
+            function aplicarEstilo() {
+                $pagina.style.fontSize = tamTexto + 'px';
+                // El color se fija en el elemento para que no dependa del orden
+                // de las hojas de estilo del tema.
+                $pagina.classList.toggle('sepia', sepia);
+                $pagina.style.backgroundColor = sepia ? '#f7f1e3' : '#ffffff';
+                $pagina.style.color = sepia ? '#4a3f2f' : '#22333b';
+                document.getElementById('modoSepia').classList.toggle('active', sepia);
+                localStorage.setItem('pegasso_lector_texto', tamTexto);
+                localStorage.setItem('pegasso_lector_sepia', sepia ? '1' : '0');
+            }
+
+            function pintarIndice() {
+                document.getElementById('indice').innerHTML = libroActual.indice.map(function (e) {
+                    return '<a href="#" class="indice-item' + (e.indice === capituloActual ? ' activo' : '') +
+                        '" data-ir="' + e.indice + '">' + esc(e.titulo) + '</a>';
+                }).join('');
+            }
+
+            async function irA(n) {
+                if (!libroActual || n < 0 || n >= libroActual.total) { return; }
+                capituloActual = n;
+                $pagina.innerHTML = '<p class="text-muted text-center py-5">Cargando…</p>';
+
+                try {
+                    $pagina.innerHTML = await libroActual.capitulo(n);
+                } catch (e) {
+                    $pagina.innerHTML = '<p class="text-danger">No se pudo mostrar esta sección: ' + esc(e.message) + '</p>';
+                }
+
+                document.getElementById('posicion').textContent =
+                    'Sección ' + (n + 1) + ' de ' + libroActual.total;
+                document.getElementById('anterior').disabled = n === 0;
+                document.getElementById('siguiente').disabled = n === libroActual.total - 1;
+                document.getElementById('barraProgreso').style.width =
+                    Math.round(((n + 1) / libroActual.total) * 100) + '%';
+
+                pintarIndice();
+                if (claveProgreso) { localStorage.setItem(claveProgreso, n); }
+                $pagina.scrollTop = 0;
+                document.getElementById('lector').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            async function cargar(libro, meta) {
+                libroActual = libro;
+                document.getElementById('tituloLibro').textContent = libro.titulo;
+                document.getElementById('autorLibro').textContent =
+                    libro.autor + (libro.editorial ? ' · ' + libro.editorial : '');
+                document.getElementById('tituloCabecera').textContent = libro.titulo;
+                document.title = 'PEGASSO - ' + libro.titulo;
+
+                var descarga = document.getElementById('descargarEpub');
+                if (meta && meta.epub) {
+                    descarga.href = meta.epub;
+                    descarga.classList.remove('d-none');
+                } else {
+                    descarga.classList.add('d-none');
+                }
+
+                claveProgreso = meta && meta.id ? 'pegasso_lectura_' + meta.id : '';
+                var guardado = claveProgreso ? Number(localStorage.getItem(claveProgreso) || 0) : 0;
+
+                aplicarEstilo();
+                mostrar('lector');
+                await irA(guardado > 0 && guardado < libro.total ? guardado : 0);
+
+                if (guardado > 0) {
+                    P.toast('Continuamos donde te quedaste: sección ' + (guardado + 1) + '.');
+                }
+            }
+
+            /* ------------------------------------------------ Eventos */
+            document.getElementById('indice').addEventListener('click', function (ev) {
+                var enlace = ev.target.closest('[data-ir]');
+                if (!enlace) { return; }
+                ev.preventDefault();
+                irA(Number(enlace.getAttribute('data-ir')));
+            });
+
+            document.getElementById('anterior').addEventListener('click', function () { irA(capituloActual - 1); });
+            document.getElementById('siguiente').addEventListener('click', function () { irA(capituloActual + 1); });
+
+            document.addEventListener('keydown', function (ev) {
+                if (document.getElementById('lector').classList.contains('d-none')) { return; }
+                if (/input|textarea|select/i.test((ev.target.tagName || ''))) { return; }
+                if (ev.key === 'ArrowRight') { irA(capituloActual + 1); }
+                if (ev.key === 'ArrowLeft') { irA(capituloActual - 1); }
+            });
+
+            document.getElementById('masTexto').addEventListener('click', function () {
+                tamTexto = Math.min(30, tamTexto + 2); aplicarEstilo();
+            });
+            document.getElementById('menosTexto').addEventListener('click', function () {
+                tamTexto = Math.max(13, tamTexto - 2); aplicarEstilo();
+            });
+            document.getElementById('modoSepia').addEventListener('click', function () {
+                sepia = !sepia; aplicarEstilo();
+            });
+
+            document.getElementById('archivoLocal').addEventListener('change', async function () {
+                var archivo = this.files[0];
+                if (!archivo) { return; }
+                if (!/\.epub$/i.test(archivo.name)) {
+                    P.toast('Selecciona un archivo con extensión .epub');
+                    return;
+                }
+                mostrar('cargando');
+                try {
+                    var libro = await E.abrirDesdeArchivo(archivo);
+                    await cargar(libro, { id: 'local-' + archivo.name });
+                } catch (e) {
+                    fallar(e.message);
+                }
+            });
+
+            /* ------------------------------------------------ Arranque */
+            (async function () {
+                pintarBiblioteca();
+
+                var params = new URLSearchParams(window.location.search);
+                var id = params.get('libro');
+                var src = params.get('src');
+
+                if (!id && !src) { mostrar('biblioteca'); return; }
+
+                var meta = id ? P.getLibro(id) : null;
+                var ruta = src || (meta && meta.epub);
+
+                if (!ruta) {
+                    fallar('Ese libro no tiene una edición EPUB disponible.');
+                    return;
+                }
+
+                mostrar('cargando');
+                try {
+                    var libro = await E.abrirDesdeURL(ruta);
+                    await cargar(libro, { id: id || ruta, epub: ruta });
+                } catch (e) {
+                    fallar(e.message);
+                }
+            })();
+        })();
+    </script>
+</body>
+
+</html>

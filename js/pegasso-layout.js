@@ -23,7 +23,8 @@
         { id: 'reportes', href: 'reportes.html', texto: 'Reportes de ventas' },
         { id: 'notificaciones', href: 'notificaciones.html', texto: 'Notificaciones', badge: true },
         { id: 'eventos', href: 'eventos.html', texto: 'Eventos y asistencia' },
-        { id: 'citas', href: 'citas.html', texto: 'Solicitar cita' }
+        { id: 'citas', href: 'citas.html', texto: 'Solicitar cita' },
+        { id: 'lector', href: 'lector.html', texto: 'Lector EPUB' }
     ];
 
     var FINALES = [
@@ -79,6 +80,7 @@
             '      <h3 class="text-primary mb-4">Sistema Editorial</h3>' +
             '      <div class="d-flex flex-column justify-content-start">' +
             '        <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Catálogo digital</a>' +
+            '        <a class="text-white mb-2" href="lector.html"><i class="fa fa-angle-right mr-2"></i>Lector EPUB</a>' +
             '        <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Enviar manuscrito</a>' +
             '        <a class="text-white mb-2" href="registro.html"><i class="fa fa-angle-right mr-2"></i>Registro de autores</a>' +
             '        <a class="text-white mb-2" href="eventos.html"><i class="fa fa-angle-right mr-2"></i>Eventos y talleres</a>' +

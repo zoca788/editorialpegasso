@@ -437,6 +437,136 @@ body {
     font-weight: 400;
 }
 
+/* --------------------------------------------------------------------------
+   Lector de EPUB
+   -------------------------------------------------------------------------- */
+
+.lector-lateral {
+    max-height: 78vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 1rem;
+}
+
+.indice-item {
+    border-left: 3px solid transparent;
+    border-radius: 0 .25rem .25rem 0;
+    color: #3d5560;
+    display: block;
+    font-size: 14px;
+    line-height: 1.35;
+    padding: .5rem .75rem;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.indice-item:hover {
+    background: #f1f9fb;
+    color: #0c6b7a;
+    text-decoration: none;
+}
+
+.indice-item.activo {
+    background: #f1f9fb;
+    border-left-color: #17a2b8;
+    color: #00394f;
+    font-weight: 700;
+}
+
+.lector-pagina {
+    background: #fff;
+    color: #22333b;
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.75;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 2rem 2.25rem;
+    transition: background .3s ease, color .3s ease;
+}
+
+.lector-pagina.sepia {
+    background: #f7f1e3;
+    color: #4a3f2f;
+}
+
+.lector-pagina h1,
+.lector-pagina h2,
+.lector-pagina h3 {
+    color: #00394f;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    line-height: 1.25;
+}
+
+.lector-pagina.sepia h1,
+.lector-pagina.sepia h2,
+.lector-pagina.sepia h3 {
+    color: #6b4f2a;
+}
+
+.lector-pagina h1 { font-size: 1.7em; margin: 0 0 .5em; }
+.lector-pagina h2 { font-size: 1.25em; margin: 1.6em 0 .4em; }
+.lector-pagina p { margin: 0 0 1em; text-align: justify; }
+
+.lector-pagina img {
+    display: block;
+    height: auto;
+    margin: 1.5em auto;
+    max-width: 100%;
+}
+
+.lector-pagina blockquote {
+    border-left: 3px solid #17a2b8;
+    color: #3d5560;
+    font-style: italic;
+    margin: 1.5em 0;
+    padding: .2em 0 .2em 1em;
+}
+
+.lector-pagina .capitulo {
+    color: #8aa2ad;
+    font-size: .78em;
+    letter-spacing: .18em;
+    margin-bottom: .5em;
+    text-transform: uppercase;
+}
+
+.lector-pagina .entrada {
+    color: #4d6470;
+    font-style: italic;
+}
+
+.lector-pagina .primera:first-letter {
+    color: #17a2b8;
+    float: left;
+    font-size: 3em;
+    line-height: .8;
+    padding: .05em .1em 0 0;
+}
+
+.lector-pagina hr {
+    border: 0;
+    border-top: 1px solid #d9e6ea;
+    margin: 2em auto;
+    width: 40%;
+}
+
+.lector-pagina .portadilla {
+    padding-top: 2em;
+    text-align: center;
+}
+
+.lector-pagina .portadilla .sello {
+    color: #17a2b8;
+    font-size: .8em;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+    .lector-pagina { max-height: none; padding: 1.25rem; }
+    .lector-lateral { max-height: 300px; position: static; }
+}
+
 .empty-state {
     color: #6c757d;
     padding: 3rem 1rem;

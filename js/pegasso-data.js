@@ -25,7 +25,7 @@
         seed: 'pegasso_seed_version'
     };
 
-    var SEED_VERSION = '3';
+    var SEED_VERSION = '4';
 
     // Disponibilidad de cada libro en el catálogo (RF2 y RF7).
     var DISPONIBILIDAD = ['Disponible', 'Últimas copias', 'Agotado', 'Próximamente'];
@@ -429,6 +429,36 @@
             descripcion: 'Segunda parte: sacramentos, historia de la Iglesia y objeciones contemporáneas.',
             keywords: ['apologetica', 'sacramentos', 'historia', 'iglesia', 'fe'],
             formato: 'Digital (PDF/EPUB)'
+        },
+
+        /* ------------------------------ Ediciones EPUB con lector en línea */
+        {
+            titulo: 'Guía del Autor PEGASSO',
+            autor: 'Equipo Editorial PEGASSO',
+            genero: 'Didáctico',
+            anio: 2026,
+            paginas: 86,
+            precio: 0,
+            isbn: '978-607-0001-29-5',
+            portada: 'img/epub/guia-del-autor.png',
+            descripcion: 'Todo lo que necesitas saber para preparar tu obra, enviarla a dictamen y acompañarla hasta el catálogo digital.',
+            keywords: ['guia', 'autores', 'manuscrito', 'dictamen', 'edicion', 'epub'],
+            formato: 'Digital (EPUB)',
+            epub: 'libros-epub/guia-del-autor-pegasso.epub'
+        },
+        {
+            titulo: 'Rody y el Bosque de las Preguntas',
+            autor: 'Equipo Pedagógico PEGASSO',
+            genero: 'Infantil',
+            anio: 2026,
+            paginas: 64,
+            precio: 149,
+            isbn: '978-607-0001-30-1',
+            portada: 'img/epub/rody-bosque.png',
+            descripcion: 'Rody entra a un bosque donde los árboles solo dejan pasar a quien se atreve a preguntar. Un cuento para lectores de 7 a 11 años.',
+            keywords: ['rody', 'cuento', 'infantil', 'preguntas', 'curiosidad', 'epub'],
+            formato: 'Digital (EPUB)',
+            epub: 'libros-epub/rody-y-el-bosque-de-las-preguntas.epub'
         }
     ];
 
@@ -593,6 +623,7 @@
                 editorial: 'PEGASSO Editorial',
                 sinopsis: l.descripcion,
                 disponibilidad: disp,
+                epub: l.epub || null,
                 publicado: true,
                 origen: 'catalogo'
             });
@@ -871,6 +902,7 @@
                     return k.trim();
                 }).filter(Boolean),
                 formato: datos.formato || 'Digital (PDF)',
+                epub: datos.epub || null,
                 fechaPublicacion: ahora(),
                 publicado: true,
                 origen: datos.manuscritoId ? 'manuscrito' : 'manual',

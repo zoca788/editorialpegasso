@@ -138,6 +138,12 @@
                 '    <div class="mb-4">' + (libro.keywords || []).map(function (k) {
                     return '<a class="tag-keyword" href="catalogo.html?q=' + encodeURIComponent(k) + '">' + esc(k) + '</a>';
                 }).join('') + '</div>' +
+                (libro.epub
+                    ? '    <a class="btn btn-primary py-2 px-4 mr-2" href="lector.html?libro=' + encodeURIComponent(libro.id) + '">' +
+                      '      <i class="fa fa-book-open mr-2"></i>Leer ahora</a>' +
+                      '    <a class="btn btn-outline-primary py-2 px-4 mr-2" href="' + esc(libro.epub) + '" download>' +
+                      '      <i class="fa fa-download mr-2"></i>Descargar EPUB</a>'
+                    : '') +
                 '    <button class="btn btn-primary py-2 px-4 mr-2" id="btnComprar"' +
                        (libro.disponibilidad === 'Disponible' || libro.disponibilidad === 'Últimas copias' ? '' : ' disabled') + '>' +
                 '      <i class="fa fa-shopping-cart mr-2"></i>Registrar venta</button>' +

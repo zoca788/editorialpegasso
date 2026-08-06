@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>PEGASSO - Editorial - Acceso al Sistema</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="acceso, login, sistema editorial" name="keywords">
+    <meta content="Acceso al sistema editorial de PEGASSO Editorial." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="index.html" class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px;">
+                <img src="LOGO.png" alt="Logo" class="img-fluid" style="max-height: 120px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Inicio</a>
+                    <a href="educativo.html" class="nav-item nav-link">Educativo</a>
+                    <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="catalogo.html" class="nav-item nav-link">Catálogo</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editorial</a>
+                        <div class="dropdown-menu border-0 rounded-0 m-0">
+                            <a href="manuscritos.html" class="dropdown-item">Manuscritos</a>
+                            <a href="publicar.html" class="dropdown-item">Publicar libro digital</a>
+                            <a href="reportes.html" class="dropdown-item">Reportes de ventas</a>
+                            <a href="notificaciones.html" class="dropdown-item">Notificaciones</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-item nav-link">Acerca de</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 320px">
+            <h3 class="display-3 font-weight-bold text-white">Acceso al Sistema</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0"><a class="text-white" href="index.html">Inicio</a></p>
+                <p class="m-0 px-2">/</p>
+                <p class="m-0">Iniciar sesión</p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-8 mb-5">
+                    <div class="card border-0">
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Iniciar Sesión</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <div id="avisoLogin" class="alert alert-light d-none mb-4"></div>
+                            <form id="formLogin" novalidate>
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" id="usuario"
+                                           placeholder="Usuario" autocomplete="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="password" class="form-control border-0 p-4" id="clave"
+                                               placeholder="Contraseña" autocomplete="current-password" required>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-light border-0 px-3" type="button" id="verClave" title="Mostrar u ocultar">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-4">
+                                    <input type="checkbox" class="custom-control-input" id="recordar">
+                                    <label class="custom-control-label text-white" for="recordar">Mantener la sesión iniciada</label>
+                                </div>
+                                <button class="btn btn-secondary btn-block border-0 py-3" type="submit">
+                                    <i class="fa fa-sign-in-alt mr-2"></i>Entrar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-8">
+                    <p class="section-title pr-5"><span class="pr-2">Panel interno</span></p>
+                    <h1 class="mb-4">Contenido reservado</h1>
+                    <p>Estas secciones manejan información sensible de la editorial (datos de autores,
+                        manuscritos en dictamen y cifras de ventas), por lo que requieren iniciar sesión:</p>
+                    <ul class="list-inline m-0 mb-4">
+                        <li class="py-2 border-top border-bottom"><i class="fa fa-lock text-primary mr-3"></i><strong>Panel de manuscritos</strong> — datos de contacto y dictámenes</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-lock text-primary mr-3"></i><strong>Publicación digital</strong> — alta de libros en el catálogo</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-lock text-primary mr-3"></i><strong>Reportes de ventas</strong> — ingresos y desempeño comercial</li>
+                        <li class="py-2 border-bottom"><i class="fa fa-lock text-primary mr-3"></i><strong>Notificaciones</strong> — mensajes enviados a los autores</li>
+                    </ul>
+                    <p>El envío de manuscritos y la búsqueda en el catálogo siguen siendo públicos para los autores y lectores.</p>
+
+                    <div class="bg-light shadow-sm rounded p-4 mt-4">
+                        <h5 class="mb-3"><i class="fa fa-info-circle text-primary mr-2"></i>Usuario de demostración</h5>
+                        <p class="m-0">Usuario: <code>admin</code> · Contraseña: <code>123456</code></p>
+                        <small class="text-muted d-block mt-2">La validación se hace en el navegador porque el sitio es
+                            estático. Para un uso real se necesita un servidor que autentique y entregue los datos.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
+                    <i class="flaticon-032-book"></i>
+                    <span class="text-white">PEGASSO</span>
+                </a>
+                <p>PEGASSO Editorial se dedica a la publicación de obras literarias de calidad. Desde novelas hasta ensayos, conectamos autores con lectores apasionados por la literatura en todo el mundo.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Sistema Editorial</h3>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Gestión de manuscritos</a>
+                    <a class="text-white mb-2" href="publicar.html"><i class="fa fa-angle-right mr-2"></i>Publicación digital</a>
+                    <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Búsqueda de libros</a>
+                    <a class="text-white mb-2" href="reportes.html"><i class="fa fa-angle-right mr-2"></i>Reportes de ventas</a>
+                    <a class="text-white" href="notificaciones.html"><i class="fa fa-angle-right mr-2"></i>Notificaciones a autores</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <h3 class="text-primary mb-4">Contacto</h3>
+                <div class="d-flex">
+                    <h4 class="fa fa-envelope text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Email</h5>
+                        <p>dir.gral.pegasso@gmail.com</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fa fa-phone-alt text-primary"></h4>
+                    <div class="pl-3">
+                        <h5 class="text-white">Teléfono</h5>
+                        <p>+52 222 755 6588</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);">
+            <p class="m-0 text-center text-white">
+                &copy; <a class="text-primary font-weight-bold" href="#">PEGASSO Editorial</a>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            var A = window.PEGASSO_AUTH;
+            var aviso = document.getElementById('avisoLogin');
+            var params = new URLSearchParams(window.location.search);
+            var destino = params.get('redirect') || 'manuscritos.html';
+
+            function mostrarAviso(texto, tipo) {
+                aviso.className = 'alert alert-' + (tipo || 'danger') + ' mb-4';
+                aviso.innerHTML = texto;
+            }
+
+            if (params.get('redirect')) {
+                mostrarAviso('<i class="fa fa-lock mr-2"></i>Inicia sesión para entrar a esa sección.', 'warning');
+            }
+
+            if (A.autenticado()) {
+                mostrarAviso('<i class="fa fa-check-circle mr-2"></i>Ya tienes una sesión activa como <strong>' +
+                    A.sesion().nombre + '</strong>. <a href="' + destino + '">Ir al panel</a>.', 'success');
+            }
+
+            document.getElementById('verClave').addEventListener('click', function () {
+                var campo = document.getElementById('clave');
+                var icono = this.querySelector('i');
+                var oculto = campo.type === 'password';
+                campo.type = oculto ? 'text' : 'password';
+                icono.className = oculto ? 'fa fa-eye-slash' : 'fa fa-eye';
+            });
+
+            document.getElementById('formLogin').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var usuario = document.getElementById('usuario').value;
+                var clave = document.getElementById('clave').value;
+
+                if (!usuario.trim() || !clave) {
+                    mostrarAviso('<i class="fa fa-exclamation-circle mr-2"></i>Escribe tu usuario y contraseña.');
+                    return;
+                }
+
+                var sesion = A.entrar(usuario, clave, document.getElementById('recordar').checked);
+                if (!sesion) {
+                    mostrarAviso('<i class="fa fa-times-circle mr-2"></i>Usuario o contraseña incorrectos.');
+                    document.getElementById('clave').value = '';
+                    return;
+                }
+
+                mostrarAviso('<i class="fa fa-check-circle mr-2"></i>Bienvenido, ' + sesion.nombre + '. Entrando al panel…', 'success');
+                setTimeout(function () { window.location.href = destino; }, 600);
+            });
+        })();
+    </script>
+</body>
+
+</html>

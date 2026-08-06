@@ -1,32 +1,38 @@
 # Sistema Editorial PEGASSO
 
-Módulos agregados al sitio para cubrir los cinco requerimientos funcionales.
+Módulos agregados al sitio para cubrir los requerimientos funcionales.
 Todo funciona del lado del cliente (HTML + Bootstrap 4 + JavaScript), sin backend:
 los datos se guardan en `localStorage` del navegador, así que el sitio sigue
 publicándose igual en GitHub Pages.
 
-## Páginas nuevas
+## Requerimientos funcionales
 
-| Requerimiento | Página | Qué hace |
+| RF | Qué pide | Dónde está |
 |---|---|---|
-| 1. Gestión de manuscritos | `manuscritos.html` | Formulario de envío (genera folio `MS-AAAA-###`), tabla de seguimiento con filtros, cambio de estado, historial (línea de tiempo) y consulta pública por folio o correo. |
-| 2. Publicación de libros digitales | `publicar.html` | Toma un manuscrito **aprobado** o captura uno nuevo, con vista previa en vivo de la ficha; al publicar entra al catálogo, el manuscrito pasa a *Publicado* y se notifica al autor. |
-| 3. Búsqueda de libros | `catalogo.html` | Búsqueda por título, autor, género o palabras clave, más filtros de año y precio, orden, resaltado de coincidencias, detalle en modal y exportación CSV. |
-| 4. Reportes de ventas | `reportes.html` | KPIs (ingresos, ejemplares, operaciones, ticket promedio), gráfica mensual, ranking de libros, desglose por canal y género, detalle de operaciones, exportar CSV e imprimir/PDF. |
-| 5. Notificaciones a autores | `notificaciones.html` | Bandeja de avisos con estado leído/no leído, envío manual de mensajes y plantillas automáticas por cada estado del manuscrito. |
+| **RF1** | Catálogo organizado por categorías con portada, título, género, páginas y año | [catalogo.html](catalogo.html) — chips de categoría con conteo, filtros y tarjetas con todos los datos |
+| **RF2** | Ficha completa del libro y regreso al catálogo | [libro.html](libro.html) — portada, título, género, autor, sinopsis, páginas, año, disponibilidad, ISBN y botón "Volver al catálogo" que conserva los filtros |
+| **RF3** | Registro de autor con validación y confirmación | [registro.html](registro.html) — valida correo, contraseña, duplicados y términos; al crear la cuenta inicia sesión y ofrece enviar el manuscrito |
+| **RF4** | Envío de manuscrito por autor registrado, con archivo validado | [manuscritos.html](manuscritos.html) — sin cuenta muestra el aviso de registro; valida extensión (PDF/DOC/DOCX/ODT), tamaño (20 MB) y archivo vacío; confirma con folio |
+| **RF5** | Descargar el catálogo en PDF | [catalogo.html](catalogo.html) → "Descargar catálogo en PDF": hoja generada al momento, agrupada por categoría, con título, autor, género, sinopsis y año |
+| **RF6** | Solicitud de cita con confirmación | [citas.html](citas.html) — nombre, correo, teléfono, fecha, hora y motivo; detecta horarios ocupados y deja la solicitud en lista de espera |
+| **RF7** | CRUD de libros para el administrador | [publicar.html](publicar.html) — alta, consulta, modificación y baja con editorial y disponibilidad; los cambios se ven de inmediato en el catálogo |
+| **RF8** | Búsqueda por título, autor, género o palabras clave, por relevancia | [catalogo.html](catalogo.html) — puntaje: título > autor > género > palabras clave, con bonus por coincidencia exacta o al inicio |
+| **RF9** | Programación de eventos y calendario | [eventos.html](eventos.html) — título, fecha, hora, duración, lugar, descripción y capacidad; calendario mensual navegable por tipo de evento |
+| **RF10** | Registro de asistencia e historial por miembro | [eventos.html](eventos.html) — el miembro elige a qué evento asistir (con control de cupo) y consulta su historial; el administrador marca asistencia |
 
-## Acceso al panel interno
+## Acceso
 
-`login.html` — usuario `admin`, contraseña `123456`.
+`login.html` — administrador: usuario `admin`, contraseña `123456`.
+`registro.html` — cualquier autor crea su propia cuenta.
 
 | Sección | Acceso |
 |---|---|
-| `index.html`, `catalogo.html`, envío y consulta de manuscrito por folio | Público |
-| Panel de seguimiento de `manuscritos.html` (datos de contacto y dictámenes) | Requiere sesión |
-| `publicar.html`, `reportes.html`, `notificaciones.html` | Requieren sesión (redirigen al login) |
+| Inicio, catálogo, ficha de libro, calendario de eventos, formulario de cita | Público |
+| Enviar manuscrito, inscribirse a eventos | Autor registrado |
+| Panel de seguimiento de manuscritos, agenda de citas, gestión de eventos y asistencia | Administrador |
+| `publicar.html`, `reportes.html`, `notificaciones.html` | Administrador (redirigen al login) |
 
 La sesión vive en `sessionStorage`, o en `localStorage` si se marca "mantener la sesión iniciada".
-El menú muestra el usuario conectado con la opción de cerrar sesión.
 
 > **Importante:** el sitio es estático, así que la validación ocurre en el navegador
 > (`js/pegasso-auth.js`). Sirve para separar la parte pública de la interna, pero **no es
@@ -37,35 +43,38 @@ El menú muestra el usuario conectado con la opción de cerrar sesión.
 ## Archivos de soporte
 
 - `js/pegasso-data.js` — capa de datos compartida: catálogo, manuscritos, ventas,
-  notificaciones, búsquedas, agregados de reportes, exportación CSV y avisos flotantes.
-  Incluye datos de demostración (28 libros del sitio, 5 manuscritos y 12 meses de ventas)
-  que se cargan la primera vez que se abre el sitio.
+  notificaciones, citas, eventos, asistencias, búsqueda con relevancia, reportes,
+  exportación CSV y generación del PDF del catálogo.
+  Incluye datos de demostración (28 libros, 5 manuscritos, 12 meses de ventas,
+  5 eventos y 2 citas) que se cargan la primera vez que se abre el sitio.
 
   El catálogo cubre las colecciones reales con sus portadas: Rody Matemáticas (3 bloques
   y guía docente), Lectoescritura (4 cuadernos), Curso de Inglés (2 niveles), Conoce y
   Descubre (4 tomos), El Principito (4 ediciones) y la línea religiosa (Biblia de Estudio
   en 3 ediciones, Biblia de Arte, Biblia Infantil en 2 títulos, Mariología en 2 ediciones
-  y Defendiendo la Fe en 2 tomos). Géneros disponibles: Infantil, Juvenil, Educativo,
-  Didáctico, Idiomas, Religioso, Novela, Ensayo y Poesía.
+  y Defendiendo la Fe en 2 tomos). Géneros: Infantil, Juvenil, Educativo, Didáctico,
+  Idiomas, Religioso, Novela, Ensayo y Poesía.
 
-  Al ampliar el catálogo se subió `SEED_VERSION` a `2`, así que la primera visita después
-  del cambio recarga los datos de demostración.
-- `js/pegasso-auth.js` — control de acceso: usuarios, sesión, guarda de páginas
-  protegidas y menú de usuario en la barra de navegación.
+- `js/pegasso-auth.js` — control de acceso: administradores, registro de autores,
+  perfiles (`admin` / `autor`), sesión, guarda de páginas y menú de usuario.
+- `js/pegasso-layout.js` — menú y pie compartidos; en las páginas antiguas solo agrega
+  los accesos que falten.
 - `css/pegasso-app.css` — estilos del sistema respetando la paleta original
-  (`--primary #17a2b8`, `--secondary #00394f`, degradado del `bg-primary`, tarjetas y hovers).
+  (`--primary #17a2b8`, `--secondary #00394f`).
 
-## Flujo completo
+## Publicación en GitHub Pages
 
-1. El autor envía su obra desde `index.html` o `manuscritos.html` → estado **Recibido** + notificación.
-2. El comité cambia el estado desde la tabla → cada cambio genera una notificación con plantilla.
-3. Un manuscrito **Aprobado** aparece en `publicar.html` listo para cargarse en el formulario.
-4. Al publicarlo entra a `catalogo.html` y el manuscrito queda como **Publicado**.
-5. Las ventas registradas (desde el catálogo, `publicar.html` o `reportes.html`) alimentan los reportes.
+El sitio se publica con el flujo `.github/workflows/pages.yml` (GitHub Actions), no con
+el builder Jekyll heredado, que fallaba sin mostrar el motivo. El flujo excluye de la
+publicación las carpetas que ninguna página referencia (`RELIGIOSO/`, que duplica
+`img/RELIGIOSO/`, `LOGO RODY OBRAS/`, `ELEMENTOS/` y `scss/`) para bajar el peso del
+sitio; siguen en el repositorio.
 
 ## Notas
 
 - Los datos viven en el navegador de cada usuario. Para volver al estado inicial,
   ejecuta en la consola del navegador: `PEGASSO.reiniciarDatos()`.
+- Al ampliar los datos se subió `SEED_VERSION`; la primera visita después de un cambio
+  recarga los datos de demostración.
 - Para migrar a un backend real solo hay que reemplazar las funciones de
   `js/pegasso-data.js` que leen y escriben en `localStorage` por llamadas a una API.

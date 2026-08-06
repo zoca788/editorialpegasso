@@ -30,6 +30,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/pegasso-app.css" rel="stylesheet">
     <style>
 body {
     background: linear-gradient(to bottom, #bed9ee, #f4dede);
@@ -240,6 +241,16 @@ body {
                     <a href="index.html" class="nav-item nav-link active">Inicio</a>
                     <a href="educativo.html" class="nav-item nav-link">Educativo</a>
                     <a href="religioso.html" class="nav-item nav-link">Religioso</a>
+                    <a href="catalogo.html" class="nav-item nav-link">Catálogo</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Editorial</a>
+                        <div class="dropdown-menu border-0 rounded-0 m-0">
+                            <a href="manuscritos.html" class="dropdown-item">Manuscritos</a>
+                            <a href="publicar.html" class="dropdown-item">Publicar libro digital</a>
+                            <a href="reportes.html" class="dropdown-item">Reportes de ventas</a>
+                            <a href="notificaciones.html" class="dropdown-item">Notificaciones <span class="badge badge-primary ml-1" data-notif-badge>0</span></a>
+                        </div>
+                    </div>
                     <a href="about.html" class="nav-item nav-link">Acerca de</a>
                     <a href="contact.html" class="nav-item nav-link">Contacto</a>
                 </div>
@@ -256,7 +267,14 @@ body {
                 <h4 class="text-white mb-4 mt-5 mt-lg-0">Editorial PEGASSO</h4>
                 <h1 class="display-3 font-weight-bold text-white">Descubre Nuestros Libros</h1>
                 <p class="text-white mb-4">En PEGASSO Editorial, nos dedicamos a publicar obras literarias de calidad, desde novelas hasta ensayos, conectando autores con lectores apasionados por la literatura.</p>
-                
+                <form class="mb-4" action="catalogo.html" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 p-4" name="q" placeholder="Busca por título, autor, género o palabra clave">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary px-4" type="submit"><i class="fa fa-search mr-2"></i>Buscar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <img class="img-fluid mt-5" src="img/header.png" alt="">
@@ -264,6 +282,65 @@ body {
         </div>
     </div>
     <!-- Header End -->
+
+
+    <!-- Sistema Editorial Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center pb-2">
+                <p class="section-title px-5"><span class="px-2">Sistema Editorial</span></p>
+                <h1 class="mb-4">Todo el proceso editorial en un solo lugar</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="manuscritos.html" class="text-decoration-none text-dark">
+                        <div class="card border-0 bg-light shadow-sm h-100 p-4 text-center">
+                            <i class="fa fa-inbox h1 text-primary mb-3"></i>
+                            <h4>Gestión de manuscritos</h4>
+                            <p class="m-0">Recibe, almacena y da seguimiento a las obras enviadas por los autores, con folio y estado en tiempo real.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="publicar.html" class="text-decoration-none text-dark">
+                        <div class="card border-0 bg-light shadow-sm h-100 p-4 text-center">
+                            <i class="fa fa-cloud-upload-alt h1 text-primary mb-3"></i>
+                            <h4>Publicación digital</h4>
+                            <p class="m-0">Publica libros en formato digital y ponlos disponibles al instante en el catálogo de la editorial.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="catalogo.html" class="text-decoration-none text-dark">
+                        <div class="card border-0 bg-light shadow-sm h-100 p-4 text-center">
+                            <i class="fa fa-search h1 text-primary mb-3"></i>
+                            <h4>Búsqueda de libros</h4>
+                            <p class="m-0">Filtra el catálogo por título, autor, género o palabras clave y encuentra la obra que buscas.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <a href="reportes.html" class="text-decoration-none text-dark">
+                        <div class="card border-0 bg-light shadow-sm h-100 p-4 text-center">
+                            <i class="fa fa-chart-bar h1 text-primary mb-3"></i>
+                            <h4>Reportes de ventas</h4>
+                            <p class="m-0">Indicadores, rankings y gráficas de ventas para apoyar la toma de decisiones de la editorial.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <a href="notificaciones.html" class="text-decoration-none text-dark">
+                        <div class="card border-0 bg-light shadow-sm h-100 p-4 text-center">
+                            <i class="fa fa-bell h1 text-primary mb-3"></i>
+                            <h4>Notificaciones a autores</h4>
+                            <p class="m-0">Avisos automáticos de revisión, aprobación o publicación para mantener informado a cada autor.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sistema Editorial End -->
 
 
     <!-- Facilities Start -->
@@ -441,6 +518,9 @@ body {
                     </div>
                 </div>
             </div>
+            <div class="text-center pb-5">
+                <a href="catalogo.html" class="btn btn-primary py-2 px-4"><i class="fa fa-book-open mr-2"></i>Ver catálogo completo</a>
+            </div>
         </div>
     </div>
     <!-- Class End -->
@@ -459,7 +539,7 @@ body {
                         <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Apoyo en la edición y publicación</li>
                         <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Distribución global de tu obra</li>
                     </ul>
-                    <a href="" class="btn btn-primary mt-4 py-2 px-4">Enviar Ahora</a>
+                    <a href="manuscritos.html" class="btn btn-primary mt-4 py-2 px-4">Enviar Ahora</a>
                 </div>
                 <div class="col-lg-5">
                     <div class="card border-0">
@@ -467,24 +547,31 @@ body {
                             <h1 class="text-white m-0">Envía tu Manuscrito</h1>
                         </div>
                         <div class="card-body rounded-bottom bg-primary p-5">
-                            <form>
+                            <form id="formManuscritoInicio" novalidate>
                                 <div class="form-group">
-                                    <input type="text" class="form-control border-0 p-4" placeholder="Tu Nombre" required="required" />
+                                    <input type="text" class="form-control border-0 p-4" id="inicioTitulo" placeholder="Título de tu obra" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control border-0 p-4" placeholder="Tu Email" required="required" />
+                                    <input type="text" class="form-control border-0 p-4" id="inicioAutor" placeholder="Tu Nombre" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <select class="custom-select border-0 px-4" style="height: 47px;">
-                                        <option selected>Selecciona Género</option>
-                                        <option value="1">Novela</option>
-                                        <option value="2">Ensayo</option>
-                                        <option value="3">Poesía</option>
+                                    <input type="email" class="form-control border-0 p-4" id="inicioEmail" placeholder="Tu Email" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select border-0 px-4" id="inicioGenero" style="height: 47px;">
+                                        <option value="">Selecciona Género</option>
+                                        <option value="Novela">Novela</option>
+                                        <option value="Ensayo">Ensayo</option>
+                                        <option value="Poesía">Poesía</option>
+                                        <option value="Infantil">Infantil</option>
+                                        <option value="Educativo">Educativo</option>
+                                        <option value="Religioso">Religioso</option>
                                     </select>
                                 </div>
                                 <div>
                                     <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Enviar</button>
                                 </div>
+                                <p class="text-white small mb-0 mt-3" id="inicioResultado"></p>
                             </form>
                         </div>
                     </div>
@@ -672,6 +759,8 @@ body {
                     <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
                     <a class="text-white mb-2" href="educativo.html"><i class="fa fa-angle-right mr-2"></i>Educativo</a>
                     <a class="text-white mb-2" href="religioso.html"><i class="fa fa-angle-right mr-2"></i>Religioso</a>
+                    <a class="text-white mb-2" href="catalogo.html"><i class="fa fa-angle-right mr-2"></i>Catálogo digital</a>
+                    <a class="text-white mb-2" href="manuscritos.html"><i class="fa fa-angle-right mr-2"></i>Enviar manuscrito</a>
                     <a class="text-white mb-2" href="about.html"><i class="fa fa-angle-right mr-2"></i>Acerca de</a>
                     <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
                 </div>
@@ -718,6 +807,38 @@ body {
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/pegasso-data.js"></script>
+    <script src="js/pegasso-auth.js"></script>
+
+    <!-- Envío rápido de manuscrito desde la portada -->
+    <script>
+        (function () {
+            "use strict";
+            var form = document.getElementById('formManuscritoInicio');
+            if (!form || !window.PEGASSO) { return; }
+            form.addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var datos = {
+                    titulo: document.getElementById('inicioTitulo').value.trim(),
+                    autor: document.getElementById('inicioAutor').value.trim(),
+                    email: document.getElementById('inicioEmail').value.trim(),
+                    genero: document.getElementById('inicioGenero').value,
+                    paginas: 0,
+                    sinopsis: ''
+                };
+                var salida = document.getElementById('inicioResultado');
+                if (!datos.titulo || !datos.autor || !datos.email || !datos.genero) {
+                    salida.textContent = 'Completa título, nombre, correo y género para enviar tu obra.';
+                    return;
+                }
+                var creado = window.PEGASSO.agregarManuscrito(datos);
+                form.reset();
+                salida.innerHTML = '¡Recibido! Tu folio es <strong>' + creado.folio +
+                    '</strong>. Consulta el avance en <a class="text-white font-weight-bold" href="manuscritos.html">gestión de manuscritos</a>.';
+                window.PEGASSO.toast('Manuscrito recibido. Folio ' + creado.folio);
+            });
+        })();
+    </script>
 </body>
 
 </html>
